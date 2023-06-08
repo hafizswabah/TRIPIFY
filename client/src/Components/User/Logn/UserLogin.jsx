@@ -5,16 +5,19 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 import './Login.css'
 import axios from 'axios';
-
+import {useDispatch} from 'react-redux'
 function UserLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errMessage, setErrMessage] = useState('')
+  const dispatch=useDispatch()
   async function handleSubmit(e) {
     e.preventDefault()
     let { data } = await axios.post("/user/auth/login", { email, password })
     console.log(data);
-    if (data.err) {
+    if (!data.err) {
+      dispatch({type:"refresh"})
+    }else{
       setErrMessage(data.message)
     }
   }

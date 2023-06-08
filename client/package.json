@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
     "@mui/styled-engine-sc": "^5.12.0",
     "axios": "^1.4.0",
@@ -19,7 +20,10 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
+    "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",
+    "redux": "^4.2.1",
     "styled-components": "^5.3.11"
   },
   "devDependencies": {

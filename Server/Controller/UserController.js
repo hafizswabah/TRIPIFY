@@ -107,3 +107,31 @@ export async function userLogin(req, res) {
         res.json({ err: true, message: "server error" })
     }
 }
+export async function check(req, res) {
+    try {
+        const token = req.cookies.token
+        if (!token) {
+            return res.json({ loggedIn:false})
+        }
+        const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        const user =await UserModel.findById(verifiedJWT.id, { password: 0 })
+       
+        if (!user) {
+            return res.json({ loggedIn: false })
+        } else {
+            return res.json({user, loggedIn: true })
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({ err: true, message: "something happned" })
+    }
+}
+export async function userLogout(req,res){
+    res.cookie("token", "", {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: true,
+        sameSite: "none",
+    }).json({ message: "logged out", error: false });
+}
