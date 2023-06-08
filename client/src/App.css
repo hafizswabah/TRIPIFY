@@ -1,2 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Jua&family=Oswald:wght@200&family=Patrick+Hand&family=Poiret+One&family=Rye&family=Ubuntu&display=swap');
+
+button:disabled{
+    opacity: 70%;
+}
