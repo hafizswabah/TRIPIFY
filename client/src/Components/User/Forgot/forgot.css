@@ -34,7 +34,7 @@
     flex-direction: column;
     align-items: center;
 
-    gap: 16px;
+    gap: 15px;
 
 }
 
@@ -44,14 +44,14 @@
 }
 
 .log-btn {
-    width: 15.5rem;
+    width: 18.5rem;
     background-color: #18649b;
     color: white;
     border-radius: 30px;
 }
 
 .log-full {
-    margin-top: 50px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,9 +62,21 @@
     font-weight: 500;
 
 }
-.forgot{
-    color: #1f6096;
-    font-size: 14px;
+.log-main-texts{
+    display: flex;
+  flex-direction: column;
+  height: 100%; /* adjust as needed */
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.log-App-subname{
+    font-size: 20px;
     font-weight: 600;
-    text-decoration: none;
+    color: white;
+}
+.log-App-name{
+    font-size: 27px;
+    font-weight: 600;
+    color: white;
 }

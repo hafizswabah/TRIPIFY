@@ -111,15 +111,15 @@ export async function check(req, res) {
     try {
         const token = req.cookies.token
         if (!token) {
-            return res.json({ loggedIn:false})
+            return res.json({ loggedIn: false })
         }
         const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const user =await UserModel.findById(verifiedJWT.id, { password: 0 })
-       
+        const user = await UserModel.findById(verifiedJWT.id, { password: 0 })
+
         if (!user) {
             return res.json({ loggedIn: false })
         } else {
-            return res.json({user, loggedIn: true })
+            return res.json({ user, loggedIn: true })
         }
     }
     catch (err) {
@@ -127,11 +127,96 @@ export async function check(req, res) {
         return res.json({ err: true, message: "something happned" })
     }
 }
-export async function userLogout(req,res){
+export async function userLogout(req, res) {
     res.cookie("token", "", {
         httpOnly: true,
         expires: new Date(0),
         secure: true,
         sameSite: "none",
     }).json({ message: "logged out", error: false });
+}
+export async function resetPassword(req, res) {
+    try {
+        const { email } = req.body
+        const user = UserModel.findOne({ email })
+        if (!user) {
+            return res.json({ err: true, message: "User not found" })
+        }
+        let otp = Math.ceil(Math.random() * 1000000)
+        let otpHash = crypto.createHmac('sha256', process.env.OTP_SECRET)
+            .update(otp.toString())
+            .digest('hex');
+        let otpSent = await sentOtp(email, otp)
+        const token = jwt.sign(
+            {
+                otp: otpHash
+            },
+            process.env.JWT_SECRET_KEY
+        )
+        return res.cookie("tempToken", token, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 1000 * 60 * 10,
+            sameSite: "none",
+        }).json({ err: false })
+    }
+    catch (err) {
+        console.log(err)
+        res.json({ err: true, error: err, message: "something went wrong" })
+    }
+}
+export async function verifyForgotOtp(req, res) {
+    try {
+        const { otp } = req.body;
+        const tempToken = req.cookies.tempToken;
+
+        if (!tempToken) {
+            return res.json({ err: true, message: "OTP Session Timed Out" });
+        }
+
+        const verifiedTempToken = jwt.verify(tempToken, process.env.JWT_SECRET_KEY);
+        let otpHash = crypto.createHmac('sha256', process.env.OTP_SECRET)
+            .update(otp.toString())
+            .digest('hex');
+        if (otpHash != verifiedTempToken.otp) {
+            return res.json({ err: true, message: "Invalid OTP" });
+        }
+        return res.json({ err: false })
+    }
+    catch (err) {
+        console.log(err)
+        res.json({ error: err, err: true, message: "something went wrong" })
+    }
+}
+export async function resetUserPassword(req, res) {
+    try {
+        const { email, password, otp } = req.body;
+        console.log(req.body);
+        const tempToken = req.cookies.tempToken;
+
+        if (!tempToken) {
+            return res.json({ err: true, message: "OTP Session Timed Out" });
+        }
+
+        const verifiedTempToken = jwt.verify(tempToken, process.env.JWT_SECRET_KEY);
+        let otpHash = crypto.createHmac('sha256', process.env.OTP_SECRET)
+            .update(otp.toString())
+            .digest('hex');
+        if (otpHash != verifiedTempToken.otp) {
+            return res.json({ err: true, message: "Invalid OTP" });
+        }
+        const hashPassword = bcrypt.hashSync(password, salt);
+
+
+        await UserModel.updateOne({ email }, {
+            $set: {
+                password: hashPassword
+            }
+        })
+        return res.json({ err: false ,message:"password reseted"})
+    }
+    catch (err) {
+        console.log(err)
+        res.json({ error: err, err: true, message: "something went wrong" })
+    }
 }

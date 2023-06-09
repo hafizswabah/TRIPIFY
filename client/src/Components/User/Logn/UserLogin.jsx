@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import './Login.css'
 import axios from 'axios';
 import {useDispatch} from 'react-redux'
+import { Link } from 'react-router-dom';
 function UserLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -66,6 +67,7 @@ function UserLogin() {
                   variant='contained' style={{ backgroundColor: '#18649b' }} className="log-btn">LOGIN</Button>
               </div>
               <div className='error'>{errMessage}</div>
+              <div><h4><Link to={"/forgot"} className='forgot'>Forgot Password?</Link></h4></div>
 
             </div>
 

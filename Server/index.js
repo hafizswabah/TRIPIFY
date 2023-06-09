@@ -20,4 +20,4 @@ app.use(
 );
 DBConnect()
 app.use("/user/auth",UserAuthRouter)
-app.listen(7000,()=>console.log('server running'))
+app.listen(7777,()=>console.log('server running'))

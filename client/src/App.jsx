@@ -7,10 +7,11 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import HomePage from './Pages/user/Home/HomePage'
+import ForgotPage from './Pages/user/ForgotPage'
 
 function App() {
 axios.defaults.withCredentials=true;
-axios.defaults.baseURL="http://localhost:7000"
+axios.defaults.baseURL="http://localhost:7777"
 
 const {user,refresh}=useSelector((state)=>{
   return state
@@ -41,6 +42,7 @@ useEffect(()=>{
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignPage/>}/>
         <Route path='/' element={<Navigate to="/login" />} />
+       <Route path='/forgot' element={<ForgotPage/>}/>
         </>
        }
       </Routes>
