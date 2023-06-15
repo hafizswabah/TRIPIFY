@@ -1,0 +1,70 @@
+.Main {
+    width: 65%;
+    height: 70%;
+    box-shadow: 2px 2px 15px 4px rgb(176 175 175 / 33%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+
+}
+
+.log-img {
+    background-image: url('/login.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 2px 2px 15px 4px rgb(176 175 175 / 33%);
+    display: flex;
+    justify-content: center;
+
+}
+
+.log-App-name {
+    color: white;
+
+    font-weight: 500;
+}
+
+.text-area {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 16px;
+
+}
+
+.text-name {
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.log-btn {
+    width: 15.5rem;
+    background-color: #18649b;
+    color: white;
+    border-radius: 30px;
+}
+
+.log-full {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.error{
+    color:  red;
+    font-size: 16px;
+    font-weight: 500;
+
+}
+.forgot{
+    color: #1f6096;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}

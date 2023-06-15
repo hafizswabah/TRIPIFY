@@ -1,6 +1,82 @@
-.nav-area{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 6px;
+.body {
+    margin: 0px;
+    padding: 0px;
+}
+.home-main{
+    max-width:100vw;
+    overflow-x:hidden;
+}
+
+.home-img {
+    background-image: url(../../../assets/home.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   height: 85vh;
+   padding-top: 200px;
+}
+
+.search-bar{
+    width: 800px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: white;
+}
+.category-sec{
+    
+}
+.cat-img{
+    height: 130px;
+    width: 130px;
+    border-radius: 100px;
+    background-image: url(https://img.freepik.com/free-vector/tourists-hiking-through-forest_24877-76271.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.cat-img.img2{
+    background-image: url(../../../assets/citydark.jpg);
+}
+.cat-img.img1{
+    background-size: 150%;
+}
+.cat-img.img3{
+    background-image: url(../../../assets/3c1ae03b1aedba3957aa3596a93b54b8.jpg);
+}
+.cat-img.img4{
+    background-image: url(../../../assets/desert.jpg);
+}
+.cat-img.img5{
+    background-image: url(../../../assets/ocean.jpg);
+}
+.cat-img.img6{
+    background-image: url(../../../assets/snow.jpg);
+}
+.category-head{
+    font-size: 22px;
+    font-weight: 600;
+}
+.each-cat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+.each-cat-head{
+    font-size: 17px;
+    font-weight: 700;
+}
+.wave-img{
+    position: absolute;
+   top: 54vh;
+  
+
+} 
+.wave-img svg{
+    width: 98.9vw;
+ height: 60%;
 }

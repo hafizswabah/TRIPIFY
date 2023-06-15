@@ -68,6 +68,7 @@ function UserLogin() {
               </div>
               <div className='error'>{errMessage}</div>
               <div><h4><Link to={"/forgot"} className='forgot'>Forgot Password?</Link></h4></div>
+              <div><h4><Link to={"/signup"} className='forgot'>Dont you have an account Please signup here</Link></h4></div>
 
             </div>
 

@@ -18,7 +18,7 @@
     border-radius: 20px;
     box-shadow: 2px 2px 15px 4px rgb(176 175 175 / 33%);
     display: flex;
-   
+
     justify-content: center;
 
 }
@@ -52,32 +52,44 @@
 }
 
 .log-full {
-    margin-top: 40px;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.error{
-    color:  red;
+
+.error {
+    color: red;
     font-size: 16px;
     font-weight: 500;
 
 }
-.log-main-texts{
+
+.log-main-texts {
     display: flex;
-  flex-direction: column;
-  height: 100%; /* adjust as needed */
-  justify-content: space-between;
-  align-items: center;
-  
+    flex-direction: column;
+    height: 100%;
+    /* adjust as needed */
+    justify-content: space-between;
+    align-items: center;
+
 }
-.log-App-subname{
+
+.log-App-subname {
     font-size: 20px;
     font-weight: 600;
     color: white;
 }
-.log-App-name{
+
+.log-App-name {
     font-size: 27px;
     font-weight: 600;
     color: white;
+}
+
+.go-login h4 {
+    color: #18649b;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
 }

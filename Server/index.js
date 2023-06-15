@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import UserAuthRouter from './Router/UserAuthRouter.js'
 import cors from 'cors'
 import path from 'path'
+import adminAuthRouter from './Router/adminAuthRouter.js'
+import AgencyAuthRouter from './Router/AgencyAuthRouter.js'
 const app=express()
 app.use(express.json({ limit: '50mb' }))
 app.use(cookieParser());
@@ -20,4 +22,6 @@ app.use(
 );
 DBConnect()
 app.use("/user/auth",UserAuthRouter)
-app.listen(7777,()=>console.log('server running'))
+app.use("/admin/auth",adminAuthRouter)
+app.use("/agency/auth",AgencyAuthRouter)
+app.listen(8888,()=>console.log('server running at port 8000'))
