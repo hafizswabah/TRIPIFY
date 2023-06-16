@@ -9,6 +9,7 @@ function AdminDashboard() {
     <>
       <div className="adminHeader">
         <AdminHeader />
+        <AdminSidebar/>
       
       </div>
     </>

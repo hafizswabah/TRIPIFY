@@ -9,7 +9,7 @@ schema
 .has().lowercase()                              // Must have lowercase letters
 .has().not().spaces()                           // Should not have spaces
 
-console.log(schema.validate('validPASS123'));
+// console.log(schema.validate('validPASS123'));
 
 export default function validatePassword(password){
     return {status:schema.validate(password), message: schema.validate(password, {details:true})}

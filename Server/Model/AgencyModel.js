@@ -43,5 +43,5 @@ const AgencySchema = new Mongoose.Schema({
         default: ""
     },
 })
-const UserModel = Mongoose.model("Agency", AgencySchema)
-export default UserModel
+const AgencyModel = Mongoose.model("Agency", AgencySchema)
+export default AgencyModel

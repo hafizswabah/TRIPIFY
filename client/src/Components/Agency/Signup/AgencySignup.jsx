@@ -6,6 +6,8 @@ import './AgencySignup.css'
 import axios from 'axios';
 import validatePassword from '../../../helper/validatePassword';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
 function AgencySignup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -16,14 +18,14 @@ function AgencySignup() {
   const [regNo, setRegNo] = useState('')
   const [image, setImage] = useState(null)
   const [finalImage, setFinalImage] = useState(null)
-
+const dispatch=useDispatch()
   function validForm() {
     if (name.trim() === "" || !validatePassword(password).status || address.trim() === "" || email.trim() === "" || password.trim() === "" || contact.toString().length !== 10 || regNo.trim() === "") {
       return false
     }
     return true
   }
-  console.log(finalImage)
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -190,7 +192,7 @@ function AgencySignup() {
                   variant='contained' style={{ backgroundColor: '#18649b', color: "white" }} className="w-100">Sign Up</Button>
               </div>
               <div className='error'>{errMessage}</div>
-              <div className="go-login">
+              <div className="go-login w-100">
                 <h4><Link to={'/login'}>Already have an account please Login</Link> </h4>
               </div>
               

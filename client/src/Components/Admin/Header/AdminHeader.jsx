@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import AdminSidebar from '../SideBar/AdminSideBar';
 import './adminHeader.css'
 
-export default function AdminHeader() {
+export default function AdminHeader(props) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [click, setClick] = React.useState(false)
@@ -34,15 +34,15 @@ export default function AdminHeader() {
     <>
       <Box sx={{ flexGrow: 1 }}>
 
-        <AppBar position="static" style={{ backgroundColor: '#18649b',minHeight:"52px" }}>
-          <Toolbar>
+        <AppBar position="static" style={{ backgroundColor: '#fff',color:"black",minHeight:"42px" }}>
+          <Toolbar style={{minHeight:"43px"}}>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
-              onClick={handleClick}
+              onClick={props.handleClick}
               className='side-icon'
             >
               <MenuIcon />
@@ -87,7 +87,6 @@ export default function AdminHeader() {
         </AppBar>
       </Box>
 
-      <AdminSidebar clicked={click}/>
     </>
   );
 }

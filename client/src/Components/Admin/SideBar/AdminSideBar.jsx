@@ -3,121 +3,123 @@ import './Sidebar.css'
 import { RiBankLine, RiBarChart2Line, RiBuilding4Line, RiFileWarningLine, RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 
-function AdminSidebar({page, clicked}) {
+function AdminSidebar({ page, clicked }) {
 
   return (
     <div className={`admin-sidebar ${clicked && 'open'}`}>
-          <ul>
-              <Link to="/account/admin/">
-            <li className={`admin-sideitems ${page=="dashboard" && 'active'}`}>
-              <div className='side'></div>
-              <div className="admin-sideItem">
+      <ul>
+        <Link to="/admin/">
+          <li className={`admin-sideitems ${page == "dashboard" && 'active'}`}>
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-                <RiHome2Line className='icon' />
-                <span>Dashboard</span>
-              </div>
-            </li>
-              </Link>
-              <Link to="/account/admin/doctors">
+              <RiHome2Line className='icon' />
+              <span>Dashboard</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/admin/users">
 
-            <li className={`admin-sideitems ${page=="doctor" && 'active'}`}>
-              <div className='side'></div>
-              <div className="admin-sideItem">
+          <li className={`admin-sideitems ${page == "user" && 'active'}`}>
 
-                <RiUser2Line className='icon' />
-                <span>Agencies</span>
-              </div>
-            </li>
-            </Link>
-            
-            <Link to="/account/admin/hospitals">
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-            <li className={`admin-sideitems ${page=="hospital" && 'active'}`}>
+              <RiUserLine className='icon' />
+              <span>Users</span>
+            </div>
+          </li>
+        </Link>
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+        <Link to="/admin/agency-requests">
 
-                <RiBuilding4Line className='icon' />
-                <span>Packages</span>
-              </div>
-            </li>
-            </Link>
-            <Link to="/account/admin/refunds">
+          <li className={`admin-sideitems ${page == "agency-request" && 'active'}`}>
 
-            <li className={`admin-sideitems ${page=="refund" && 'active'}`}>
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+              <RiFileWarningLine className='icon' />
+              <span>Agency Requests</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/admin/agency">
 
-                <RiRefundLine className='icon' />
-                <span>Plans</span>
-              </div>
-            </li>
-            </Link>
-            <Link to="/account/admin/hospitals/requests">
+          <li className={`admin-sideitems ${page == "agency" && 'active'}`}>
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-            <li className={`admin-sideitems ${page=="hospital request" && 'active'}`}>
+              <RiBuilding4Line className='icon' />
+              <span>Agencies</span>
+            </div>
+          </li>
+        </Link>
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+        <Link to="/account/admin/refunds">
 
-                <RiHospitalLine className='icon' />
-                <span>Agency Requestes</span>
-              </div>
-            </li>
-            </Link>
-            <Link to="/account/admin/users">
+          <li className={`admin-sideitems ${page == "refund" && 'active'}`}>
 
-            <li className={`admin-sideitems ${page=="user" && 'active'}`}>
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+              <RiRefundLine className='icon' />
+              <span>Packages</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/account/admin/hospitals/requests">
 
-                <RiUserLine className='icon' />
-                <span>Users</span>
-              </div>
-            </li>
-            </Link>
-            <Link to="/account/admin/complaints">
+          <li className={`admin-sideitems ${page == "" && 'active'}`}>
 
-            <li className={`admin-sideitems ${page=="complaints" && 'active'}`}>
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+              <RiHospitalLine className='icon' />
+              <span>Plans</span>
+            </div>
+          </li>
+        </Link>
 
-                <RiFileWarningLine className='icon' />
-                <span>Trips</span>
-              </div>
-            </li>
-            </Link>
-            <Link to="/account/admin/withdrawals">
+        <Link to="/account/admin/complaints">
 
-            <li className={`admin-sideitems ${page=="withdrawals" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "complaints" && 'active'}`}>
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-                <RiBankLine className='icon' />
-                <span>Bookings</span>
-              </div>
-            </li>
-            </Link>
-            <Link to="/account/admin/reports">
+              <RiFileWarningLine className='icon' />
+              <span>Trips</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/account/admin/withdrawals">
 
-            <li className={`admin-sideitems ${page=="report" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "withdrawals" && 'active'}`}>
 
-              <div className='side'></div>
-              <div className="admin-sideItem">
+            <div className='side'></div>
+            <div className="admin-sideItem">
 
-                <RiBarChart2Line className='icon' />
-                <span>Reports</span>
-              </div>
-            </li>
-            </Link>
+              <RiBankLine className='icon' />
+              <span>Bookings</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/account/admin/reports">
 
-          </ul>
+          <li className={`admin-sideitems ${page == "report" && 'active'}`}>
 
-        </div>
+            <div className='side'></div>
+            <div className="admin-sideItem">
+
+              <RiBarChart2Line className='icon' />
+              <span>Reports</span>
+            </div>
+          </li>
+        </Link>
+
+      </ul>
+
+    </div>
   )
 }
 

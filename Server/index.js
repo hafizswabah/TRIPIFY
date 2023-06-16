@@ -7,10 +7,11 @@ import cors from 'cors'
 import path from 'path'
 import adminAuthRouter from './Router/adminAuthRouter.js'
 import AgencyAuthRouter from './Router/AgencyAuthRouter.js'
+import adminRouter from './Router/adminRouter.js'
 const app=express()
 app.use(express.json({ limit: '50mb' }))
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true,limit:'50mb' }))
 app.use(express.static(path.resolve() + "/public"))
 app.use(
   cors({
@@ -24,4 +25,5 @@ DBConnect()
 app.use("/user/auth",UserAuthRouter)
 app.use("/admin/auth",adminAuthRouter)
 app.use("/agency/auth",AgencyAuthRouter)
+app.use("/admin",adminRouter)
 app.listen(8888,()=>console.log('server running at port 8000'))

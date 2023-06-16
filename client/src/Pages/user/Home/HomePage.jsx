@@ -77,16 +77,16 @@ function HomePage() {
                     </Row>
                     <Row>
                         <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages"></div>
+                            <div className="packages mb-4"></div>
                         </Col>
                         <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages"></div>
+                            <div className="packages mb-4"></div>
                         </Col>
                         <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages"></div>
+                            <div className="packages mb-4"></div>
                         </Col>
                         <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages"></div>
+                            <div className="packages mb-4"></div>
                         </Col>
 
                     </Row>
