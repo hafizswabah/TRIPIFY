@@ -13,11 +13,11 @@ var salt = bcrypt.genSaltSync(10);
 export async function AgencyRegister(req, res){
     try{
         const {name, email, contact, password,regNo}=req.body;
-        console.log(req.body);
+        console.log(req.body.proof);
         const proof=await cloudinary.uploader.upload(req.body.proof,{
             folder:'Tripify'
         })
-    
+        console.log(proof)
         const hashPassword = bcrypt.hashSync(password, salt);
         const Agency = await AgencyModel.create({...req.body,password:hashPassword, proof});
         const token = jwt.sign(

@@ -2,9 +2,10 @@
     margin: 0px;
     padding: 0px;
 }
-.home-main{
-    max-width:100vw;
-    overflow-x:hidden;
+
+.home-main {
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 .home-img {
@@ -12,71 +13,142 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-   display: flex;
-   justify-content: center;
-   width: 100%;
-   height: 85vh;
-   padding-top: 200px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 85vh;
+    padding-top: 140px;
 }
 
-.search-bar{
+.search-bar {
     width: 800px;
     height: 50px;
     border-radius: 25px;
     background-color: white;
+    box-shadow: -1px 3px 11px 2px #00000030;
 }
-.category-sec{
-    
-}
-.cat-img{
+
+.category-sec {}
+
+.cat-img {
     height: 130px;
     width: 130px;
     border-radius: 100px;
-    background-image: url(https://img.freepik.com/free-vector/tourists-hiking-through-forest_24877-76271.jpg);
+    background-image: url(../../../assets/adventure.jpg);
     background-size: cover;
     background-position: center;
+    
+}
+.cat-img:hover{
+    box-shadow: 1px 2px 17px 5px #0000001c;
+}
+.cat-img.img2 {
+    background-image: url(../../../assets/citydark.jpg);
+
 }
 
-.cat-img.img2{
-    background-image: url(../../../assets/citydark.jpg);
+.cat-img.img1 {
+    background-size: 140%;
 }
-.cat-img.img1{
-    background-size: 150%;
-}
-.cat-img.img3{
+
+.cat-img.img3 {
     background-image: url(../../../assets/3c1ae03b1aedba3957aa3596a93b54b8.jpg);
 }
-.cat-img.img4{
+
+.cat-img.img4 {
     background-image: url(../../../assets/desert.jpg);
 }
-.cat-img.img5{
+
+.cat-img.img5 {
     background-image: url(../../../assets/ocean.jpg);
 }
-.cat-img.img6{
+
+.cat-img.img6 {
     background-image: url(../../../assets/snow.jpg);
 }
-.category-head{
-    font-size: 22px;
-    font-weight: 600;
+
+.category-head {
+    font-size: 20px;
+    font-weight: 300;
 }
-.each-cat{
+
+.each-cat {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 15px;
 }
-.each-cat-head{
-    font-size: 17px;
-    font-weight: 700;
-}
-.wave-img{
-    position: absolute;
-   top: 54vh;
-  
 
-} 
-.wave-img svg{
+.each-cat-head {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wave-img {
+    position: absolute;
+    top: 54vh;
+
+
+}
+
+.wave-img svg {
     width: 98.9vw;
- height: 60%;
+    height: 60%;
+}
+
+.location-search-icon {
+    background-image: url(../../../assets/telegram.png);
+    background-size: cover;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+}
+
+.package-heading {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.packages{
+    background-image: url(../../../assets/cityrose.webp);
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    width: 239px;
+    border-radius: 15px;
+}
+.plans{
+
+    height: 260px;
+    width: 600px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+}
+.plans.sky{
+    background-image: url(../../../assets/skyjump.jpg);
+ 
+}
+.plans.dj{
+    background-image: url(../../../assets/dj.jpg);
+}
+.plans.trucking{
+    background-image: url(../../../assets/trucking.jpg);
+}
+.plans.campfire{
+    background-image: url(../../../assets/campfire.jpg);
+}
+.plans.desert{
+    background-image: url(../../../assets/desertlandcruiser.jpg);
+}
+.plans.sea{
+    background-image: url(../../../assets/seadrivewhiteboat.jpg);
+}
+.agency-banner{
+    background-image: url(../../../assets/banner.jpg);
+    background-size: cover;
+    background-position: center;
+   width: 90%;
+    height: 500px;
 }
