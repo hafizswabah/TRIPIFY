@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Form } from 'react-bootstrap'
+import { Container, Row, Form,Col } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 import './AgencySignup.css'
@@ -23,14 +23,18 @@ function AgencySignup() {
     }
     return true
   }
-  
+  console.log(finalImage)
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (validForm()) {
       const { data } = await axios.post("/agency/auth/signup", {
-        email, name, password, contact, address, regNo, proof: finalImage
+        email, name, password, contact, address, regNo, proof: image
+      },{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       })
       if (data.err) {
         setErrMessage(data.message)
@@ -76,19 +80,20 @@ function AgencySignup() {
   return (
     <Container>
 
-      <Row className='Main'>
-        <div className="col-5 log-img">
+        <div className='Main'>
+      <Row >
+        <Col md={5} className="log-img">
           <div className="log-main-texts">
             <h2 className='log-App-name mt-4'>Tripify</h2>
             <h4 className='log-App-subname mb-4'>Welcom To Your Dream Journey</h4>
           </div>
-        </div>
+        </Col>
 
-        <Container className="col-7">
+          <Col md={7}>
           <div className="log-full">
             <div className="text-area w-50 ">
               <div className="text-fileds w-100">
-                <h4 className='text-name mb-1'>Company Name</h4>
+         
                 <TextField
 
                   id="filled-textarea"
@@ -102,7 +107,7 @@ function AgencySignup() {
                 />
               </div>
               <div className="text-fileds w-100">
-                <h4 className='text-name w-100'>Company Mail ID</h4>
+          
                 <TextField
 
                   id="filled-textarea"
@@ -116,7 +121,7 @@ function AgencySignup() {
                 />
               </div>
               <div className="text-fileds w-100">
-                <h4 className='text-name'>Password</h4>
+              
                 <TextField
                   id="filled-password-input"
                   label="Set Your Password"
@@ -130,7 +135,7 @@ function AgencySignup() {
                 />
               </div>
               <div className="text-fileds w-100">
-                <h4 className='text-name w-100'>Contact</h4>
+            
                 <TextField
                   id="filled-number"
                   className='w-100'
@@ -142,12 +147,10 @@ function AgencySignup() {
                   onChange={(e) => { setContact(e.target.value) }}
                 />
               </div>
-              {
-                finalImage && <img src={finalImage} width='300' height='200' alt="" />
-              }
+         
 
               <div className="text-fileds w-100">
-                <h4 className='text-name  w-100'>Company Address</h4>
+               
                 <TextField
 
                   id="filled-textarea"
@@ -161,7 +164,7 @@ function AgencySignup() {
                 />
               </div>
               <div className="text-fileds w-100">
-                <h4 className='text-name  w-100'>Company Reg No</h4>
+              
                 <TextField
 
                   id="filled-textarea"
@@ -196,8 +199,14 @@ function AgencySignup() {
 
 
           </div>
-        </Container>
+
+          </Col>
+
+      
+
       </Row>
+        </div>
+
 
     </Container>
 

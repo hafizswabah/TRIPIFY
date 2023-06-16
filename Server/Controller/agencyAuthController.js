@@ -10,19 +10,23 @@ import crypto from 'crypto'
 var salt = bcrypt.genSaltSync(10);
 
 
-export async function AgencyRegister(req, res){
-    try{
-        const {name, email, contact, password,regNo}=req.body;
-        console.log(req.body.proof);
-        const proof=await cloudinary.uploader.upload(req.body.proof,{
-            folder:'Tripify'
+export async function AgencyRegister(req, res) {
+    try {
+        const { name, email, contact, password, regNo } = req.body;
+        console.log(req.body, req.file);
+        const ExistingAgency=await AgencyModel.findOne({email})
+        if(ExistingAgency){
+            return res.json({err:true,message:"Already Signup please Login"})
+        }
+        const proof = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'Tripify'
         })
         console.log(proof)
         const hashPassword = bcrypt.hashSync(password, salt);
-        const Agency = await AgencyModel.create({...req.body,password:hashPassword, proof});
+        const Agency = await AgencyModel.create({ ...req.body, password: hashPassword, proof });
         const token = jwt.sign(
             {
-                id:Agency._id
+                id: Agency._id
             },
             process.env.JWT_SECRET_KEY
         )
@@ -33,9 +37,9 @@ export async function AgencyRegister(req, res){
             sameSite: "none",
         }).json({ err: false })
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        res.json({err:true , error:err, message:"Something Went Wrong"})
+        res.json({ err: true, error: err, message: "Something Went Wrong" })
     }
 
 }
