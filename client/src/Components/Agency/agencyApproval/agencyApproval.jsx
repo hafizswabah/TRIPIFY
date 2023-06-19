@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 
 function AgencyApproval({rejected, agency}) {
+
     const dispatch = useDispatch()
     const [showModal, setShowModal]=useState(false)
     async function handleLogout(){
@@ -41,7 +42,7 @@ function AgencyApproval({rejected, agency}) {
           rejected ?
           <>
           <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
-          <button className="btn btn-dark ms-1" onClick={()=>setShowModal(true)}>Re-Apply</button>
+          {/* <button className="btn btn-dark ms-1" onClick={()=>setShowModal(true)}>Re-Apply</button> */}
           </>
           :
           <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>

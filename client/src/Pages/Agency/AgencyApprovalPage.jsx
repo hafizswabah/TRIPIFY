@@ -3,6 +3,7 @@ import AgencyApproval from '../../Components/Agency/agencyApproval/agencyApprova
 
 
 function AgencyApprovalPage({rejected, rejectedMessage, agency}) {
+  console.log('page reject',rejected);
   return (
         <AgencyApproval rejected={rejected} agency={agency} rejectedMessage={rejectedMessage} />
     )

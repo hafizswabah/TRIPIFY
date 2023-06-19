@@ -14,7 +14,7 @@ function AgencyLogin() {
   const dispatch=useDispatch()
   async function handleSubmit(e) {
     e.preventDefault()
-    let { data } = await axios.post("/user/auth/login", { email, password })
+    let { data } = await axios.post("/agency/auth/login", { email, password })
     console.log(data);
     if (!data.err) {
       dispatch({type:"refresh"})

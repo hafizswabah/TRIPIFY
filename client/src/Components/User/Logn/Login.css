@@ -1,6 +1,6 @@
 .Main {
     width: 65%;
-    height: 70%;
+
     box-shadow: 2px 2px 15px 4px rgb(176 175 175 / 33%);
     position: fixed;
     top: 50%;
@@ -51,7 +51,6 @@
 }
 
 .log-full {
-    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;

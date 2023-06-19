@@ -2,13 +2,15 @@ import React from 'react'
 import NavBar from '../../../Components/User/NavBar/NavBar'
 import './Home.css'
 import { Col, Container, Row } from 'react-bootstrap'
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 function HomePage() {
-    const defaultProps = {
-        options: ['xhgjsiudsu', 'dgjhwgdueduehd', 'dgwtdiueywduiwy'],
-        getOptionLabel: (option) => option,
+
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
     };
+
     return (
         <div className='home-main'>
             <Row>
@@ -17,14 +19,20 @@ function HomePage() {
             <Row>
                 <div className="home-img">
 
-                    <div className="search-bar">
-                        <Row>
-                            <Col md={2}>
-                                <div className="location-search-icon">
 
+                    <div className="search-bar">
+                        {/* <Row >
+                            <Col md={1} className=''>
+                                <div className="location-search-icon">
+                                    <BiPaperPlane className='search-icon' />
                                 </div>
                             </Col>
-                        </Row>
+                            <Col md={4}>
+                                <div className="location-search">
+                                    <input type="text" />
+                                </div>
+                            </Col>
+                        </Row> */}
 
                     </div>
                 </div>
@@ -40,7 +48,9 @@ function HomePage() {
                         <Row >    <h3 className='category-head ms-4 mt-5 '>Categories</h3></Row>
                         <Row className='pt-3'>
                             <Col md={2} className="d-flex justify-content-center each-cat">
-                                <div className="cat-img img1"> </div>
+                                <div className="cat-img img1">
+
+                                </div>
                                 <h3 className='each-cat-head'>Adventure</h3>
                             </Col>
                             <Col md={2} className="d-flex justify-content-center each-cat">
@@ -76,19 +86,115 @@ function HomePage() {
                         </div>
                     </Row>
                     <Row>
-                        <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages mb-4"></div>
-                        </Col>
-                        <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages mb-4"></div>
-                        </Col>
-                        <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages mb-4"></div>
-                        </Col>
-                        <Col md={3} className=" d-flex justify-content-center">
-                            <div className="packages mb-4"></div>
-                        </Col>
+                        <Col md={3} className=" d-flex justify-content-center ">
+                            <div className="packages mb-4">
+                                <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>Dubai</h3>
+                                    </Col>
+                                    <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>99,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
 
+                                    <span className='p-4 package-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                                <Row>
+                                    <div className="package-btn d-flex justify-content-center mt-4">
+                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    </div>
+                                </Row>
+                            </div>
+                        </Col>
+                        <Col md={3} className=" d-flex justify-content-center ">
+                            <div className="packages himalaya mb-4">
+                                <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>Himalaya</h3>
+                                    </Col>
+                                    <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>25,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-4 package-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                                <Row>
+                                    <div className="package-btn d-flex justify-content-center mt-4">
+                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    </div>
+                                </Row>
+                            </div>
+                        </Col>
+                        <Col md={3} className=" d-flex justify-content-center ">
+                            <div className="packages canada mb-4">
+                                <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details ms-4'>Switzerland</h3>
+                                    </Col>
+                                    <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>99,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-4 package-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                                <Row>
+                                    <div className="package-btn d-flex justify-content-center mt-4">
+                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    </div>
+                                </Row>
+                            </div>
+                        </Col>
+                        <Col md={3} className=" d-flex justify-content-center ">
+                            <div className="packages swit mb-4">
+                                <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>Canada</h3>
+                                    </Col>
+                                    <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='package-details'>99,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-4 package-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                                <Row>
+                                    <div className="package-btn d-flex justify-content-center mt-4">
+                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    </div>
+                                </Row>
+                            </div>
+                        </Col>
+              
                     </Row>
                 </Container>
                 <Container>
@@ -99,22 +205,154 @@ function HomePage() {
                     </Row>
                     <Row>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <div className="plans sky"></div>
+                            <div className="plans sky">
+                            <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>Sky Dive</h3>
+                                    </Col>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>99,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-5 plan-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                            </div>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <div className="plans dj"></div>
+                            <div className="plans dj">
+                            <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>DJ Nights</h3>
+                                    </Col>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>5,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-5 plan-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                            </div>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <div className="plans trucking"></div>
+                            <div className="plans trucking">
+                            <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>Trucking</h3>
+                                    </Col>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>8,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-5 plan-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                            </div>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <div className="plans campfire"></div>
+                            <div className="plans campfire">
+                            <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>Camp Fire</h3>
+                                    </Col>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>4,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-5 plan-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                            </div>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <div className="plans desert"></div>
+                            <div className="plans desert">
+                            <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>Desert Safari</h3>
+                                    </Col>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>59,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-5 plan-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                            </div>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <div className="plans sea"></div>
+                            <div className="plans sea">
+                            <Row>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>Sea Drive</h3>
+                                    </Col>
+                                    <Col md={6} className=" d-flex justify-content-center mt-3">
+                                        <h3 className='plan-details'>45,999/-</h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <span className='p-5 plan-info mt-3'>
+                                        Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place Dubai Trip With Ten nights and Ten days
+                                        with most our crew and whole the bookings
+                                        included bhurj khalifa bhurj al arab and
+                                        other more place
+                                    </span>
+
+                                </Row>
+                            </div>
                         </Col>
                     </Row>
                 </Container>

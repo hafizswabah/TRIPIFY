@@ -11,27 +11,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import AdminSidebar from '../SideBar/AdminSideBar';
 import './adminHeader.css'
 import axios from 'axios';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
-export default function AdminHeader(props) {
+export default function AgencyHeader(props) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [click, setClick] = React.useState(false)
-  const Dispatch =useDispatch()
+  const Dispatch=useDispatch()
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  async function handleClose() {
-    let { data } = await axios.get("/admin/auth/logout")
-    if (!data.err) {
-      Dispatch({ type: "refresh" })
-
-    }
+ async function handleClose(){
+  let {data}=await axios.get("/agency/auth/logout")
+  if(!data.err){
+    Dispatch({type:"refresh"})
+    
   }
+ }
   const handleClick = () => {
     setClick(!click)
   }
@@ -40,8 +39,8 @@ export default function AdminHeader(props) {
     <>
       <Box sx={{ flexGrow: 1 }}>
 
-        <AppBar position="static" style={{ backgroundColor: '#fff', color: "black", minHeight: "42px" }}>
-          <Toolbar style={{ minHeight: "43px" }}>
+        <AppBar position="static" style={{ backgroundColor: '#fff',color:"black",minHeight:"42px" }}>
+          <Toolbar style={{minHeight:"43px"}}>
             <IconButton
               size="large"
               edge="start"
@@ -54,7 +53,7 @@ export default function AdminHeader(props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Tripify Admin Panel
+              Tripify
             </Typography>
 
             <div>
@@ -65,7 +64,7 @@ export default function AdminHeader(props) {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
-
+               
               >
                 <AccountCircle />
               </IconButton>
@@ -85,7 +84,7 @@ export default function AdminHeader(props) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
-
+            
               </Menu>
             </div>
 

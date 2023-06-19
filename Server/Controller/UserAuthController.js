@@ -82,6 +82,7 @@ export async function userLogin(req, res) {
         const { email, password } = req.body
         console.log(req.body);
         const user = await UserModel.findOne({ email })
+        console.log(user);
         if (!user) {
             return res.json({ err: true, message: "User Not Found Please Signup" })
         }

@@ -15,6 +15,10 @@ const UserSchema=new Mongoose.Schema({
     contact:{
         type:Number,
         required:true
+    },
+    block:{
+        type:Boolean,
+        default:false
     }
 })
 const UserModel=Mongoose.model("Users",UserSchema)

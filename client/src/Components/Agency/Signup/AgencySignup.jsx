@@ -80,9 +80,9 @@ const dispatch=useDispatch()
     }
   }, [password])
   return (
-    <Container>
+        <div className='Mains'>
+    <Container className='ag-signup-container'>
 
-        <div className='Main'>
       <Row >
         <Col md={5} className="log-img">
           <div className="log-main-texts">
@@ -91,7 +91,7 @@ const dispatch=useDispatch()
           </div>
         </Col>
 
-          <Col md={7}>
+          <Col md={7} className="h-100">
           <div className="log-full">
             <div className="text-area w-50 ">
               <div className="text-fileds w-100">
@@ -207,10 +207,10 @@ const dispatch=useDispatch()
       
 
       </Row>
+    </Container>
         </div>
 
 
-    </Container>
 
   )
 }

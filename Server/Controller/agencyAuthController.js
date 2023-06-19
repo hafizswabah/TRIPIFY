@@ -48,27 +48,24 @@ export async function AgencyRegister(req, res) {
 export async function agencyLogin(req, res) {
     try {
         const { email, password } = req.body;
-        const hospital = await HospitalModel.findOne({ email})
-        if (!hospital){
-            return res.json({ err: true, message: "No Hospital Found" })
+        const agency = await AgencyModel.findOne({ email})
+        if (!agency){
+            return res.json({ err: true, message: "No Travel Agency Found" })
         }
-        if (hospital.block){
-            return res.json({ err: true, message: "Hospital is blocked" })
+        if (agency.block){
+            return res.json({ err: true, message: "Your Travel Agency is blocked" })
         }
-        // if (!hospital.active){
-        //     return res.json({ err: true, message: "Approval under process. We will inform you once completed" })
-        // }
-    
-        const hospitalValid = bcrypt.compareSync(password, hospital.password);
-        if (!hospitalValid)
+
+        const agencyValid = bcrypt.compareSync(password, agency.password);
+        if (!agencyValid)
             return res.json({ err: true, message: "wrong Password" })
         const token = jwt.sign(
             {
-                id: hospital._id
+                id: agency._id
             },
             process.env.JWT_SECRET_KEY
         )
-        return res.cookie("hospitalToken", token, {
+        return res.cookie("AgencyToken", token, {
             httpOnly: true,
             secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 7,

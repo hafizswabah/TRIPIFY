@@ -1,14 +1,15 @@
-.Main {
-    width: 65%;
-   height:auto;
-    box-shadow: 2px 2px 15px 4px rgb(176 175 175 / 33%);
-  
-
-    border-radius: 8px;
- 
-
+.Mains {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px;
 }
-
+.ag-signup-container{
+    box-shadow: 0px 0px 10px 0px rgb(179, 179, 179);
+    border-radius: 10px;
+}
 .log-img {
     background-image: url('/login.jpg');
     background-size: cover;
@@ -50,10 +51,11 @@
 }
 
 .log-full {
-
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    padding: 30px 0px;
 }
 
 .error {

@@ -70,21 +70,21 @@ export default function AdminUsers() {
   const rejectRequest = async (e, email) => {
     e.preventDefault();
     Swal.fire({
-      title: 'Are you sure?',
+      title: 'Are you sure to Block this User?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#7e3af2',
       cancelButtonColor: '##a8a8a8',
-      confirmButtonText: 'Yes, Accept it!'
+      confirmButtonText: 'Yes,Block the User!'
     }).then(async (result) => {
       if (result.isConfirmed) {
         setLoad(true)
-        const { data } = await axios.post("/admin/agency/reject", { email });
+        const { data } = await axios.post("/admin/block-user", { email });
         if (!data.err) {
           Swal.fire(
             'Success!',
-            'Successfully Rejected',
+            'Successfully Blocked',
             'success'
           )
           setRefresh(!refresh)
@@ -119,8 +119,7 @@ export default function AdminUsers() {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact</th>
-                <th>Proof</th>
-                 <th>Document No</th>
+            
                 <th>option</th>
              </tr>
              </thead>
@@ -132,12 +131,8 @@ export default function AdminUsers() {
                       <td>{item.name}</td>
                       <td>{item.email}</td>
                       <td>{item.contact}</td>
-                      <td>
-                        <a href={item.proof.url} target="_blank">
-                        <img src={item.proof.url} className='table-img' alt="" />
-                        </a>
-                        </td>
-                      <td>{item.regNo}</td>
+                   
+                  
                       <td className='option-btn'>
                         <Dropdown>
                           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
@@ -146,7 +141,7 @@ export default function AdminUsers() {
 
                           <Dropdown.Menu>
                     
-                            <Dropdown.Item href="#" onClick={(e) => rejectRequest(e, item.email)}>Reject</Dropdown.Item>
+                            <Dropdown.Item href="#" onClick={(e) => rejectRequest(e, item.email)}>Block</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                       </td>

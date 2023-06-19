@@ -5,7 +5,6 @@ import Button from '@mui/material/Button'
 import './signup.css'
 import axios from 'axios';
 import OtpPage from '../VerifyOTP/OtpPage';
-import { Link } from 'react-router-dom';
 function UserSignup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -52,7 +51,7 @@ function UserSignup() {
 
           <div className="col-7">
             <Container className="log-full">
-              <div className="text-area w-50 mt-3">
+              <div className="text-area w-50 mt-5">
                 <div className="text-fileds w-100">
                   <h4 className='text-name mb-2'>Name</h4>
                   <TextField
@@ -126,9 +125,6 @@ function UserSignup() {
                     variant='contained' style={{ backgroundColor: '#18649b', color: "white" }} className="w-100">Sign Up</Button>
                 </div>
                 <div className='error'>{errMessage}</div>
-                <div className="go-login">
-                  <h4><Link to={'/login'}>Already have an account please Login</Link> </h4>
-                </div>
 
               </div>
 
@@ -136,7 +132,7 @@ function UserSignup() {
             </Container>
           </div>
         </div>
-        : <OtpPage data={{ name, email, contact, password }} />}
+        : <OtpPage data={{name,email,contact,password}}/>}
     </Container>
 
   )

@@ -15,6 +15,8 @@ import AgencyApprovalPage from './Pages/Agency/AgencyApprovalPage'
 import AgencyRequestsPage from './Pages/admin/AgencyRequests.jsx/AgencyRequestsPage'
 import AdminAgencyPage from './Pages/admin/AgencyList/AdminAgencyPage'
 import AdminUserShowPage from './Pages/admin/AdminUserPage/AdminUserShowPage'
+import AgencyLoginPage from './Pages/Agency/AgencyLoginPage.jsx'
+import AgencyHomePage from './Pages/Agency/AgencyHomePage'
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -63,9 +65,9 @@ function App() {
           <>
             <Route path='/admin/login' element={<Navigate to={"/admin"} />} />
             <Route path='/admin' element={<DashboardPage />} />
-            <Route path='/admin/agency-requests' element={<AgencyRequestsPage/>}/>
-            <Route path='/admin/agency' element={<AdminAgencyPage/>}/>
-            <Route path='/admin/users' element={<AdminUserShowPage/>}/>
+            <Route path='/admin/agency-requests' element={<AgencyRequestsPage />} />
+            <Route path='/admin/agency' element={<AdminAgencyPage />} />
+            <Route path='/admin/users' element={<AdminUserShowPage />} />
           </>
         }
         {
@@ -73,21 +75,41 @@ function App() {
           <>
             <Route path='/admin/login' element={<AdminLoginPage />} />
             <Route path='/admin' element={<Navigate to={"/admin/login"} />} />
+            <Route path='/admin/agency' element={<Navigate to={"/admin/login"} />} />
+            <Route path='/admin/users' element={<Navigate to={"/admin/login"} />} />
+            <Route path='/admin/agency-requests' element={<Navigate to={"/admin/login"} />} />
           </>
         }
-        {agency.login && agency.details.active === false &&
+        {agency.login && agency.details.active === false && agency.details.rejected===false &&
           <>
             <Route path='/agency' element={<AgencyApprovalPage rejected={false} />} />
-            <Route path='/agency/signup' element={<Navigate to={"/agency"}/>}></Route>
+            <Route path='/agency/signup' element={<Navigate to={"/agency"} />}></Route>
 
 
           </>
         }
         {
-          agency.login==false &&
+          agency.login && agency.details.rejected &&
           <>
-        <Route path='/agency/signup' element={<AgencySignupPage />} />
-        <Route path='/agency' element={<Navigate to={"/agency/signup"}/>}/>
+            <Route path='/agency' element={<AgencyApprovalPage rejected={true} agency={agency.details} rejectedMessage={agency.details.rejectedMessage} />} />
+
+          </>
+        }
+        {
+          agency.login == false &&
+          <>
+            <Route path='/agency/signup' element={<AgencySignupPage />} />
+            <Route path='/agency' element={<Navigate to={"/agency/login"} />} />
+            <Route path='/agency/login' element={<AgencyLoginPage />} />
+          </>
+        }
+        {
+          agency.login && 
+          <>
+          <Route path='/agency' element={<AgencyHomePage></AgencyHomePage>}></Route>
+          <Route path='/agency/signup' element={<Navigate to={"/agency"}/>}></Route>
+          <Route path='/agency/login' element={<Navigate to={"/agency"}/>}></Route>
+          
           </>
         }
       </Routes>
