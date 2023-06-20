@@ -13,7 +13,9 @@ export default function AdminUsers() {
   const [users, setUsers] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [load, setLoad] = useState(false)
+  const [reload, setreLoad] = useState(false)
   const [clicked, setCLicked] = useState(false)
+
   const handleClick = () => {
     setCLicked(!clicked)
   }
@@ -31,26 +33,26 @@ export default function AdminUsers() {
         }
       }
     )()
-  }, [refresh])
+  }, [refresh,reload])
 
-  const acceptRequest = async (e, email) => {
+  const unBlockUser = async (e, email) => {
     e.preventDefault();
     Swal.fire({
-      title: 'Are you sure?',
-      text: "accept this account!",
+      title: 'UnBlock User',
+      text: "Allow this account!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#7e3af2',
+      confirmButtonColor: 'green',
       cancelButtonColor: '##a8a8a8',
-      confirmButtonText: 'Yes, Accept it!'
+      confirmButtonText: 'Yes,UnBlock'
     }).then(async (result) => {
       if (result.isConfirmed) {
         setLoad(true)
-        const { data } = await axios.post("/admin/agency/accept", { email });
+        const { data } = await axios.post("/admin/unblock-user", { email });
         if (!data.err) {
           Swal.fire(
             'Success!',
-            'Successfully Accepted',
+            'Unblocked User',
             'success'
           )
         } else {
@@ -61,20 +63,21 @@ export default function AdminUsers() {
           )
 
         }
-        setRefresh(!refresh)
+      
         setLoad(false)
+        setreLoad(!reload)
       }
     })
 
   }
-  const rejectRequest = async (e, email) => {
+  const blockUser = async (e, email) => {
     e.preventDefault();
     Swal.fire({
-      title: 'Are you sure to Block this User?',
-      text: "You won't be able to revert this!",
+      title: 'Block this User?',
+      text: "Are you sure ?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#7e3af2',
+      confirmButtonColor: 'red',
       cancelButtonColor: '##a8a8a8',
       confirmButtonText: 'Yes,Block the User!'
     }).then(async (result) => {
@@ -87,7 +90,7 @@ export default function AdminUsers() {
             'Successfully Blocked',
             'success'
           )
-          setRefresh(!refresh)
+
         } else {
           Swal.fire(
             'Failed!',
@@ -97,6 +100,7 @@ export default function AdminUsers() {
 
         }
         setLoad(false)
+        setreLoad(!reload)
       }
     })
   }
@@ -107,32 +111,37 @@ export default function AdminUsers() {
       </Row>
       <Row>
         <Col md={3}>
-          <AdminSidebar page={'user'} clicked={clicked}/>
+          <AdminSidebar page={'user'} clicked={clicked} />
         </Col>
         <Col md={8}>
-        <div className="admin-container">
-       <h5 className='p-4' style={{fontSize:'22px',fontWeight:300}}>Travel Agencies</h5>
-          <Table className='table-main' responsive>
-         <thead>
-            <tr>
-                 <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Contact</th>
-            
-                <th>option</th>
-             </tr>
-             </thead>
+          <div className="admin-container">
+            <h5 className='p-4' style={{ fontSize: '22px', fontWeight: 300 }}>Users</h5>
+            <Table className='table-main' responsive>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Contact</th>
+                  <th>Status</th>
+                  <th>option</th>
+                </tr>
+              </thead>
               <tbody>
                 {
                   users.map((item, index) => {
+                    const statusColour = item.block ? 'red' : 'green'
                     return <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>
                       <td>{item.email}</td>
                       <td>{item.contact}</td>
-                   
-                  
+                      <td
+                        style={{ color: statusColour }}
+                      >{item.block ? 'Blocked' : 'Allowed'}</td>
+
+
+
                       <td className='option-btn'>
                         <Dropdown>
                           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
@@ -140,8 +149,11 @@ export default function AdminUsers() {
                           </Dropdown.Toggle>
 
                           <Dropdown.Menu>
-                    
-                            <Dropdown.Item href="#" onClick={(e) => rejectRequest(e, item.email)}>Block</Dropdown.Item>
+                            {item.block ?
+                              <Dropdown.Item href="#" onClick={(e) => unBlockUser(e, item.email)}>Alow</Dropdown.Item>
+                              :
+                              <Dropdown.Item href="#" onClick={(e) => blockUser(e, item.email)}>Block</Dropdown.Item>
+                            }
                           </Dropdown.Menu>
                         </Dropdown>
                       </td>
@@ -153,14 +165,14 @@ export default function AdminUsers() {
             </Table>
 
           </div>
-       
-   
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={load}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+
+
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={load}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </Col>
       </Row>
 

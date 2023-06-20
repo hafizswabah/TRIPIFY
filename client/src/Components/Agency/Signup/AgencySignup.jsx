@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Form,Col } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
-import './AgencySignup.css'
+import '../../signupcss/Signup.css'
 import axios from 'axios';
 import validatePassword from '../../../helper/validatePassword';
 import { Link } from 'react-router-dom';

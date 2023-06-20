@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
-import './signup.css'
 import axios from 'axios';
 import OtpPage from '../VerifyOTP/OtpPage';
+import '../../signupcss/Signup.css'
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 function UserSignup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,18 +15,20 @@ function UserSignup() {
   const [contact, setContact] = useState(0)
   const [errMessage, setErrMessage] = useState('')
   const [showOtpPage, setOtpPage] = useState(false)
+  const [load,setLoad]=useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoad(true)
     let { data } = await axios.post("/user/auth/signup", { email, password, contact, name })
     console.log(data);
     if (data.err) {
       setErrMessage(data.message)
     } else {
+      setLoad(false)
       setOtpPage(true)
     }
   }
   useEffect(() => {
-    console.log(password, confirmPassword);
     if (password != confirmPassword) {
       setErrMessage("Password Must Be Same")
     } else {
@@ -39,19 +43,28 @@ function UserSignup() {
     return true
   }
   return (
-    <Container>
-      {!showOtpPage ?
-        <div className="Main row">
-          <div className="col-5 log-img">
+    <div className="Mains">
+       <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={load}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    {!showOtpPage ?
+
+   
+    <Container className='ag-signup-container'>
+        <Row>
+          <Col md={5} className="log-img">
             <div className="log-main-texts">
               <h2 className='log-App-name mt-4'>Tripify</h2>
               <h4 className='log-App-subname mb-4'>Welcom To Your Dream Journey</h4>
             </div>
-          </div>
+          </Col>
 
-          <div className="col-7">
+          <Col md={5} className="h-100">
             <Container className="log-full">
-              <div className="text-area w-50 mt-5">
+              <div className="text-area w-50 ">
                 <div className="text-fileds w-100">
                   <h4 className='text-name mb-2'>Name</h4>
                   <TextField
@@ -130,11 +143,12 @@ function UserSignup() {
 
 
             </Container>
-          </div>
-        </div>
+          </Col>
+        </Row>
+        </Container>
         : <OtpPage data={{name,email,contact,password}}/>}
-    </Container>
-
+        </div>
+        
   )
 }
 

@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react'
-import '../VerifyOTP/otp.css'
 import { Container } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'

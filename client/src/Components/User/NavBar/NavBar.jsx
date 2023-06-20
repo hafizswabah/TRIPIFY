@@ -12,9 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {FaTelegramPlane} from 'react-icons/fa'
+import { FaTelegramPlane } from 'react-icons/fa'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -22,7 +23,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,14 +39,26 @@ function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  async function logout(){
-    await axios.get("/user/auth/logout");
-    dispatch({type:"refresh"})
+  async function logout() {
+    Swal.fire({
+      title: 'Do you want to logout',
+      text: "Are you sure ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: '##a8a8a8',
+      confirmButtonText: 'Yes,Logout!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
 
+        await axios.get("/user/auth/logout");
+        dispatch({ type: "refresh" })
+      }
+    })
   }
 
   return (
-    <AppBar position="static" style={{backgroundColor:"rgba(255, 255, 255, 0.92)",color:"rgba(55, 83, 156, 1)"}}>
+    <AppBar position="static" style={{ backgroundColor: "rgba(255, 255, 255, 0.92)", color: "rgba(55, 83, 156, 1)" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -69,7 +82,7 @@ function NavBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-            
+
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -80,7 +93,7 @@ function NavBar() {
               <MenuIcon />
             </IconButton>
             <Menu
-           
+
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -126,32 +139,32 @@ function NavBar() {
             TRIPIFY
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            
-              <Button
-              style={{color:"rgba(55, 83, 156, 1)"}}
-                
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-               Packages
-              </Button>
-              <Button
-              style={{color:"rgba(55, 83, 156, 1)"}}
-                
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-               Plans
-              </Button>
-              <Button
-              style={{color:"rgba(55, 83, 156, 1)"}}
-                
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-               Bookings
-              </Button>
-           
+
+            <Button
+              style={{ color: "rgba(55, 83, 156, 1)" }}
+
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Packages
+            </Button>
+            <Button
+              style={{ color: "rgba(55, 83, 156, 1)" }}
+
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Plans
+            </Button>
+            <Button
+              style={{ color: "rgba(55, 83, 156, 1)" }}
+
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Bookings
+            </Button>
+
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -176,16 +189,16 @@ function NavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Button textAlign="center" onClick={logout}>Logout</Button>
-                </MenuItem>
-             
+
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Button textAlign="center" onClick={logout}>Logout</Button>
+              </MenuItem>
+
             </Menu>
           </Box>
         </Toolbar>
       </Container>
-      
+
     </AppBar>
   );
 }
