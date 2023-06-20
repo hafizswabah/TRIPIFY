@@ -8,6 +8,7 @@ import path from 'path'
 import adminAuthRouter from './Router/adminAuthRouter.js'
 import AgencyAuthRouter from './Router/AgencyAuthRouter.js'
 import adminRouter from './Router/adminRouter.js'
+import { verifyToken } from "./middleware/jwtMiddleware.js";
 const app=express()
 app.use(express.json({ limit: '50mb' }))
 app.use(cookieParser());
@@ -25,5 +26,5 @@ DBConnect()
 app.use("/user/auth",UserAuthRouter)
 app.use("/admin/auth",adminAuthRouter)
 app.use("/agency/auth",AgencyAuthRouter)
-app.use("/admin",adminRouter)
+app.use("/admin",verifyToken,adminRouter)
 app.listen(8888,()=>console.log('server running at port 8000'))

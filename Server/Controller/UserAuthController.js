@@ -39,6 +39,34 @@ export async function UserSignup(req, res) {
         res.json({ err: true, error: err, message: "something went wrong" })
     }
 }
+export async function resendOtp(req,res){
+    try{
+        let {email}=req.body
+        console.log(req.body);
+    let otp = Math.ceil(Math.random() * 100000)
+
+    let otpHash = crypto.createHmac('sha256', process.env.OTP_SECRET)
+        .update(otp.toString())
+        .digest('hex')
+    let otpSent = await sentOtp(email, otp)
+    const token = jwt.sign(
+        {
+            otp: otpHash
+        },
+        process.env.JWT_SECRET_KEY
+    )
+    return res.cookie("tempToken", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 1000 * 60 * 10,
+        sameSite: "none"
+    }).json({ err: false })
+} catch (err) {
+    console.log(err);
+    res.json({ err: true, error: err, message: "something went wrong" })
+}
+}
+
 export async function verifyUser(req, res) {
     try {
         const { name, email, password, otp, contact } = req.body
@@ -86,6 +114,9 @@ export async function userLogin(req, res) {
         if (!user) {
             return res.json({ err: true, message: "User Not Found Please Signup" })
         }
+        if(user.block){
+            return res.json({err:true,message:'Sorry your account is blocked'})
+        }
         const userValid = bcrypt.compareSync(password, user.password)
         if (!userValid) {
             return res.json({ err: true, message: "Incorrect Password" })
@@ -110,24 +141,28 @@ export async function userLogin(req, res) {
 }
 export async function check(req, res) {
     try {
-        const token = req.cookies.token
-        if (!token) {
-            return res.json({ loggedIn: false })
-        }
-        const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const user = await UserModel.findById(verifiedJWT.id, { password: 0 })
-
-        if (!user) {
-            return res.json({ loggedIn: false })
+      const token = req.cookies.token;
+      if (!token) {
+        return res.json({ loggedIn: false });
+      }
+      const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const user = await UserModel.findById(verifiedJWT.id, { password: 0 });
+  
+      if (!user) {
+        return res.json({ loggedIn: false });
+      } else {
+        if (user.block) {
+          return res.json({ loggedIn: false, message: 'User is blocked' });
         } else {
-            return res.json({ user, loggedIn: true })
+          return res.json({ user, loggedIn: true });
         }
+      }
+    } catch (err) {
+      console.log(err);
+      return res.json({ err: true, message: 'something happened' });
     }
-    catch (err) {
-        console.log(err);
-        return res.json({ err: true, message: "something happned" })
-    }
-}
+  }
+  
 export async function userLogout(req, res) {
     res.cookie("token", "", {
         httpOnly: true,
