@@ -1,8 +1,8 @@
-.side-icon{
+.option-btn{
     visibility: hidden;
 }
 @media(max-width:800px){
-    .side-icon{
+    .option-btn{
         visibility: visible;
     }
 }

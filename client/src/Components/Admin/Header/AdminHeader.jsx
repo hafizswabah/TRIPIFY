@@ -181,7 +181,7 @@ export default function AdminHeader(props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{backgroundColor:'white',color:'black'}}>
+      <AppBar position="static" style={{backgroundColor:'white',color:'#004a8f'}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -189,8 +189,11 @@ export default function AdminHeader(props) {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={props.handleClick}
+           
           >
-            <MenuIcon />
+            <MenuIcon 
+             className='option-btn'/>
           </IconButton>
           <Typography
             variant="h6"

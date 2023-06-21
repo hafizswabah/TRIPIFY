@@ -1,8 +1,0 @@
-.side-icon{
-    visibility: hidden;
-}
-@media(max-width:800px){
-    .side-icon{
-        visibility: visible;
-    }
-}

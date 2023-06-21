@@ -106,10 +106,10 @@ export default function AdminUsers() {
   }
   return (
     <div>
-      <Row>
+      
         <AdminHeader handleClick={handleClick} />
-      </Row>
-      <Row>
+   
+      <Row className='m-0'>
         <Col md={3}>
           <AdminSidebar page={'user'} clicked={clicked} />
         </Col>

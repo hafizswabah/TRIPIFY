@@ -41,11 +41,11 @@
 }
 .admin-sideitems.active .admin-sideItem{
     padding: 25px;
-    background-color: #1f6096;
+    background-color: #ededed;
 }
 .admin-sideitems.active .admin-sideItem{
     font-weight: 600;
-    color: rgb(255, 255, 255);    
+    color:rgb(0 101 255);    
 }
 ol, ul{
     padding: 0px;

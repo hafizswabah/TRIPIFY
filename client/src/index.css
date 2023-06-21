@@ -1,0 +1,10 @@
+.row, .row>*{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.col{
+    margin: 0px !important;
+}
+a {
+    text-decoration: none !important;
+}
