@@ -17,6 +17,7 @@ import AdminAgencyPage from './Pages/admin/AgencyList/AdminAgencyPage'
 import AdminUserShowPage from './Pages/admin/AdminUserPage/AdminUserShowPage'
 import AgencyLoginPage from './Pages/Agency/AgencyLoginPage.jsx'
 import AgencyHomePage from './Pages/Agency/AgencyHomePage'
+import AgencyPackagePage from './Pages/Agency/AgencyPackagePage'
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -80,7 +81,7 @@ function App() {
             <Route path='/admin/agency-requests' element={<Navigate to={"/admin/login"} />} />
           </>
         }
-        {agency.login && agency.details.active === false && agency.details.rejected===false &&
+        {agency.login && agency.details.active === false && agency.details.rejected === false &&
           <>
             <Route path='/agency' element={<AgencyApprovalPage rejected={false} />} />
             <Route path='/agency/signup' element={<Navigate to={"/agency"} />}></Route>
@@ -104,12 +105,12 @@ function App() {
           </>
         }
         {
-          agency.login && 
+          agency.login &&
           <>
-          <Route path='/agency' element={<AgencyHomePage></AgencyHomePage>}></Route>
-          <Route path='/agency/signup' element={<Navigate to={"/agency"}/>}></Route>
-          <Route path='/agency/login' element={<Navigate to={"/agency"}/>}></Route>
-          
+            <Route path='/agency' element={<AgencyHomePage></AgencyHomePage>}></Route>
+            <Route path='/agency/signup' element={<Navigate to={"/agency"} />}></Route>
+            <Route path='/agency/login' element={<Navigate to={"/agency"} />}></Route>
+            <Route path='/agency/package' element={<AgencyPackagePage />} />
           </>
         }
       </Routes>

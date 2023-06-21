@@ -8,7 +8,7 @@ function AgencySidebar({ page, clicked }) {
   return (
     <div className={`admin-sidebar ${clicked && 'open'}`}>
       <ul>
-        <Link to="/admin/">
+        <Link to="/agency/">
           <li className={`admin-sideitems ${page == "dashboard" && 'active'}`}>
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -18,24 +18,13 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/admin/users">
-
-          <li className={`admin-sideitems ${page == "user" && 'active'}`}>
-
-            <div className='side'></div>
-            <div className="admin-sideItem">
-
-              <RiUserLine className='icon' />
-              <span>Users</span>
-            </div>
-          </li>
-        </Link>
 
 
 
-        <Link to="/account/admin/refunds">
 
-          <li className={`admin-sideitems ${page == "refund" && 'active'}`}>
+        <Link to="/agency/package">
+
+          <li className={`admin-sideitems ${page == "package" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -54,6 +43,18 @@ function AgencySidebar({ page, clicked }) {
 
               <RiHospitalLine className='icon' />
               <span>Plans</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/admin/users">
+
+          <li className={`admin-sideitems ${page == "user" && 'active'}`}>
+
+            <div className='side'></div>
+            <div className="admin-sideItem">
+
+              <RiUserLine className='icon' />
+              <span>Users</span>
             </div>
           </li>
         </Link>

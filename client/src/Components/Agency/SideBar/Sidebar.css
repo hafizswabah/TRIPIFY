@@ -42,6 +42,7 @@
 .admin-sideitems.active .admin-sideItem{
     padding: 25px;
     background-color: #ededed;
+    border-left: 4px solid rgb(0 101 255) ;
 }
 .admin-sideitems.active .admin-sideItem{
     font-weight: 600;

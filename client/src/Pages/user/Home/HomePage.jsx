@@ -86,19 +86,20 @@ function HomePage() {
                         </div>
                     </Row>
                     <Row>
-                        <Col md={3} className=" d-flex justify-content-center ">
-                            <div className="packages mb-4">
+                
+                        <Col md={3} className=" d-flex justify-content-center pkg-card">
+                            <div className="packages himalaya">
                                 <Row>
-                                    <Col md={6} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>Dubai</h3>
+                                    <Col md={6} className=" d-flex justify-content-start">
+                                        <h5 className='package-details'>Himalaya</h5>
                                     </Col>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>99,999/-</h3>
+                                    <Col md={6} className=" d-flex justify-content-end">
+                                        <h5 className='package-details'>25,999/-</h5>
                                     </Col>
                                 </Row>
                                 <Row>
 
-                                    <span className='p-4 package-info mt-3'>
+                                    <span className=' package-info'>
                                         Dubai Trip With Ten nights and Ten days
                                         with most our crew and whole the bookings
                                         included bhurj khalifa bhurj al arab and
@@ -107,25 +108,25 @@ function HomePage() {
 
                                 </Row>
                                 <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-4">
-                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    <div className="package-btn d-flex justify-content-center mt-2">
+                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
                                     </div>
                                 </Row>
                             </div>
                         </Col>
-                        <Col md={3} className=" d-flex justify-content-center ">
-                            <div className="packages himalaya mb-4">
+                        <Col md={3} className=" d-flex justify-content-center pkg-card">
+                            <div className="packages himalaya">
                                 <Row>
-                                    <Col md={6} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>Himalaya</h3>
+                                    <Col md={6} className=" d-flex justify-content-start">
+                                        <h5 className='package-details'>Himalaya</h5>
                                     </Col>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>25,999/-</h3>
+                                    <Col md={6} className=" d-flex justify-content-end">
+                                        <h5 className='package-details'>25,999/-</h5>
                                     </Col>
                                 </Row>
                                 <Row>
 
-                                    <span className='p-4 package-info mt-3'>
+                                    <span className=' package-info'>
                                         Dubai Trip With Ten nights and Ten days
                                         with most our crew and whole the bookings
                                         included bhurj khalifa bhurj al arab and
@@ -134,25 +135,25 @@ function HomePage() {
 
                                 </Row>
                                 <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-4">
-                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    <div className="package-btn d-flex justify-content-center mt-2">
+                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
                                     </div>
                                 </Row>
                             </div>
                         </Col>
-                        <Col md={3} className=" d-flex justify-content-center ">
-                            <div className="packages canada mb-4">
+                        <Col md={3} className=" d-flex justify-content-center pkg-card">
+                            <div className="packages himalaya">
                                 <Row>
-                                    <Col md={6} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details ms-4'>Switzerland</h3>
+                                    <Col md={6} className=" d-flex justify-content-start">
+                                        <h5 className='package-details'>Himalaya</h5>
                                     </Col>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>99,999/-</h3>
+                                    <Col md={6} className=" d-flex justify-content-end">
+                                        <h5 className='package-details'>25,999/-</h5>
                                     </Col>
                                 </Row>
                                 <Row>
 
-                                    <span className='p-4 package-info mt-3'>
+                                    <span className=' package-info'>
                                         Dubai Trip With Ten nights and Ten days
                                         with most our crew and whole the bookings
                                         included bhurj khalifa bhurj al arab and
@@ -161,25 +162,25 @@ function HomePage() {
 
                                 </Row>
                                 <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-4">
-                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    <div className="package-btn d-flex justify-content-center mt-2">
+                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
                                     </div>
                                 </Row>
                             </div>
                         </Col>
-                        <Col md={3} className=" d-flex justify-content-center ">
-                            <div className="packages swit mb-4">
+                        <Col md={3} className=" d-flex justify-content-center pkg-card">
+                            <div className="packages himalaya">
                                 <Row>
-                                    <Col md={6} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>Canada</h3>
+                                    <Col md={6} className=" d-flex justify-content-start">
+                                        <h5 className='package-details'>Himalaya</h5>
                                     </Col>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='package-details'>99,999/-</h3>
+                                    <Col md={6} className=" d-flex justify-content-end">
+                                        <h5 className='package-details'>25,999/-</h5>
                                     </Col>
                                 </Row>
                                 <Row>
 
-                                    <span className='p-4 package-info mt-3'>
+                                    <span className=' package-info'>
                                         Dubai Trip With Ten nights and Ten days
                                         with most our crew and whole the bookings
                                         included bhurj khalifa bhurj al arab and
@@ -188,13 +189,13 @@ function HomePage() {
 
                                 </Row>
                                 <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-4">
-                                    <Button variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                    <div className="package-btn d-flex justify-content-center mt-2">
+                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
                                     </div>
                                 </Row>
                             </div>
                         </Col>
-              
+                      
                     </Row>
                 </Container>
                 <Container>

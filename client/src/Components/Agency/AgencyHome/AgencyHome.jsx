@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import AgencyHeader from '../Header/AgencyHeader'
-import AgencySidebar from '../SideBar/AdminSideBar'
+import AgencySidebar from '../SideBar/AgencySidebar'
 
 function AgencyHome() {
     const [clicked, setCLicked] = useState(false)
