@@ -9,7 +9,7 @@ const PackageSchema = new Mongoose.Schema({
         required: true
     },
      visitPlaces: {
-        type: Object,
+        type: Array,
         required: true
     },
      totalSlots: {

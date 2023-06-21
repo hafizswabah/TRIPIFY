@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 
 const AddPackageModal = ({ showModal, handleCloseModal }) => {
+  const[name,setName]=useState('')
+  const[destination,setDestinaton]=useState('')
+  const[duration,setDuration]=useState('')
+  const[visitplaces,setPlaces]=useState([])
+  const[total,setTotalSlot]=useState('')
+  const[category,setCategory]=useState('')
+  const[description,setDescription]=useState('')
+  const[startDate,setStartDate]=useState('')
+  const[endDate,setEndDate]=useState('')
   return (
     <Modal show={showModal} onHide={handleCloseModal} centered dialogClassName="modal-md">
       <Modal.Header closeButton>
