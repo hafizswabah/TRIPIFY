@@ -1,15 +1,15 @@
 import Mongoose from "mongoose";
 import { type } from "os";
-const PackageSchema = new Mongoose.Schema({
+const PlanSchema = new Mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    destination: {
+    location: {
         type: String,
         required: true
     },
-    visitPlaces: {
+    time: {
         type: String,
         required: true
     },
@@ -17,23 +17,19 @@ const PackageSchema = new Mongoose.Schema({
         type: Number,
         required: true
     },
-    cost: {
-        type: Number,
-        required: true
-    },
     category: {
         type: String,
+        required: true
+    },
+    cost: {
+        type: Number,
         required: true
     },
     description: {
         type: String,
         required: true
     },
-    startDate: {
-        type: Date,
-        required: true
-    },
-    endDate: {
+    date: {
         type: Date,
         required: true
     },
@@ -49,17 +45,8 @@ const PackageSchema = new Mongoose.Schema({
     }, agencyId: {
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'Agency'
-    }, flightbooking: {
-        type: Boolean,
-        default: false
-    }, staybooking: {
-        type: Boolean,
-        default: false
-    }, bookingDeatails: {
-        type: Array,
-        default: []
     }
 
 })
-const PackageModel = Mongoose.model("Packages", PackageSchema)
-export default PackageModel
+const PlanModel = Mongoose.model("Plans", PlanSchema)
+export default PlanModel

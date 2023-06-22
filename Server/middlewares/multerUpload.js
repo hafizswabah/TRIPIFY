@@ -11,8 +11,6 @@ let storage = multer.diskStorage({
 
 
 
-
-
 const multerUpload = multer({
     storage: storage
 })

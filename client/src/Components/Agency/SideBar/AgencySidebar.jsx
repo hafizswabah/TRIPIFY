@@ -34,9 +34,9 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/account/admin/hospitals/requests">
+        <Link to="/agency/plans">
 
-          <li className={`admin-sideitems ${page == "" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "plans" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">

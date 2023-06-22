@@ -18,6 +18,7 @@ import AdminUserShowPage from './Pages/admin/AdminUserPage/AdminUserShowPage'
 import AgencyLoginPage from './Pages/Agency/AgencyLoginPage.jsx'
 import AgencyHomePage from './Pages/Agency/AgencyHomePage'
 import AgencyPackagePage from './Pages/Agency/AgencyPackagePage'
+import AgencyPlansPage from './Pages/Agency/AgencyPlansPage'
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -111,6 +112,7 @@ function App() {
             <Route path='/agency/signup' element={<Navigate to={"/agency"} />}></Route>
             <Route path='/agency/login' element={<Navigate to={"/agency"} />}></Route>
             <Route path='/agency/package' element={<AgencyPackagePage />} />
+            <Route path='/agency/plans' element={<AgencyPlansPage />} />
           </>
         }
       </Routes>

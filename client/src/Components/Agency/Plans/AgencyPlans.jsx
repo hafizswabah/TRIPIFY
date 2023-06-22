@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Container, Table, Dropdown } from 'react-bootstrap';
-import AddPackageModal from '../../../modal/AddPackage';
+import AddPlanModal from '../../../modal/AddPlanModal';
 import AgencyHeader from '../Header/AgencyHeader';
 import AgencySidebar from '../SideBar/AgencySidebar';
-import './agencypackage.css';
+import '../Package/agencypackage.css';
 import { RiMore2Fill } from 'react-icons/ri';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-function AgencyPackage() {
+function AgencyPlans() {
   const [showModal, setShowModal] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const [packages, setPackages] = useState([]);
-  const [reload, setReload] = useState(false)
-  const [load, setLoad] = useState(false)
+  const [plans, setPlans] = useState([]);
+  const[reload,setReload]=useState(false)
+  const[load,setLoad]=useState(false)
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -26,80 +26,80 @@ function AgencyPackage() {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  async function activate(e, id) {
-    e.preventDefault()
-    Swal.fire({
-      title: 'Activate the Package',
-      text: "Do you want to activate the package",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: 'green',
-      cancelButtonColor: '##a8a8a8',
-      confirmButtonText: 'Yes,Activate'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        setLoad(true)
-        const { data } = await axios.post("/agency/active-package", { id });
-        if (!data.err) {
-          Swal.fire(
-            'Success!',
-            'Activated Package succesfully',
-            'success'
-          )
-        } else {
-          Swal.fire(
-            'Failed!',
-            'Something Went Wrong',
-            'error'
-          )
+async function activate(e,id){
+  e.preventDefault()
+  Swal.fire({
+    title: 'Activate the Plan',
+    text: "Do you want to activate the plan",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'green',
+    cancelButtonColor: '##a8a8a8',
+    confirmButtonText: 'Yes,Activate'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      setLoad(true)
+      const { data } = await axios.post("/agency/active-plan", {id });
+      if (!data.err) {
+        Swal.fire(
+          'Success!',
+          'Activated Plan succesfully',
+          'success'
+        )
+      } else {
+        Swal.fire(
+          'Failed!',
+          'Something Went Wrong',
+          'error'
+        )
 
-        }
-
-        setLoad(false)
-        setReload(!reload)
       }
-    })
-  }
-  async function Deactivate(e, id) {
-    e.preventDefault()
-    Swal.fire({
-      title: 'De-Activate the Package',
-      text: "Do you want to De-Activate the package",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: 'red',
-      cancelButtonColor: '##a8a8a8',
-      confirmButtonText: 'Yes,De-Activate'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        setLoad(true)
-        const { data } = await axios.post("/agency/deactivate-package", { id });
-        if (!data.err) {
-          Swal.fire(
-            'Success!',
-            'De-Activated Package succesfully',
-            'success'
-          )
-        } else {
-          Swal.fire(
-            'Failed!',
-            'Something Went Wrong',
-            'error'
-          )
+    
+      setLoad(false)
+      setReload(!reload)
+    }
+  })
+}
+async function Deactivate(e,id){
+  e.preventDefault()
+  Swal.fire({
+    title: 'De-Activate the Plan',
+    text: "Do you want to De-Activate the plan",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'red',
+    cancelButtonColor: '##a8a8a8',
+    confirmButtonText: 'Yes,De-Activate'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      setLoad(true)
+      const { data } = await axios.post("/agency/deactivate-plan", {id });
+      if (!data.err) {
+        Swal.fire(
+          'Success!',
+          'De-Activated Plan succesfully',
+          'success'
+        )
+      } else {
+        Swal.fire(
+          'Failed!',
+          'Something Went Wrong',
+          'error'
+        )
 
-        }
-
-        setLoad(false)
-        setReload(!reload)
       }
-    })
-  }
+    
+      setLoad(false)
+      setReload(!reload)
+    }
+  })
+}
   useEffect(() => {
     (async function () {
-      let { data } = await axios.get("/agency/get-packages");
+      let { data } = await axios.get("/agency/get-plans");
       console.log(data);
       if (!data.err) {
-        setPackages(data.packages);
+        setPlans(data.plans);
       }
     })();
   }, [reload]);
@@ -109,54 +109,50 @@ function AgencyPackage() {
       <AgencyHeader handleClick={handleClick} />
       <Row className='m-0'>
         <Col md={3}>
-          <AgencySidebar page={'package'} clicked={clicked} />
+          <AgencySidebar page={'plans'} clicked={clicked} />
         </Col>
         <Col md={9}>
           <Row>
             <Container className='p-4'>
               <div className='add-package-btn'>
                 <Button className='w-25 pkg-btn' onClick={handleModal}>
-                  Add Package
+                  Add Plans
                 </Button>
               </div>
             </Container>
-            <AddPackageModal showModal={showModal} handleCloseModal={handleCloseModal} />
+            <AddPlanModal showModal={showModal} handleCloseModal={handleCloseModal} />
           </Row>
           <Row>
             <div className='admin-container'>
-              <h5 className='p-1' style={{ fontSize: '22px', fontWeight: 300 }}>Packages</h5>
+              <h5 className='p-1' style={{ fontSize: '22px', fontWeight: 300 }}>Plans</h5>
               <Table className='table-main' responsive>
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Package Name</th>
+                    <th>Programme Name</th>
                     <th>Location</th>
                     <th>Type</th>
                     <th>Date</th>
+                    <th>Time</th>
                     <th>Total Slots</th>
-                    <th>Stay Bookings</th>
-                    <th>Flight Bookings</th>
-                    <th>Cost</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {packages.map((item, index) => {
+                  {plans.map((item, index) => {
                     const statusColour = item.active ? 'green' : 'red';
-                    const formattedStartDate = new Date(item.startDate).toLocaleDateString();
-                    const formattedEndDate = new Date(item.endDate).toLocaleDateString()
+                    const PlanDate = new Date(item.date).toLocaleDateString();
+                   
 
                     return (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
-                        <td>{item.destination}</td>
+                        <td>{item.location}</td>
                         <td>{item.category}</td>
-                        <td>{formattedStartDate} to {formattedEndDate}</td>
+                        <td>{PlanDate}</td>
+                        <td>{item.time}</td>
                         <td>{item.totalSlots}</td>
-                        <td>{item.staybooking ? 'Yes' : 'No'}</td>
-                        <td>{item.flightbooking ? 'Yes' : 'No'}</td>
-                        <td>{item.cost}/-</td>
                         <td style={{ color: statusColour }}>{item.active ? 'Valid' : 'Expired'}</td>
                         <td className='option-btn'>
                           <Dropdown>
@@ -190,4 +186,4 @@ function AgencyPackage() {
   );
 }
 
-export default AgencyPackage;
+export default AgencyPlans;
