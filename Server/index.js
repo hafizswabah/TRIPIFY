@@ -9,6 +9,7 @@ import adminAuthRouter from './Router/adminAuthRouter.js'
 import AgencyAuthRouter from './Router/AgencyAuthRouter.js'
 import adminRouter from './Router/adminRouter.js'
 import AgencyRouter from './Router/AgencyRouter.js'
+import UserRouter from './Router/UserRouter.js'
 import { verifyToken } from "./middleware/jwtMiddleware.js";
 const app=express()
 app.use(express.json({ limit: '50mb' }))
@@ -25,6 +26,7 @@ app.use(
 );
 DBConnect()
 app.use("/user/auth",UserAuthRouter)
+app.use("/user",UserRouter)
 app.use("/admin/auth",adminAuthRouter)
 app.use("/agency/auth",AgencyAuthRouter)
 app.use("/admin",verifyToken,adminRouter)

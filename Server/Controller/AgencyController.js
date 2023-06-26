@@ -8,15 +8,18 @@ export async function addPackage(req, res) {
     let Package = await PackageModel.create({ ...req.body, mainImage, subImages })
     res.json({ err: false, message: "package added succesfully" })
 }
+export async function editPackage(req, res) {
 
-export async function addPlan(req, res) {
-    console.log(req.body);
+    console.log('REQ',req.body);
     console.log(req.files)
+}
+export async function addPlan(req, res) {
     let mainImage = req.files.mainImage
     let subImages = req.files.subImages
     let Plan = await PlanModel.create({ ...req.body, mainImage, subImages })
     res.json({ err: false, message: "plan added succesfully" })
 }
+
 export async function getPackages(req, res) {
     let packages = await PackageModel.find().lean()
     res.json({ err: false, packages })

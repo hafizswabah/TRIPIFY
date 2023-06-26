@@ -1,5 +1,5 @@
 import  express  from "express";
-import { acitvatePackage, acitvatePlan, addPackage, addPlan, deacitvatePackage, deacitvatePlan, getPackages, getPlans } from "../Controller/AgencyController.js";
+import { acitvatePackage, acitvatePlan, addPackage, addPlan, deacitvatePackage, deacitvatePlan, editPackage, getPackages, getPlans } from "../Controller/AgencyController.js";
 import multerUpload from "../middlewares/multerUpload.js";
 
 
@@ -12,5 +12,6 @@ router.post('/active-package',acitvatePackage)
 router.post('/deactivate-package',deacitvatePackage)
 router.post('/active-plan',acitvatePlan)
 router.post('/deactivate-plan',deacitvatePlan)
+router.post('/edit-packages',editPackage)
 
 export default router

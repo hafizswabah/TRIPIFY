@@ -7,14 +7,16 @@ import './agencypackage.css';
 import { RiMore2Fill } from 'react-icons/ri';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import EditPackageModal from '../../../modal/EditPackage';
 
 function AgencyPackage() {
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [packages, setPackages] = useState([]);
   const [reload, setReload] = useState(false)
+  const [editpkg, setEditpkg] = useState(null)
   const [load, setLoad] = useState(false)
-
   const handleClick = () => {
     setClicked(!clicked);
   };
@@ -22,9 +24,17 @@ function AgencyPackage() {
   const handleModal = () => {
     setShowModal(true);
   };
+  const handleEditModal=(item)=>{
+    console.log(item);
+    setEditpkg(item)
+    setShowEditModal(true)
+  }
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
   };
   async function activate(e, id) {
     e.preventDefault()
@@ -125,7 +135,7 @@ function AgencyPackage() {
           <Row>
             <div className='admin-container'>
               <h5 className='p-1' style={{ fontSize: '22px', fontWeight: 300 }}>Packages</h5>
-              <Table className='table-main' responsive>
+              <Table className='table-main' responsive size="sm" style={{fontSize:".8rem"}}>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -138,6 +148,7 @@ function AgencyPackage() {
                     <th>Flight Bookings</th>
                     <th>Cost</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -166,9 +177,14 @@ function AgencyPackage() {
 
                             <Dropdown.Menu>
                               {item.active ? (
-                                <Dropdown.Item href='#' onClick={(e) => Deactivate(e, item._id)}>
-                                  Deactivate
-                                </Dropdown.Item>
+                                <>
+                                  <Dropdown.Item href='#' onClick={(e) => Deactivate(e, item._id)}>
+                                    Deactivate
+                                  </Dropdown.Item>
+                                  <Dropdown.Item href='#' onClick={()=>{handleEditModal(item)}}>
+                                  Edit
+                                  </Dropdown.Item>
+                                </>
                               ) : (
                                 <Dropdown.Item href='#' onClick={(e) => activate(e, item._id)}>
                                   Activate
@@ -186,6 +202,7 @@ function AgencyPackage() {
           </Row>
         </Col>
       </Row>
+      <EditPackageModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editpkg={editpkg}/>
     </div>
   );
 }

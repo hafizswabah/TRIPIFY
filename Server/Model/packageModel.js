@@ -9,6 +9,10 @@ const PackageSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    duration: {
+        type: String,
+        required: true
+    },
     visitPlaces: {
         type: String,
         required: true

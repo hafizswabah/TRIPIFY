@@ -97,7 +97,7 @@ export default function AgencyHeader(props) {
     }).then(async (result) => {
       if (result.isConfirmed) {
 
-        await axios.get("/admin/auth/logout");
+        await axios.get("/agency/auth/logout");
         dispatch({ type: "refresh" })
       }
     })

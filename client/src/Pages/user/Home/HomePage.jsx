@@ -1,14 +1,44 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react'
 import NavBar from '../../../Components/User/NavBar/NavBar'
 import './Home.css'
 import { Col, Container, Row } from 'react-bootstrap'
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import { baseImgUrl } from '../../../urls';
+import TextField from '@mui/material/TextField';
+import { Navigate } from 'react-router-dom';
+
+
 function HomePage() {
-
-    const [age, setAge] = React.useState('');
-
+    const [age, setAge] = useState('');
+    const [packages, setPackages] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+    const [search, setSearch] = useState('')
+    console.log(packages);
     const handleChange = (event) => {
         setAge(event.target.value);
+    };
+    useEffect(() => {
+        (async function () {
+            let { data } = await axios.get("/user/get-pkg")
+            if (!data.err) {
+                setPackages(data.packages)
+            }
+        }
+
+        )()
+    }, [refresh])
+
+
+
+    const handleSearch = async (search) => {
+        try {
+            let { data } = await axios.get(`user/search?query=${search}`)
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -21,18 +51,15 @@ function HomePage() {
 
 
                     <div className="search-bar">
-                        {/* <Row >
-                            <Col md={1} className=''>
-                                <div className="location-search-icon">
-                                    <BiPaperPlane className='search-icon' />
-                                </div>
+                        <Row>
+                            <Col md={10} className='d-flex justify-content-center align-items-center'>
+                                <TextField id="standard-basic" label="Standard" variant="standard"
+                                    onChange={(e) => { setSearch(e.target.value) }} />
                             </Col>
-                            <Col md={4}>
-                                <div className="location-search">
-                                    <input type="text" />
-                                </div>
+                            <Col md={2}>
+                                <Button onClick={() => { handleSearch(search) }}>Search</Button>
                             </Col>
-                        </Row> */}
+                        </Row>
 
                     </div>
                 </div>
@@ -86,116 +113,43 @@ function HomePage() {
                         </div>
                     </Row>
                     <Row>
-                
-                        <Col md={3} className=" d-flex justify-content-center pkg-card">
-                            <div className="packages himalaya">
-                                <Row>
-                                    <Col md={6} className=" d-flex justify-content-start">
-                                        <h5 className='package-details'>Himalaya</h5>
-                                    </Col>
-                                    <Col md={6} className=" d-flex justify-content-end">
-                                        <h5 className='package-details'>25,999/-</h5>
-                                    </Col>
-                                </Row>
-                                <Row>
+                        {
+                            packages.map((item) => {
 
-                                    <span className=' package-info'>
-                                        Dubai Trip With Ten nights and Ten days
-                                        with most our crew and whole the bookings
-                                        included bhurj khalifa bhurj al arab and
-                                        other more place
-                                    </span>
+                                return <Col md={3} className=" d-flex justify-content-center pkg-card">
+                                    <div className="packages himalaya" style={{ backgroundImage: `url(${baseImgUrl + item.mainImage[0].filename})` }}>
 
-                                </Row>
-                                <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-2">
-                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
+                                        <Row>
+                                            <Col md={6} className=" d-flex justify-content-start">
+                                                <h5 className='package-details'>{item.destination}</h5>
+                                            </Col>
+                                            <Col md={6} className=" d-flex justify-content-end">
+                                                <h5 className='package-details'>{item.cost}/-</h5>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+
+                                            <span className=' package-info'>
+                                                {item.description}
+                                            </span>
+
+                                        </Row>
+                                        <Row>
+                                            <div className="package-btn d-flex justify-content-center mt-2">
+                                                <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
+                                            </div>
+                                        </Row>
                                     </div>
-                                </Row>
-                            </div>
-                        </Col>
-                        <Col md={3} className=" d-flex justify-content-center pkg-card">
-                            <div className="packages himalaya">
-                                <Row>
-                                    <Col md={6} className=" d-flex justify-content-start">
-                                        <h5 className='package-details'>Himalaya</h5>
-                                    </Col>
-                                    <Col md={6} className=" d-flex justify-content-end">
-                                        <h5 className='package-details'>25,999/-</h5>
-                                    </Col>
-                                </Row>
-                                <Row>
+                                </Col>
 
-                                    <span className=' package-info'>
-                                        Dubai Trip With Ten nights and Ten days
-                                        with most our crew and whole the bookings
-                                        included bhurj khalifa bhurj al arab and
-                                        other more place
-                                    </span>
 
-                                </Row>
-                                <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-2">
-                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
-                                    </div>
-                                </Row>
-                            </div>
-                        </Col>
-                        <Col md={3} className=" d-flex justify-content-center pkg-card">
-                            <div className="packages himalaya">
-                                <Row>
-                                    <Col md={6} className=" d-flex justify-content-start">
-                                        <h5 className='package-details'>Himalaya</h5>
-                                    </Col>
-                                    <Col md={6} className=" d-flex justify-content-end">
-                                        <h5 className='package-details'>25,999/-</h5>
-                                    </Col>
-                                </Row>
-                                <Row>
 
-                                    <span className=' package-info'>
-                                        Dubai Trip With Ten nights and Ten days
-                                        with most our crew and whole the bookings
-                                        included bhurj khalifa bhurj al arab and
-                                        other more place
-                                    </span>
+                            })
+                        }
 
-                                </Row>
-                                <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-2">
-                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
-                                    </div>
-                                </Row>
-                            </div>
-                        </Col>
-                        <Col md={3} className=" d-flex justify-content-center pkg-card">
-                            <div className="packages himalaya">
-                                <Row>
-                                    <Col md={6} className=" d-flex justify-content-start">
-                                        <h5 className='package-details'>Himalaya</h5>
-                                    </Col>
-                                    <Col md={6} className=" d-flex justify-content-end">
-                                        <h5 className='package-details'>25,999/-</h5>
-                                    </Col>
-                                </Row>
-                                <Row>
 
-                                    <span className=' package-info'>
-                                        Dubai Trip With Ten nights and Ten days
-                                        with most our crew and whole the bookings
-                                        included bhurj khalifa bhurj al arab and
-                                        other more place
-                                    </span>
 
-                                </Row>
-                                <Row>
-                                    <div className="package-btn d-flex justify-content-center mt-2">
-                                    <Button className='w-100' variant="contained" style={{backgroundColor:"white",color:"#1a6795",height:"27px"}}>View Package</Button>
-                                    </div>
-                                </Row>
-                            </div>
-                        </Col>
-                      
+
                     </Row>
                 </Container>
                 <Container>
@@ -207,7 +161,7 @@ function HomePage() {
                     <Row>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <div className="plans sky">
-                            <Row>
+                                <Row>
                                     <Col md={6} className=" d-flex justify-content-center mt-3">
                                         <h3 className='plan-details'>Sky Dive</h3>
                                     </Col>
@@ -232,7 +186,7 @@ function HomePage() {
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <div className="plans dj">
-                            <Row>
+                                <Row>
                                     <Col md={6} className=" d-flex justify-content-center mt-3">
                                         <h3 className='plan-details'>DJ Nights</h3>
                                     </Col>
@@ -257,7 +211,7 @@ function HomePage() {
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <div className="plans trucking">
-                            <Row>
+                                <Row>
                                     <Col md={6} className=" d-flex justify-content-center mt-3">
                                         <h3 className='plan-details'>Trucking</h3>
                                     </Col>
@@ -282,7 +236,7 @@ function HomePage() {
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <div className="plans campfire">
-                            <Row>
+                                <Row>
                                     <Col md={6} className=" d-flex justify-content-center mt-3">
                                         <h3 className='plan-details'>Camp Fire</h3>
                                     </Col>
@@ -307,7 +261,7 @@ function HomePage() {
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <div className="plans desert">
-                            <Row>
+                                <Row>
                                     <Col md={6} className=" d-flex justify-content-center mt-3">
                                         <h3 className='plan-details'>Desert Safari</h3>
                                     </Col>
@@ -332,7 +286,7 @@ function HomePage() {
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <div className="plans sea">
-                            <Row>
+                                <Row>
                                     <Col md={6} className=" d-flex justify-content-center mt-3">
                                         <h3 className='plan-details'>Sea Drive</h3>
                                     </Col>

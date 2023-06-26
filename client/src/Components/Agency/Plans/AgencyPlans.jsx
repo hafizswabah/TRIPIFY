@@ -125,7 +125,7 @@ async function Deactivate(e,id){
           <Row>
             <div className='admin-container'>
               <h5 className='p-1' style={{ fontSize: '22px', fontWeight: 300 }}>Plans</h5>
-              <Table className='table-main' responsive>
+              <Table className='table-main' responsive size="sm" style={{fontSize:".8rem"}}>
                 <thead>
                   <tr>
                     <th>#</th>

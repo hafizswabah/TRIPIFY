@@ -1,15 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import formatDate from '../helper/formatDate';
 
-const AddPackageModal = ({ showModal, handleCloseModal }) => {
-  const [name, setName] = useState('');
-  const [destination, setDestinaton] = useState('');
-  const [duration, setDuration] = useState('');
-  const [visitPlaces, setPlaces] = useState('');
-  const [totalSlots, setTotalSlot] = useState('');
-  const [cost, setCost] = useState('');
-  const [category, setCategory] = useState('');
+
+const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
+  const [state, setState] = useState({})
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -17,75 +13,74 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
   const [stayBooking, setStayBooking] = useState(false)
   const [mainImage, setMainImage] = useState(null);
   const [subImages, setSubImages] = useState(null);
+  let formData = new FormData()
+  useEffect(() => {
+    if (editpkg) {
+      setStartDate(formatDate(editpkg.startDate))
+      setEndDate(formatDate(editpkg.endDate))
+      setState(editpkg)
+    }
+  }, [editpkg])
 
 
 
-  async function addPackage(e) {
+
+  async function editPackage(e) {
     e.preventDefault()
-    console.log(mainImage);
-    console.log(subImages);
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('destination', destination);
-    formData.append('duration', duration);
-    formData.append('visitPlaces', visitPlaces);
-    formData.append('totalSlots', totalSlots);
-    formData.append('cost', cost);
-    formData.append('category', category);
-    formData.append('description', description);
-    formData.append('startDate', startDate);
-    formData.append('endDate', endDate);
-    formData.append('flightBooking', flightBooking);
-    formData.append('stayBooking', stayBooking);
-    formData.append('mainImage', mainImage);
+    const _id = state._id
+    let name = state.name;
+    let destination = state.destination
+    let duration = state.duration
+    let category = state.category
+    let visitPlaces = state.visitPlaces
+    let cost = state.cost
+    let startDate = state.startDate
+    let endDate = state.endDate
+    let description = state.description
+    let flightBooking=state.flightBooking
+    let stayBooking=state.stayBooking
 
-    Object.keys(subImages).forEach((image) => {
-      formData.append('subImages', subImages[image]);
-    });
 
-    let { data } = await axios.post("/agency/add-package",
-      formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    handleCloseModal() 
+
+    let { data } = await axios.post("/agency/edit-packages",
+      { name, destination,description, duration, category, visitPlaces, cost,startDate,endDate,flightBooking,stayBooking,mainImage })
+
   }
 
   return (
-    <Modal show={showModal} onHide={handleCloseModal} centered dialogClassName="modal-md">
+    <Modal show={showEditModal} onHide={handleCloseEditModal} centered dialogClassName="modal-md">
       <Modal.Header closeButton>
-        <Modal.Title>Add Your Tour Package</Modal.Title>
+        <Modal.Title>Edit Your Tour Package</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="packageName">
-                <Form.Control type="text" placeholder="Package Name" value={name} style={{ width: '100%' }} onChange={(e) => { setName(e.target.value) }} />
+                <Form.Control type="text" placeholder="Package Name" value={state.name} style={{ width: '100%' }} onChange={(e) => { setState({ ...state, name: e.target.value }) }} />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="mainDestination">
-                <Form.Control type="text" placeholder="Main Destination" value={destination} onChange={(e) => { setDestinaton(e.target.value) }} style={{ width: '100%' }} />
+                <Form.Control type="text" placeholder="Main Destination" value={state.destination} onChange={(e) => { setState({ ...state, destination: e.target.value }) }} style={{ width: '100%' }} />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="duration">
-                <Form.Control type="text" placeholder="Duration" style={{ width: '100%' }} value={duration} onChange={(e) => { setDuration(e.target.value) }} />
+                <Form.Control type="text" placeholder="Duration" style={{ width: '100%' }} value={state.duration} onChange={(e) => { setState({ ...state, duration: e.target.value }) }} />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="plans">
-                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={category} onChange={(e) => { setCategory(e.target.value) }}>
+                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.category} onChange={(e) => { setState({ ...state, categorry: e.target.value }) }}>
                   <option value="city">City Tour</option>
                   <option value="adventure">Adventure</option>
-                  <option value="nature">Nature</option>
-                  <option value="snow">Snow</option>
-                  <option value="ocean">Ocean</option>
-                  <option value="desert">Desert</option>
+                  <option value="djNight">Nature</option>
+                  <option value="djNight">Snow</option>
+                  <option value="djNight">Ocean</option>
+                  <option value="djNight">Desert</option>
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -94,7 +89,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="slots">
-                <Form.Control type="text" style={{ width: '100%' }} placeholder='visit places' value={visitPlaces} onChange={(e) => { setPlaces(e.target.value) }} />
+                <Form.Control type="text" style={{ width: '100%' }} placeholder='visit places' value={state?.visitPlaces} onChange={(e) => { setState({ ...state, visitPlaces: e.target.value }) }} />
               </Form.Group>
             </Col>
           </Row>
@@ -102,7 +97,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
             <Col>
               <Form.Group className="mb-3" controlId="slots">
 
-                <Form.Control type="number" placeholder='Total Slots' style={{ width: '100%' }} value={totalSlots} onChange={(e) => { setTotalSlot(e.target.value) }} />
+                <Form.Control type="number" placeholder='Total Slots' style={{ width: '100%' }} value={state?.totalSlots} onChange={(e) => { setState({ ...state, totalSlots: e.target.value }) }} />
               </Form.Group>
             </Col>
           </Row>
@@ -110,7 +105,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
             <Col>
               <Form.Group className="mb-3" controlId="slots">
 
-                <Form.Control type="number" placeholder='Per Head Cost' style={{ width: '100%' }} value={cost} onChange={(e) => { setCost(e.target.value) }} />
+                <Form.Control type="number" placeholder='Per Head Cost' style={{ width: '100%' }} value={state?.cost} onChange={(e) => { setState({ ...state, cost: e.target.value }) }} />
               </Form.Group>
             </Col>
           </Row>
@@ -118,27 +113,28 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
             <Col>
               <Form.Group className="mb-3" controlId="tripDateFrom">
                 <Form.Label className="form-label-sm">From</Form.Label>
-                <Form.Control type="date" style={{ width: '100%' }} value={startDate} onChange={(e) => { setStartDate(e.target.value) }} />
+                <Form.Control type="date" style={{ width: '100%' }}
+                  value={formatDate(state.startDate)} onChange={(e) => { setState({ ...state, startDate: e.target.value }) }} />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="tripDateTo">
                 <Form.Label className="form-label-sm">To</Form.Label>
-                <Form.Control type="date" style={{ width: '100%' }} value={endDate} onChange={(e) => { setEndDate(e.target.value) }} />
+                <Form.Control type="date" style={{ width: '100%' }} value={formatDate(state.endDate)} onChange={(e) => { setState({ ...state, endDate: e.target.value }) }} />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="description">
-                <Form.Control as="textarea" rows={3} placeholder="Description" style={{ width: '100%' }} value={description} onChange={(e) => { setDescription(e.target.value) }} />
+                <Form.Control as="textarea" rows={3} placeholder="Description" style={{ width: '100%' }} value={state?.description} onChange={(e) => { setDescription(e.target.value) }} />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="bookings">
-                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={flightBooking} onChange={(e) => { setFlightBooking(e.target.value) }}>
+                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.flightBooking} onChange={(e) => { setState({ ...state, flightBooking: e.target.value }) }}>
                   <option value={true}>Flight Booking</option>
                   <option value={false}>No</option>
                 </Form.Select>
@@ -146,7 +142,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="stayBookings">
-                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={stayBooking} onChange={(e) => { setStayBooking(e.target.value) }}>
+                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.stayBooking} onChange={(e) => { setState({ ...state, stayBooking: e.target.value }) }}>
                   <option value={true}>Stay Booking</option>
                   <option value={false}>No</option>
                 </Form.Select>
@@ -172,11 +168,11 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
-        <Button variant="secondary" onClick={handleCloseModal} className="flex-grow-1">
+        <Button variant="secondary" onClick={handleCloseEditModal} className="flex-grow-1">
           Close
         </Button>
-        <Button variant="primary" className="flex-grow-1" onClick={addPackage}>
-          Add Package
+        <Button variant="primary" className="flex-grow-1" onClick={editPackage}>
+          Edit Package
         </Button>
       </Modal.Footer>
     </Modal>
@@ -184,4 +180,4 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
 };
 
 
-export default AddPackageModal;
+export default EditPackageModal;
