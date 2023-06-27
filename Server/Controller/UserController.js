@@ -6,9 +6,8 @@ export async function GetPkg(req, res) {
 
 
 export  async function searchPkg(req, res) {
-console.log('hhh');
-    const query = req.query.query;
-    const packages = await PackageModel.find({ name: { $regex: new RegExp(query, 'i') } });
-    console.log(packages,'pkg');
+    const key = req.query.key ?? "";
+    const category = req.query.category ?? "";
+    const packages = await PackageModel.find({ category:new RegExp(category, 'i') , name: new RegExp(key, 'i')});
     res.json({ err: false, packages })
 }

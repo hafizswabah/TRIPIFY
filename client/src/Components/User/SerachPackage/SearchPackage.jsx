@@ -1,12 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import NavBar from '../NavBar/NavBar'
-import { useLocation } from 'react-router-dom';
-
-
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import axios from 'axios';
+import { baseImgUrl } from '../../../urls';
+import Button from '@mui/material/Button';
 function SearchPackage() {
+    const [packages, setPackages] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams();
+    const key = searchParams.get('key') ?? ""
+    const category = searchParams.get('category') ?? ""
+    console.log(key)
     const location = useLocation();
-    const packages = location.state?.searchResults || [];
+    useEffect(() => {
+        (async function () {
+            let { data } = await axios.get("/user/search?key=" + key + "&category=" + category)
+            console.log(data)
+
+            console.log(data);
+            if (!data.err) {
+                setPackages(data.packages)
+            }
+        })()
+    }, [])
     return (
         <div>
             <Row>
