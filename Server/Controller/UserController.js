@@ -11,14 +11,12 @@ export async function searchPkg(req, res) {
     const key = req.query.key ?? "";
     const category = req.query.category ?? "";
     const plan = req.query.plan ?? "";
-    const packages = await PackageModel.find({ category: new RegExp(category, 'i'), name: new RegExp(key, 'i') });
-    console.log(packages);
-    if (packages != []) {
-        return res.json({ pkg: true, packages })
-    } else {
-
-        const plans = await PlanModel.find({ category: new RegExp(plan, 'i') })
+    if(plan || key){
+        const plans = await PlanModel.find({ category: new RegExp(plan, 'i') ,name:new RegExp(key,'i')})
+        console.log(plan);
         return res.json({ pkg: false, plans })
     }
+    const packages = await PackageModel.find({ category: new RegExp(category, 'i'), name: new RegExp(key, 'i') });
+    return res.json({ pkg: true, packages })
 
 }

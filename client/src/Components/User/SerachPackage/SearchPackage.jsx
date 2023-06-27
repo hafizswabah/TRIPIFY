@@ -5,8 +5,16 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { baseImgUrl } from '../../../urls';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 function SearchPackage() {
     const [packages, setPackages] = useState([])
+    const [page, setPage] =useState(1);
+    const handleChange = (event, value) => {
+      setPage(value);
+    };
     const [searchParams, setSearchParams] = useSearchParams();
     const key = searchParams.get('key') ?? ""
     const category = searchParams.get('category') ?? ""
@@ -17,7 +25,7 @@ function SearchPackage() {
             console.log(data)
             if (data.pkg) {
                 setPackages(data.packages)
-            }else{
+            } else {
                 setPackages(data.plans)
             }
         })()
@@ -44,7 +52,7 @@ function SearchPackage() {
 
                                     <Row>
                                         <Col md={6} className=" d-flex justify-content-start">
-                                            <h5 className='package-details'>{item.destination}</h5>
+                                            <h5 className='package-details'>{item.name}</h5>
                                         </Col>
                                         <Col md={6} className=" d-flex justify-content-end">
                                             <h5 className='package-details'>{item.cost}/-</h5>
@@ -69,6 +77,14 @@ function SearchPackage() {
 
                         })
                     }
+                </Row>
+                <Row>
+                    <div className="pagination d-flex justify-content-center pt-5">
+                        <Stack spacing={2}>
+                            <Typography>Page: {page}</Typography>
+                            <Pagination count={10} page={page} onChange={handleChange} />
+                        </Stack>
+                    </div>
                 </Row>
             </Container>
         </div>

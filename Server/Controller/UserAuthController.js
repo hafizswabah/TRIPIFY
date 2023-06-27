@@ -141,6 +141,7 @@ export async function userLogin(req, res) {
 }
 export async function check(req, res) {
     try {
+        console.log("checkautjhg");
       const token = req.cookies.token;
       if (!token) {
         return res.json({ loggedIn: false });
