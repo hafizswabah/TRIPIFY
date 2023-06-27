@@ -10,19 +10,20 @@ function SearchPackage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const key = searchParams.get('key') ?? ""
     const category = searchParams.get('category') ?? ""
-    console.log(key)
-    const location = useLocation();
+    const plan = searchParams.get('plan') ?? ""
     useEffect(() => {
         (async function () {
-            let { data } = await axios.get("/user/search?key=" + key + "&category=" + category)
+            let { data } = await axios.get("/user/search?key=" + key + "&category=" + category + "&plan=" + plan)
             console.log(data)
-
-            console.log(data);
-            if (!data.err) {
+            if (data.pkg) {
                 setPackages(data.packages)
+            }else{
+                setPackages(data.plans)
             }
         })()
     }, [])
+
+
     return (
         <div>
             <Row>

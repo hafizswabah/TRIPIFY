@@ -24,7 +24,7 @@ function AgencyPackage() {
   const handleModal = () => {
     setShowModal(true);
   };
-  const handleEditModal=(item)=>{
+  const handleEditModal = (item) => {
     console.log(item);
     setEditpkg(item)
     setShowEditModal(true)
@@ -104,6 +104,40 @@ function AgencyPackage() {
       }
     })
   }
+  async function handleDelete(e,id) {
+    e.preventDefault()
+    Swal.fire({
+      title: 'Delete the Package',
+      text: "Do you want to Delete the package",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: '##a8a8a8',
+      confirmButtonText: 'Yes,Delete'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setLoad(true)
+        const { data } = await axios.post("/agency/delete-package", { id });
+        if (!data.err) {
+          Swal.fire(
+            'Success!',
+            'Deleted Package succesfully',
+            'success'
+          )
+        } else {
+          Swal.fire(
+            'Failed!',
+            'Something Went Wrong',
+            'error'
+          )
+
+        }
+
+        setLoad(false)
+        setReload(!reload)
+      }
+    })
+  }
   useEffect(() => {
     (async function () {
       let { data } = await axios.get("/agency/get-packages");
@@ -135,7 +169,7 @@ function AgencyPackage() {
           <Row>
             <div className='admin-container'>
               <h5 className='p-1' style={{ fontSize: '22px', fontWeight: 300 }}>Packages</h5>
-              <Table className='table-main' responsive size="sm" style={{fontSize:".8rem"}}>
+              <Table className='table-main' responsive size="sm" style={{ fontSize: ".8rem" }}>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -181,8 +215,11 @@ function AgencyPackage() {
                                   <Dropdown.Item href='#' onClick={(e) => Deactivate(e, item._id)}>
                                     Deactivate
                                   </Dropdown.Item>
-                                  <Dropdown.Item href='#' onClick={()=>{handleEditModal(item)}}>
-                                  Edit
+                                  <Dropdown.Item href='#' onClick={() => { handleEditModal(item) }}>
+                                    Edit
+                                  </Dropdown.Item>
+                                  <Dropdown.Item href='#' onClick={(e) => { handleDelete(e,item._id) }}>
+                                    Delete
                                   </Dropdown.Item>
                                 </>
                               ) : (
@@ -202,7 +239,7 @@ function AgencyPackage() {
           </Row>
         </Col>
       </Row>
-      <EditPackageModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editpkg={editpkg}/>
+      <EditPackageModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editpkg={editpkg} />
     </div>
   );
 }

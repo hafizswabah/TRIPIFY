@@ -200,7 +200,7 @@ function HomePage() {
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=skydive"}>
+                        <Link to={"search-package?plan=DjNight"}>
                             <div className="plans dj">
                                 <Row>
                                     <Col md={5} className=" d-flex justify-content-center mt-3">
@@ -225,7 +225,7 @@ function HomePage() {
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=skydive"}>
+                        <Link to={"search-package?plan=Desertsafari"}>
                             <div className="plans desert">
                                 <Row>
                                     <Col md={5} className=" d-flex justify-content-center mt-3">
@@ -249,7 +249,7 @@ function HomePage() {
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=skydive"}>
+                        <Link to={"search-package?plan=SeaDrive"}>
                             <div className="plans sea">
                                 <Row>
                                     <Col md={5} className=" d-flex justify-content-center mt-3">
@@ -276,7 +276,7 @@ function HomePage() {
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=skydive"}>
+                        <Link to={"search-package?plan=Trucking"}>
                             <div className="plans trucking">
                                 <Row>
                                     <Col md={5} className=" d-flex justify-content-center mt-3">
@@ -300,7 +300,7 @@ function HomePage() {
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=skydive"}>
+                        <Link to={"search-package?plan=Campfire"}>
                             <div className="plans campfire">
                                 <Row>
                                     <Col md={5} className=" d-flex justify-content-center mt-3">

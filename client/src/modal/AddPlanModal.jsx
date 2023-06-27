@@ -60,12 +60,12 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
           <Row>
             <Form.Group className="mb-3" controlId="plans">
               <Form.Select className="form-select-sm" placeholder='Type' style={{ width: '100%' }} value={category} onChange={(e) => { setCategory(e.target.value) }}>
-                <option value="city">Dj Night</option>
-                <option value="adventure">Desert Safari</option>
-                <option value="djNight">Sky Dive</option>
-                <option value="djNight">Sea Drive</option>
-                <option value="djNight">Trucking</option>
-                <option value="djNight">camp Fire</option>
+                <option value="Dj Night">Dj Night</option>
+                <option value="Desert">Desert Safari</option>
+                <option value="Sky Dive">Sky Dive</option>
+                <option value="Sea Drive">Sea Drive</option>
+                <option value="Trucking">Trucking</option>
+                <option value="Camp fire">camp Fire</option>
               </Form.Select>
             </Form.Group>
           </Row>

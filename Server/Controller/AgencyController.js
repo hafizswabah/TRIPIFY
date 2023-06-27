@@ -50,3 +50,13 @@ export async function deacitvatePlan(req, res) {
     let activate = await PlanModel.findByIdAndUpdate(_id, { active:false })
     res.json({err:false,message:"activated"})
 }
+export async function deletePackage(req,res){
+    let _id=req.body.id
+    await PackageModel.findByIdAndDelete({_id})
+    res.json({err:false,message:"deleted"})
+}
+export async function deletePlan(req,res){
+    let _id=req.body.id
+    await PlanModel.findByIdAndDelete({_id})
+    res.json({err:false,message:"deleted"})
+}

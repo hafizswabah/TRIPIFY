@@ -94,6 +94,40 @@ async function Deactivate(e,id){
     }
   })
 }
+async function handleDelete(e,id) {
+  e.preventDefault()
+  Swal.fire({
+    title: 'Delete the plan',
+    text: "Do you want to Delete the plan",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'red',
+    cancelButtonColor: '##a8a8a8',
+    confirmButtonText: 'Yes,Delete'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      setLoad(true)
+      const { data } = await axios.post("/agency/delete-plan", { id });
+      if (!data.err) {
+        Swal.fire(
+          'Success!',
+          'Deleted plan succesfully',
+          'success'
+        )
+      } else {
+        Swal.fire(
+          'Failed!',
+          'Something Went Wrong',
+          'error'
+        )
+
+      }
+
+      setLoad(false)
+      setReload(!reload)
+    }
+  })
+}
   useEffect(() => {
     (async function () {
       let { data } = await axios.get("/agency/get-plans");
@@ -162,9 +196,14 @@ async function Deactivate(e,id){
 
                             <Dropdown.Menu>
                               {item.active ? (
+                                <>
                                 <Dropdown.Item href='#' onClick={(e) => Deactivate(e, item._id)}>
                                   Deactivate
                                 </Dropdown.Item>
+                                 <Dropdown.Item href='#' onClick={(e) => handleDelete(e, item._id)}>
+                                 Delete
+                               </Dropdown.Item>
+                              </>
                               ) : (
                                 <Dropdown.Item href='#' onClick={(e) => activate(e, item._id)}>
                                   Activate
