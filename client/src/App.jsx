@@ -3,7 +3,7 @@ import './App.css'
 import SignPage from './Pages/user/SignupPage'
 import LoginPage from './Pages/user/LoginPage'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import HomePage from './Pages/user/Home/HomePage'
@@ -20,13 +20,16 @@ import AgencyHomePage from './Pages/Agency/AgencyHomePage'
 import AgencyPackagePage from './Pages/Agency/AgencyPackagePage'
 import AgencyPlansPage from './Pages/Agency/AgencyPlansPage'
 import SerachPackagePage from './Pages/user/SerachPackagePage'
+import AdminPackagePage from './Pages/admin/AdminPackagesPage/AdminPackagePage'
+import PackageViewPage from './Pages/user/PackageViewPage'
 
 
 
 function App() {
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "http://localhost:8888"
+  axios.defaults.baseURL =import.meta.env.VITE_SERVER_URL;
+
 
   const { user, admin, agency, refresh } = useSelector((state) => {
     return state
@@ -56,7 +59,8 @@ function App() {
             <Route path='/signup' element={<Navigate to={"/"} />} />
             <Route path='/' element={<HomePage />} />
             <Route path='/search-package' element={<SerachPackagePage />} />
-          
+            <Route path='/package-details/:id' element={<PackageViewPage/>}/> 
+
           </>
         }
         {
@@ -76,6 +80,7 @@ function App() {
             <Route path='/admin/agency-requests' element={<AgencyRequestsPage />} />
             <Route path='/admin/agency' element={<AdminAgencyPage />} />
             <Route path='/admin/users' element={<AdminUserShowPage />} />
+            <Route path='/admin/packages' element={<AdminPackagePage />} />
           </>
         }
         {

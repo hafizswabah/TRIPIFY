@@ -149,7 +149,9 @@ function HomePage() {
                                         </Row>
                                         <Row>
                                             <div className="package-btn d-flex justify-content-center mt-2">
+                                                <Link to={`/package-details/${item._id}`}>
                                                 <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
+                                                </Link>
                                             </div>
                                         </Row>
                                     </div>

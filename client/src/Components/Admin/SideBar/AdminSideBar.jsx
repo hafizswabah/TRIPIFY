@@ -55,9 +55,9 @@ function AdminSidebar({ page, clicked }) {
           </li>
         </Link>
 
-        <Link to="/account/admin/refunds">
+        <Link to="/admin/packages">
 
-          <li className={`admin-sideitems ${page == "refund" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "package" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">

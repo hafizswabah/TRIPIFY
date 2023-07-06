@@ -46,7 +46,6 @@ export async function getAgencies(req, res) {
 export async function getUsers(req, res) {
     try {
         const users = await UserModel.find().lean()
-        console.log(users);
         res.json({ err: false, users })
     }
     catch (err) {
@@ -60,7 +59,6 @@ export async function blockUser(req, res) {
 }
 export async function unblock(req, res) {
     let { email } = req.body
-    console.log(req.body);
     let unblock = await UserModel.updateOne({ email }, { block: false })
     res.json({ err: false, message: "unblocked" })
 }
