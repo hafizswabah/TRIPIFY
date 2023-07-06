@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import MapSearchBox from '../Components/MapBox/MapSearchBox';
 
 const AddPackageModal = ({ showModal, handleCloseModal }) => {
   const [name, setName] = useState('');
-  const [destination, setDestinaton] = useState('');
+  const [destination, setDestination] = useState('');
   const [duration, setDuration] = useState('');
   const [visitPlaces, setPlaces] = useState('');
   const [totalSlots, setTotalSlot] = useState('');
@@ -17,13 +18,21 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
   const [stayBooking, setStayBooking] = useState(false)
   const [mainImage, setMainImage] = useState(null);
   const [subImages, setSubImages] = useState(null);
+  const [dayDetails, setDayDetails] = useState([]);
 
+  const handleAddDay = () => {
+    const newDayDetails = [...dayDetails, { day: '', description: '' }];
+    setDayDetails(newDayDetails);
+  };
 
+  const handleDayChange = (index, key, value) => {
+    const newDayDetails = [...dayDetails];
+    newDayDetails[index][key] = value;
+    setDayDetails(newDayDetails);
+  };
 
   async function addPackage(e) {
     e.preventDefault()
-    console.log(mainImage);
-    console.log(subImages);
     const formData = new FormData();
     formData.append('name', name);
     formData.append('destination', destination);
@@ -49,7 +58,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
         'Content-Type': 'multipart/form-data'
       }
     })
-    handleCloseModal() 
+    handleCloseModal()
   }
 
   return (
@@ -65,10 +74,10 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
                 <Form.Control type="text" placeholder="Package Name" value={name} style={{ width: '100%' }} onChange={(e) => { setName(e.target.value) }} />
               </Form.Group>
             </Col>
+          </Row>
+          <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="mainDestination">
-                <Form.Control type="text" placeholder="Main Destination" value={destination} onChange={(e) => { setDestinaton(e.target.value) }} style={{ width: '100%' }} />
-              </Form.Group>
+              <MapSearchBox setDestination={setDestination}></MapSearchBox>
             </Col>
           </Row>
           <Row>
@@ -77,6 +86,8 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
                 <Form.Control type="text" placeholder="Duration" style={{ width: '100%' }} value={duration} onChange={(e) => { setDuration(e.target.value) }} />
               </Form.Group>
             </Col>
+          </Row>
+          <Row>
             <Col>
               <Form.Group className="mb-3" controlId="plans">
                 <Form.Select className="form-select-sm" style={{ width: '100%' }} value={category} onChange={(e) => { setCategory(e.target.value) }}>
@@ -90,18 +101,16 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
               </Form.Group>
             </Col>
           </Row>
-
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="slots">
-                <Form.Control type="text" style={{ width: '100%' }} placeholder='visit places' value={visitPlaces} onChange={(e) => { setPlaces(e.target.value) }} />
+                <Form.Control type="text" style={{ width: '100%' }} placeholder='Visit Places' value={visitPlaces} onChange={(e) => { setPlaces(e.target.value) }} />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="slots">
-
                 <Form.Control type="number" placeholder='Total Slots' style={{ width: '100%' }} value={totalSlots} onChange={(e) => { setTotalSlot(e.target.value) }} />
               </Form.Group>
             </Col>
@@ -109,7 +118,6 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="slots">
-
                 <Form.Control type="number" placeholder='Per Head Cost' style={{ width: '100%' }} value={cost} onChange={(e) => { setCost(e.target.value) }} />
               </Form.Group>
             </Col>
@@ -169,6 +177,37 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
               </Form.Group>
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <Form.Label className="form-label-sm">Day Details</Form.Label>
+              {dayDetails.map((day, index) => (
+                <div key={index} className="mb-3">
+                  <Form.Control
+                    type="text"
+                    placeholder={`Day ${index + 1}`}
+                    value={day.day}
+                    onChange={(e) => handleDayChange(index, 'day', e.target.value)}
+                  />
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    placeholder="Description"
+                    value={day.description}
+                    onChange={(e) => handleDayChange(index, 'description', e.target.value)}
+                  />
+                </div>
+              ))}
+
+            </Col>
+          </Row>
+          <Row>
+            <div className="add-day-btn" style={{height:"44px"}}>
+              <Button variant="secondary" onClick={handleAddDay} className="mb-3 w-100">
+                Add Day
+              </Button>
+            </div>
+
+          </Row>
         </Form>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
@@ -182,6 +221,5 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
     </Modal>
   );
 };
-
 
 export default AddPackageModal;
