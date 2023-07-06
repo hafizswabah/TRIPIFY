@@ -66,18 +66,31 @@
   }
 
   .bookpkgbtn{
-    color: #090909;
+    color: #ffffff;
     padding: 0.7em 1.7em;
     font-size: 18px;
     border-radius: 0.5em;
-    background: #e8e8e8;
-    border: 1px solid #e8e8e8;
+    background: #0d6efd;
+    border: 1px solid #bed8ff;
     transition: all .3s;
-    box-shadow: 6px 6px 12px #c5c5c5,
-                -6px -6px 12px #ffffff;
-  }
+    box-shadow: 5px 6px 12px #a3a3a3, -6px 0px 0px #ffffff;
+}
+
   .bookpkgbtn:active{
-    color: #666;
-    box-shadow: inset 4px 4px 12px #c5c5c5,
-   inset -4px -4px 12px #ffffff;
+    color: #ffffff;
+  
+  }
+  .pkg-det{
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .pkg-details{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .pkg-desc{
+    font-size: 14px;
+    font-weight: 400;
+ letter-spacing: .5px;
+    line-height: 1.5;
   }
