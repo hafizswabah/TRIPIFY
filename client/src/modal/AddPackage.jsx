@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import MapSearchBox from '../Components/MapBox/MapSearchBox';
 
-const AddPackageModal = ({ showModal, handleCloseModal }) => {
+const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) => {
   const [name, setName] = useState('');
   const [destination, setDestination] = useState('');
   const [duration, setDuration] = useState('');
@@ -21,9 +21,25 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
   const [dayDetails, setDayDetails] = useState([]);
 
   const handleAddDay = () => {
-    const newDayDetails = [...dayDetails, { day: '', description: '' }];
+    const newDayDetails = [];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+  
+    // Calculate the number of days between start and end dates
+    const duration = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
+  
+    for (let i = 0; i < duration; i++) {
+      const dayNumber = i + 1;
+      const day = {
+        day: `Day ${dayNumber}`,
+        description: ''
+      };
+      newDayDetails.push(day);
+    }
+  
     setDayDetails(newDayDetails);
   };
+  
 
   const handleDayChange = (index, key, value) => {
     const newDayDetails = [...dayDetails];
@@ -32,7 +48,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
   };
 
   async function addPackage(e) {
-    e.preventDefault()
+    e.preventDefault();
     const formData = new FormData();
     formData.append('name', name);
     formData.append('destination', destination);
@@ -47,19 +63,27 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
     formData.append('flightBooking', flightBooking);
     formData.append('stayBooking', stayBooking);
     formData.append('mainImage', mainImage);
-
+    formData.append('dayDetails', JSON.stringify(dayDetails)); 
+  
     Object.keys(subImages).forEach((image) => {
       formData.append('subImages', subImages[image]);
     });
-
-    let { data } = await axios.post("/agency/add-package",
-      formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    handleCloseModal()
+  
+    try {
+      const response = await axios.post('/agency/add-package', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data); // Handle the response from the server
+      handlePackageAdded()
+      handleCloseModal();
+    } catch (error) {
+      console.error(error);
+      // Handle the error
+    }
   }
+  
 
   return (
     <Modal show={showModal} onHide={handleCloseModal} centered dialogClassName="modal-md">
@@ -201,7 +225,7 @@ const AddPackageModal = ({ showModal, handleCloseModal }) => {
             </Col>
           </Row>
           <Row>
-            <div className="add-day-btn" style={{height:"44px"}}>
+            <div className="add-day-btn" style={{ height: "44px" }}>
               <Button variant="secondary" onClick={handleAddDay} className="mb-3 w-100">
                 Add Day
               </Button>

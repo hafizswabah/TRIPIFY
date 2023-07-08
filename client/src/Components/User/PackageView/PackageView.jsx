@@ -23,26 +23,7 @@ function PackageView() {
     const [packages, setPackages] = useState([])
     const [value, setValue] = useState('');
     const [images, setImages] = useState([])
-    const steps = [
-        {
-            label: 'Trip Day 1',
-            description: `For each ad campaign that you create, you can control how much
-                    you're willing to spend on clicks and conversions, which networks
-                    and geographical locations you want your ads to show on, and more.`,
-        },
-        {
-            label: 'Trip Day 2',
-            description:
-                'An ad group contains one or more ads which target a shared set of keywords.',
-        },
-        {
-            label: 'Final Day',
-            description: `Try out different ad text to see what brings in the most customers,
-                    and learn how to enhance your ads using features like ad extensions.
-                    If you run into any problems with your ads, find out how to tell if
-                    they're running and how to resolve approval issues.`,
-        },
-    ];
+    const [steps, setSteps] = useState([]);
 
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -68,6 +49,12 @@ function PackageView() {
                     return { label: item.name, imgPath: baseImgUrl + item.filename }
                 })
                 setImages([{ label: data.packages.name, imgPath: baseImgUrl + data.packages.mainImage[0].filename }, ...subImages])
+                const dayDetails = data.packages.dayDetails;
+                const newSteps = dayDetails.map((day, index) => ({
+                  label: `Trip Day ${index + 1}`,
+                  description: day.description,
+                }));
+                setSteps(newSteps);
             }
         })()
     }, [])

@@ -1,13 +1,24 @@
 import PackageModel from "../Model/packageModel.js";
 import PlanModel from "../Model/PlanModal.js"
+
 export async function addPackage(req, res) {
-    console.log(req.body);
-    console.log(req.files)
-    let mainImage = req.files.mainImage
-    let subImages = req.files.subImages
-    let Package = await PackageModel.create({ ...req.body, mainImage, subImages })
-    res.json({ err: false, message: "package added succesfully" })
+  try {
+    const { dayDetails, ...otherData } = req.body;
+    const parsedDayDetails = JSON.parse(dayDetails);
+    const mainImage = req.files.mainImage;
+    const subImages = req.files.subImages;
+
+    // Save the package details to the database, including dayDetails
+    const packageData = { ...otherData, mainImage, subImages, dayDetails: parsedDayDetails };
+    const packages = await PackageModel.create(packageData);
+
+    res.json({ err: false, message: 'Package added successfully' });
+  } catch (error) {
+    console.error(error);
+    res.json({ err: true, message: 'Error adding package' });
+  }
 }
+
 export async function editPackage(req, res) {
 
     console.log('REQ',req.body);

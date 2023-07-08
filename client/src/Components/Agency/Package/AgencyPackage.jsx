@@ -17,6 +17,11 @@ function AgencyPackage() {
   const [reload, setReload] = useState(false)
   const [editpkg, setEditpkg] = useState(null)
   const [load, setLoad] = useState(false)
+
+  const handlePackageAdded = () => {
+    setReload(!reload); // Toggle the value of reload to trigger a re-render
+  };
+
   const handleClick = () => {
     setClicked(!clicked);
   };
@@ -164,7 +169,7 @@ function AgencyPackage() {
                 </Button>
               </div>
             </Container>
-            <AddPackageModal showModal={showModal} handleCloseModal={handleCloseModal} />
+            <AddPackageModal showModal={showModal} handleCloseModal={handleCloseModal} handlePackageAdded={handlePackageAdded}/>
           </Row>
           <Row>
             <div className='admin-container'>
