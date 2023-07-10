@@ -22,6 +22,8 @@ import AgencyPlansPage from './Pages/Agency/AgencyPlansPage'
 import SerachPackagePage from './Pages/user/SerachPackagePage'
 import AdminPackagePage from './Pages/admin/AdminPackagesPage/AdminPackagePage'
 import PackageViewPage from './Pages/user/PackageViewPage'
+import PlanViewPage from './Pages/user/PlanViewPage'
+import BookingsPage from './Pages/user/BookingsPage'
 
 
 
@@ -60,6 +62,9 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/search-package' element={<SerachPackagePage />} />
             <Route path='/package-details/:id' element={<PackageViewPage/>}/> 
+            <Route path='/plan-details/:id' element={<PlanViewPage/>}/> 
+            <Route path='/Bookings' element={<BookingsPage/>}/> 
+
 
           </>
         }

@@ -16,6 +16,7 @@ import { FaTelegramPlane } from 'react-icons/fa'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -156,6 +157,7 @@ function NavBar() {
             >
               Plans
             </Button>
+            <Link to={'/Bookings'}>
             <Button
               style={{ color: "rgba(55, 83, 156, 1)" }}
 
@@ -164,6 +166,8 @@ function NavBar() {
             >
               Bookings
             </Button>
+            </Link>
+      
 
           </Box>
 

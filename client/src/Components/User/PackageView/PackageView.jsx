@@ -19,11 +19,15 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import BookNow from '../../../modal/Booking/BookiNow'
+import NavBar from '../NavBar/NavBar'
 function PackageView() {
     const [packages, setPackages] = useState([])
     const [value, setValue] = useState('');
     const [images, setImages] = useState([])
     const [steps, setSteps] = useState([]);
+    const [showBookNow, setShowBookNow] = useState(false)
+    const [refresh, setRefresh] = useState(false)
 
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -68,17 +72,24 @@ function PackageView() {
 
     return (
         <>
+        <NavBar/>
             <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
-                        <aside className="col-lg-6">
+                        <aside className="">
                             <div className=" rounded-4 mb-3 d-flex justify-content-center">
 
                                 {
                                     images &&
-                                    <ImageViewer data={images} />
+                                    <ImageViewer  data={images} />
                                 }
                             </div>
+                            
+
+                        </aside>
+                    </div>
+                    <Row>
+                    <Col lg={6}>
                             <div className="stepers m-5">
                                 <Stepper activeStep={activeStep} orientation="vertical">
                                     {steps.map((step, index) => (
@@ -125,9 +136,8 @@ function PackageView() {
                                     </Paper>
                                 )}
                             </div>
-
-                        </aside>
-                        <main className="col-lg-6">
+                        </Col>
+                    <Col lg={6}>
                             <div className="ps-lg-3">
                                 <h4 className="title text-dark">
                                     {packages.name}
@@ -174,29 +184,19 @@ function PackageView() {
                                 <hr />
 
                                 <div className="row mb-4">
-                                    <div className=" mb-3 ">
-                                        <p>Tickets</p>
-                                        <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }} style={{ margin: "0px" }}>
-                                            <Input
-                                                id="standard-adornment-weight"
-                                                endAdornment={<InputAdornment position="end"></InputAdornment>}
-                                                aria-describedby="standard-weight-helper-text"
-                                                inputProps={{
-                                                    'aria-label': 'How many tickets would you like?',
-                                                }}
-                                                type='number'
-                                            />
-                                            <FormHelperText id="standard-weight-helper-text">How many tickets would you like to purchase?</FormHelperText>
-                                        </FormControl>
-
-                                    </div>
+                              
                                 </div>
-                                <button className='bookpkgbtn'> Book Package </button>
+                                <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
                             </div>
-                        </main>
-                    </div>
+                        </Col>
+                       
+                    </Row>
                 </div>
             </section>
+            {
+                            showBookNow &&
+                            <BookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} packages={packages} />
+                        }
 
         </>
     )

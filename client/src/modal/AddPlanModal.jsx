@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const AddPlanModal = ({ showModal, handleCloseModal }) => {
   const [name, setName] = useState('');
@@ -11,13 +12,47 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
   const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
   const [description, setDescription] = useState('');
-
+  const [programmeDetails, setProgrammeDetails] = useState([]);
   const [mainImage, setMainImage] = useState(null);
   const [subImages, setSubImages] = useState(null);
+  const [isEventDetailsOpen, setIsEventDetailsOpen] = useState(true);
+  const [showEventDetails, setShowEventDetails] = useState(false);
 
+
+  const addProgramDetails = () => {
+    if (isEventDetailsOpen) {
+      const newProgrammeDetails = [];
+
+      for (let i = 0; i < eventCount; i++) {
+        newProgrammeDetails.push({ event: '', description: '' });
+      }
+
+      setProgrammeDetails([...programmeDetails, ...newProgrammeDetails]);
+    }
+
+    setIsEventDetailsOpen(!isEventDetailsOpen);
+  };
+
+
+  const toggleEventDetails = () => {
+    setShowEventDetails(!showEventDetails);
+  };
+
+
+  const { agency } = useSelector((state) => {
+    return state
+  })
+  const agencyId = agency.details._id
 
   async function addPackage(e) {
     e.preventDefault()
+    let eventDetails = [];
+    if (showEventDetails) {
+      eventDetails = programmeDetails.map((programme) => ({
+        events: programme.event,
+        description: programme.description,
+      }));
+    }
     const formData = new FormData();
     formData.append('name', name);
     formData.append('location', location);
@@ -28,6 +63,8 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
     formData.append('description', description);
     formData.append('cost', cost);
     formData.append('mainImage', mainImage);
+    formData.append('agencyId', agencyId);
+    formData.append('programmeDetails', JSON.stringify(eventDetails));
 
     Object.keys(subImages).forEach((image) => {
       formData.append('subImages', subImages[image]);
@@ -38,7 +75,7 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-  
+
     })
     handleCloseModal()
   }
@@ -129,6 +166,55 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
               </Form.Group>
             </Col>
           </Row>
+          {showEventDetails &&
+            programmeDetails.map((programme, index) => (
+              <div key={index}>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3" controlId={`event-${index}`}>
+                      <Form.Control
+                        type="text"
+                        style={{ width: '100%' }}
+                        placeholder={`Event ${index + 1}`}
+                        value={programme.event}
+                        onChange={(e) => {
+                          const updatedProgrammeDetails = [...programmeDetails];
+                          updatedProgrammeDetails[index].event = e.target.value;
+                          setProgrammeDetails(updatedProgrammeDetails);
+                        }}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3" controlId={`description-${index}`}>
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        placeholder="Description"
+                        style={{ width: '100%' }}
+                        value={programme.description}
+                        onChange={(e) => {
+                          const updatedProgrammeDetails = [...programmeDetails];
+                          updatedProgrammeDetails[index].description = e.target.value;
+                          setProgrammeDetails(updatedProgrammeDetails);
+                        }}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </div>
+            ))
+          }
+
+          <Button variant="outline-secondary" onClick={toggleEventDetails}>
+            {showEventDetails ? 'Close Event Details' : 'Add Event Details'}
+          </Button>
+
+
+
+
         </Form>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">

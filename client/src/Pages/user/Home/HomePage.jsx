@@ -134,7 +134,7 @@ function HomePage() {
 
                                         <Row>
                                             <Col md={6} className=" d-flex justify-content-start">
-                                                <h5 className='package-details'>{item.destination}</h5>
+                                                <h5 className='package-details'>{item.name}</h5>
                                             </Col>
                                             <Col md={6} className=" d-flex justify-content-end">
                                                 <h5 className='package-details'>{item.cost}/-</h5>

@@ -45,7 +45,16 @@ const PlanSchema = new Mongoose.Schema({
     }, agencyId: {
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'Agency'
-    }
+    },  ProgrammeDetails: [{
+        events: {
+          type: String,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+      }],
 
 })
 const PlanModel = Mongoose.model("Plans", PlanSchema)

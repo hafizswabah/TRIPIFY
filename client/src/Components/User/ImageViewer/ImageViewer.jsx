@@ -14,7 +14,6 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 
 function ImageViewer({data}) {
-  console.log(data)
   const images = data 
   if(!data[0]) return null;
   const theme = useTheme();
@@ -34,13 +33,16 @@ function ImageViewer({data}) {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <div className='w-100 d-flex justify-content-center' style={{backgroundColor:"white"}}>
+
+    <Box sx={{ width:"100%", flexGrow: 1 }}>
       <Paper
         square
         elevation={0}
         sx={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent:"center",
           height: 50,
           pl: 2,
           bgcolor: 'background.default',
@@ -60,10 +62,11 @@ function ImageViewer({data}) {
               <Box
                 component="img"
                 sx={{
-                  height: 255,
+                  height: 355,
                   display: 'block',
-                  maxWidth: 400,
+                  maxWidth: "100%",
                   overflow: 'hidden',
+                  objectFit:"contain",
                   width: '100%',
                 }}
                 src={step.imgPath}
@@ -103,6 +106,8 @@ function ImageViewer({data}) {
         }
       />
     </Box>
+    </div>
+    
   );
 }
 

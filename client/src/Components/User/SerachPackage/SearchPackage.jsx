@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import NavBar from '../NavBar/NavBar'
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { baseImgUrl } from '../../../urls';
 import Button from '@mui/material/Button';
@@ -11,9 +11,10 @@ import Stack from '@mui/material/Stack';
 
 function SearchPackage() {
     const [packages, setPackages] = useState([])
-    const [page, setPage] =useState(1);
+    const [pkgUrl,setpkgUrl]=useState(null)
+    const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
-      setPage(value);
+        setPage(value);
     };
     const [searchParams, setSearchParams] = useSearchParams();
     const key = searchParams.get('key') ?? ""
@@ -25,8 +26,10 @@ function SearchPackage() {
             console.log(data)
             if (data.pkg) {
                 setPackages(data.packages)
+                setpkgUrl(true)
             } else {
                 setPackages(data.plans)
+                setpkgUrl(false)
             }
         })()
     }, [])
@@ -66,9 +69,9 @@ function SearchPackage() {
 
                                     </Row>
                                     <Row>
-                                        <div className="package-btn d-flex justify-content-center mt-2">
+                                    <Link to={pkgUrl ? `/package-details/${item._id}` : `/plan-details/${item._id}`}>
                                             <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
-                                        </div>
+                                        </Link>
                                     </Row>
                                 </div>
                             </Col>

@@ -1,0 +1,32 @@
+import mongoose from "mongoose"
+
+const schema = new mongoose.Schema({
+    PackageId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Package'
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    AgencyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Agency'
+    },
+    payment: {
+        type: Object,
+        default: {}
+    },
+    BookedSlots: {
+        type: Number,
+        required: true
+    },
+    
+    status: {
+        type: String,
+        default: "upcoming"
+    }
+}, { timestamps: true })
+
+const BookingModel = mongoose.model("Booking", schema)
+export default BookingModel

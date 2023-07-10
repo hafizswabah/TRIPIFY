@@ -22,6 +22,12 @@ export async function searchPkg(req, res) {
 export async function packageview(req, res) {
     const _id = req.params.id
     const packages = await PackageModel.findOne({ _id })
-    console.log(packages);
+  
     res.json({err:false,packages})
+}
+
+export async function planview(req, res) {
+    const _id = req.params.id
+    const plans = await PlanModel.findOne({ _id })
+    res.json({err:false,plans})
 }

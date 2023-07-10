@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import MapSearchBox from '../Components/MapBox/MapSearchBox';
 
 const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) => {
@@ -19,6 +20,11 @@ const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) =>
   const [mainImage, setMainImage] = useState(null);
   const [subImages, setSubImages] = useState(null);
   const [dayDetails, setDayDetails] = useState([]);
+
+  const {agency}=useSelector((state)=>{
+    return state
+  })
+  const agencyId=agency.details._id
 
   const handleAddDay = () => {
     const newDayDetails = [];
@@ -64,6 +70,7 @@ const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) =>
     formData.append('stayBooking', stayBooking);
     formData.append('mainImage', mainImage);
     formData.append('dayDetails', JSON.stringify(dayDetails)); 
+    formData.append('agencyId', agencyId); 
   
     Object.keys(subImages).forEach((image) => {
       formData.append('subImages', subImages[image]);
