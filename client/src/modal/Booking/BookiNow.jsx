@@ -56,7 +56,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages }) {
                         'Successfully Booked',
                         'success'
                     )
-                    navigate("/profile")
+                    navigate("/Bookings")
                 }
                 setShowBookNow(false)
                 setRefresh(!refresh)

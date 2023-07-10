@@ -158,16 +158,16 @@ function NavBar() {
               Plans
             </Button>
             <Link to={'/Bookings'}>
-            <Button
-              style={{ color: "rgba(55, 83, 156, 1)" }}
+              <Button
+                style={{ color: "rgba(55, 83, 156, 1)" }}
 
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              Bookings
-            </Button>
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Bookings
+              </Button>
             </Link>
-      
+
 
           </Box>
 
@@ -196,6 +196,9 @@ function NavBar() {
 
               <MenuItem onClick={handleCloseUserMenu}>
                 <Button textAlign="center" onClick={logout}>Logout</Button>
+                <Link to={"/Bookings"}>
+                  <Button textAlign="center">Profile</Button>
+                </Link>
               </MenuItem>
 
             </Menu>

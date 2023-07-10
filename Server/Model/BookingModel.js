@@ -3,11 +3,11 @@ import mongoose from "mongoose"
 const schema = new mongoose.Schema({
     PackageId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Package'
+        ref: 'Packages'
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Users'
     },
     AgencyId: {
         type: mongoose.Schema.Types.ObjectId,

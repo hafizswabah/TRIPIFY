@@ -8,7 +8,7 @@ var salt = bcrypt.genSaltSync(10)
 export async function UserSignup(req, res) {
     try {
         const { email } = req.body
-        console.log(req.body);
+     
         let user = await UserModel.findOne({ email })
         if (user) {
             return res.json({ err: true, message: 'You Already have an account Please Login' })
@@ -70,7 +70,7 @@ export async function resendOtp(req,res){
 export async function verifyUser(req, res) {
     try {
         const { name, email, password, otp, contact } = req.body
-        console.log(req.body);
+    
         const tempToken = req.cookies.tempToken
         if (!tempToken) {
             return res.json({ err: true, message: "OTP session Time Out" })
@@ -108,9 +108,9 @@ export async function verifyUser(req, res) {
 export async function userLogin(req, res) {
     try {
         const { email, password } = req.body
-        console.log(req.body);
+
         const user = await UserModel.findOne({ email })
-        console.log(user);
+    
         if (!user) {
             return res.json({ err: true, message: "User Not Found Please Signup" })
         }
@@ -141,7 +141,7 @@ export async function userLogin(req, res) {
 }
 export async function check(req, res) {
     try {
-        console.log("checkautjhg");
+     
       const token = req.cookies.token;
       if (!token) {
         return res.json({ loggedIn: false });
