@@ -2,9 +2,10 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import mapboxAPI from '../Components/MapBox/MapBoxApi';
 import MapSearchBox from '../Components/MapBox/MapSearchBox';
 
-const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) => {
+const AddPackageModal = ({ showModal, handleCloseModal, handlePackageAdded }) => {
   const [name, setName] = useState('');
   const [destination, setDestination] = useState('');
   const [duration, setDuration] = useState('');
@@ -21,19 +22,19 @@ const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) =>
   const [subImages, setSubImages] = useState(null);
   const [dayDetails, setDayDetails] = useState([]);
 
-  const {agency}=useSelector((state)=>{
+  const { agency } = useSelector((state) => {
     return state
   })
-  const agencyId=agency.details._id
+  const agencyId = agency.details._id
 
   const handleAddDay = () => {
     const newDayDetails = [];
     const start = new Date(startDate);
     const end = new Date(endDate);
-  
+
     // Calculate the number of days between start and end dates
     const duration = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
-  
+
     for (let i = 0; i < duration; i++) {
       const dayNumber = i + 1;
       const day = {
@@ -42,10 +43,10 @@ const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) =>
       };
       newDayDetails.push(day);
     }
-  
+
     setDayDetails(newDayDetails);
   };
-  
+
 
   const handleDayChange = (index, key, value) => {
     const newDayDetails = [...dayDetails];
@@ -69,21 +70,31 @@ const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) =>
     formData.append('flightBooking', flightBooking);
     formData.append('stayBooking', stayBooking);
     formData.append('mainImage', mainImage);
-    formData.append('dayDetails', JSON.stringify(dayDetails)); 
-    formData.append('agencyId', agencyId); 
-  
+    formData.append('dayDetails', JSON.stringify(dayDetails));
+    formData.append('agencyId', agencyId);
     Object.keys(subImages).forEach((image) => {
       formData.append('subImages', subImages[image]);
     });
-  
+
     try {
-      const response = await axios.post('/agency/add-package', formData, {
+      const response = await mapboxAPI.get('/geocoding/v5/mapbox.places/' + encodeURIComponent(destination) + '.json');
+  
+      const features = response.data.features;
+      if (features.length > 0) {
+        const coordinates = features[0].geometry.coordinates;
+        console.log(coordinates)
+        formData.append('location.type', 'Point');
+        formData.append('location.coordinates',JSON.stringify(coordinates));
+      }
+  
+      const packageResponse = await axios.post('/agency/add-package', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response.data); // Handle the response from the server
-      handlePackageAdded()
+  
+      console.log(packageResponse.data); // Handle the response from the server
+      handlePackageAdded();
       handleCloseModal();
     } catch (error) {
       console.error(error);
@@ -91,6 +102,7 @@ const AddPackageModal = ({ showModal, handleCloseModal ,handlePackageAdded }) =>
     }
   }
   
+
 
   return (
     <Modal show={showModal} onHide={handleCloseModal} centered dialogClassName="modal-md">

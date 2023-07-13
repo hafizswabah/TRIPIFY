@@ -11,7 +11,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages }) {
     const [count, setCount] = useState("");
     const [totalCost, setTotalCost] = useState(0);
     const [errMsg, setErrorMessage] = useState('');
-    const [remainingSlots, setRemainingSlots] = useState(packages.totalSlots);
+    const [remainingSlots, setRemainingSlots] = useState(packages.balanceSlot);
     const [err, setErr] = useState(false)
    
     const navigate = useNavigate()
@@ -86,7 +86,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages }) {
         setTotalCost(calculatedCost);
 
         // Calculate remaining slots and handle invalid count
-        const calculatedRemainingSlots = packages.totalSlots - parsedCount; // Replace 'packages.totalSlots' with the actual total slots value
+        const calculatedRemainingSlots = packages.balanceSlot - parsedCount; // Replace 'packages.totalSlots' with the actual total slots value
         if (calculatedRemainingSlots < 0) {
             setErrorMessage('Sorry we running out of slots')
             setRemainingSlots(0)

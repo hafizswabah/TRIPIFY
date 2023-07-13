@@ -53,7 +53,7 @@ export async function verifyPayment(req, res) {
                 userId
             })
             const packageUpdate=await PackageModel.findByIdAndUpdate(PackageId,
-                { $inc: { totalSlots: - BookedSlots } })          
+                { $inc: { balanceSlot: - BookedSlots } })          
             return res.json({
                 err:false, booking
             })

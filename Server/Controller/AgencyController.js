@@ -3,11 +3,13 @@ import PlanModel from "../Model/PlanModal.js"
 
 export async function addPackage(req, res) {
     try {
+        console.log(req.body);
         const { dayDetails, agencyId, ...otherData } = req.body;
         const parsedDayDetails = JSON.parse(dayDetails);
         const mainImage = req.files.mainImage;
         const subImages = req.files.subImages;
-        const packageData = { ...otherData, agencyId, mainImage, subImages, dayDetails: parsedDayDetails };
+        let coordinates=JSON.parse(req.body['location.coordinates'])
+        const packageData = { ...otherData, agencyId, mainImage, subImages, dayDetails: parsedDayDetails, location:{type:"Point",coordinates:[coordinates[0], coordinates[1]]} };
         const packages = await PackageModel.create(packageData);
         res.json({ err: false, message: 'Package added successfully' });
     } catch (error) {

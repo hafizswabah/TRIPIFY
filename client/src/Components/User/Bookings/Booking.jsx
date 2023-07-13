@@ -76,6 +76,7 @@ function Booking() {
         (
             async function () {
                 const { data } = await axios.get("/user/booking/" + userId);
+                console.log(data);
                 if (!data.err) {
                     setBookingList(data.bookings)
                 }
@@ -100,33 +101,33 @@ function Booking() {
                 <Row>
                     {
 
-                        bookingList.map((item) => {
+                        bookingList?.map((item) => {
 
-                            return <Col md={6} className='p-2'> <div className="user-booking-item" >
+                            return <Col md={12} className='p-2'> <div className="user-booking-item" >
                                 <div className="ub-dr-profile">
-                                    <img src={baseImgUrl + item.PackageId.mainImage[0].filename} alt="" />
+                                    <img src={baseImgUrl + item?.PackageId.mainImage[0].filename} alt="" />
                                 </div>
                                 <div className="ub-dr-desc">
                                     <div className="ub-dr-desc-item">
                                         <b>{item.PackageId.name}</b>
                                         <div className="mt-2">
                                             <p>Destination: </p>
-                                            <p> {item.PackageId.destination}</p>
+                                            <p> {item?.PackageId.destination}</p>
                                         </div>
                                         <div>
                                             <p>Date : </p>
-                                            <p>{new Date(item.PackageId.startDate).toLocaleDateString()} to {new Date(item.PackageId.endDate).toLocaleDateString()}</p>
+                                            <p>{new Date(item?.PackageId.startDate).toLocaleDateString()} to {new Date(item?.PackageId.endDate).toLocaleDateString()}</p>
                                         </div>
                                         <div>
                                             <p>Slots Booked : </p>
-                                            <p>{item.BookedSlots} </p>
+                                            <p>{item?.BookedSlots} </p>
                                         </div>
 
                                     </div>
 
                                 </div>
                                 <div className="cancle-bookings">
-                                    {item.status == 'upcoming' ?
+                                    {item?.status == 'upcoming' ?
                                         <Button variant="text" onClick={() => handleCancelBooking(item._id)}>Cancle Booking</Button>
                                         : <Button variant="text">Refund Processing</Button>
                                     }

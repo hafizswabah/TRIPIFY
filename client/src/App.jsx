@@ -24,6 +24,8 @@ import AdminPackagePage from './Pages/admin/AdminPackagesPage/AdminPackagePage'
 import PackageViewPage from './Pages/user/PackageViewPage'
 import PlanViewPage from './Pages/user/PlanViewPage'
 import BookingsPage from './Pages/user/BookingsPage'
+import AgnecyUsers from './Components/Agency/AgencyUsers/AgnecyUsers'
+import AgencyTrip from './Components/Agency/AgencyTrip/AgencyTrip'
 
 
 
@@ -128,6 +130,8 @@ function App() {
             <Route path='/agency/login' element={<Navigate to={"/agency"} />}></Route>
             <Route path='/agency/package' element={<AgencyPackagePage />} />
             <Route path='/agency/plans' element={<AgencyPlansPage />} />
+            <Route path='/agency/users' element={<AgnecyUsers />} />
+            <Route path='/agency/trips' element={<AgencyTrip />} />
           </>
         }
       </Routes>

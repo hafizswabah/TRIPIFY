@@ -7,13 +7,18 @@ import axios from 'axios';
 import { baseImgUrl } from '../../../urls';
 import TextField from '@mui/material/TextField';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import mapboxAPI from '../../../Components/MapBox/MapBoxApi';
 
 
 function HomePage() {
     const [age, setAge] = useState('');
     const [packages, setPackages] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('');
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+    console.log(latitude);
+    console.log(longitude);
     const navigate = useNavigate()
 
     const handleChange = (event) => {
@@ -32,10 +37,23 @@ function HomePage() {
     }, [refresh])
 
 
-
-    const handleSearch = async (key) => navigate("/search-package?key=" + key)
-
-
+    const handleSearch = async () => {
+        try {
+          const response = await mapboxAPI.get('/geocoding/v5/mapbox.places/' + encodeURIComponent(search) + '.json');
+          const features = response.data.features;
+      
+          if (features && features.length > 0) {
+            const [lng, lat] = features[0].center;
+            setLatitude(lat);
+            setLongitude(lng);
+            navigate("/search-package",{state:{lat,lng}})
+          }
+        } catch (error) {
+          console.log('Error searching for location:', error);
+        }
+      };
+      
+  
     return (
         <div className='home-main'>
             <Row>
@@ -43,10 +61,10 @@ function HomePage() {
             </Row>
             <Row>
                 <div className="home-img">
-                 <div className="headings  mt-5 pt-5 d-flex flex-column">
-                    <h1 className='text-center main-head'>Explore the World With Us</h1>
-                    <h6 className='text-center mt-2 main-sub-head'>Get Best Travel Packages With Tripify</h6>
-                 </div>
+                    <div className="headings  mt-5 pt-5 d-flex flex-column">
+                        <h1 className='text-center main-head'>Explore the World With Us</h1>
+                        <h6 className='text-center mt-2 main-sub-head'>Get Best Travel Packages With Tripify</h6>
+                    </div>
                     <div className="search-bar">
                         <Row>
                             <Col md={1} >
@@ -150,7 +168,7 @@ function HomePage() {
                                         <Row>
                                             <div className="package-btn d-flex justify-content-center mt-2">
                                                 <Link to={`/package-details/${item._id}`}>
-                                                <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
+                                                    <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
                                                 </Link>
                                             </div>
                                         </Row>
@@ -175,153 +193,153 @@ function HomePage() {
                     </Row>
                     <Row>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=skydive"}>
-                            <div className="plans sky">
-                                <Row>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='plan-details'>Sky Dive</h3>
-                                    </Col>
-                                    <Col md={7} className=" d-flex justify-content-center mt-3">
-                                    
-                                        <h3 className='plan-rate'>Starting @55,999/-</h3>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <span className='plan-info mt-4 p-5 pt-0'>
+                            <Link to={"search-package?plan=skydive"}>
+                                <div className="plans sky">
+                                    <Row>
+                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-details'>Sky Dive</h3>
+                                        </Col>
+                                        <Col md={7} className=" d-flex justify-content-center mt-3">
 
-                                        Experience the ultimate rush of freedom as you soar through the sky,
-                                        defying gravity with each heart-pounding moment. Sky Dive, the epitome of adrenaline-fueled adventure,
-                                        beckons you to embrace the extraordinary. Imagine the exhilaration as you leap from a plane, plunging into a world of endless possibilities.
-                                        The wind rushes past you, creating a symphony of excitement that resonates deep within your soul.
-                                        Your heart beats with anticipation
-                                    </span>
+                                            <h3 className='plan-rate'>Starting @55,999/-</h3>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <span className='plan-info mt-4 p-5 pt-0'>
+
+                                            Experience the ultimate rush of freedom as you soar through the sky,
+                                            defying gravity with each heart-pounding moment. Sky Dive, the epitome of adrenaline-fueled adventure,
+                                            beckons you to embrace the extraordinary. Imagine the exhilaration as you leap from a plane, plunging into a world of endless possibilities.
+                                            The wind rushes past you, creating a symphony of excitement that resonates deep within your soul.
+                                            Your heart beats with anticipation
+                                        </span>
 
 
-                                </Row>
-                            </div>
+                                    </Row>
+                                </div>
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=DjNight"}>
-                            <div className="plans dj">
-                                <Row>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='plan-details'>DJ Nights</h3>
-                                    </Col>
-                                    <Col md={7} className=" d-flex justify-content-center mt-3">
-                                    <h3 className='plan-rate'>Starting @1,999/-</h3>
-                                    </Col>
-                                </Row>
-                                <Row>
+                            <Link to={"search-package?plan=DjNight"}>
+                                <div className="plans dj">
+                                    <Row>
+                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-details'>DJ Nights</h3>
+                                        </Col>
+                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-rate'>Starting @1,999/-</h3>
+                                        </Col>
+                                    </Row>
+                                    <Row>
 
-                                    <span className='p-5 plan-info mt-4 pt-0'>
-                                        Step into a world where music pulses through the air,
-                                        creating a vibrant symphony that moves your body and ignites your spirit.
-                                        DJ Night, a euphoric celebration of beats and melodies, invites you to immerse
-                                        yourself in a nocturnal extravaganza that will leave you craving for more.
-                                        The bass reverberates through your core, syncing with the rhythm of your heartbeat.
-                                    </span>
+                                        <span className='p-5 plan-info mt-4 pt-0'>
+                                            Step into a world where music pulses through the air,
+                                            creating a vibrant symphony that moves your body and ignites your spirit.
+                                            DJ Night, a euphoric celebration of beats and melodies, invites you to immerse
+                                            yourself in a nocturnal extravaganza that will leave you craving for more.
+                                            The bass reverberates through your core, syncing with the rhythm of your heartbeat.
+                                        </span>
 
-                                </Row>
-                            </div>
+                                    </Row>
+                                </div>
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=Desertsafari"}>
-                            <div className="plans desert">
-                                <Row>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='plan-details'>Desert Safari</h3>
-                                    </Col>
-                                    <Col md={7} className=" d-flex justify-content-center mt-3">
-                                    <h3 className='plan-rate'>Starting @25,999/-</h3>
-                                    </Col>
-                                </Row>
-                                <Row>
+                            <Link to={"search-package?plan=Desertsafari"}>
+                                <div className="plans desert">
+                                    <Row>
+                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-details'>Desert Safari</h3>
+                                        </Col>
+                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-rate'>Starting @25,999/-</h3>
+                                        </Col>
+                                    </Row>
+                                    <Row>
 
-                                    <span className='p-5 plan-info mt-3'>
-                                        Desert Safari is an invitation to connect with the raw beauty of nature,
-                                        to embrace the serenity of the desert, and to create memories that will last a lifetime.
-                                        It's a journey of discovery, where you find solace in the simplicity of the vast desert
-                                        landscape and awaken your spirit to the untamed wonders that lie beyond the city's hustle and bustle.
-                                    </span>
+                                        <span className='p-5 plan-info mt-3'>
+                                            Desert Safari is an invitation to connect with the raw beauty of nature,
+                                            to embrace the serenity of the desert, and to create memories that will last a lifetime.
+                                            It's a journey of discovery, where you find solace in the simplicity of the vast desert
+                                            landscape and awaken your spirit to the untamed wonders that lie beyond the city's hustle and bustle.
+                                        </span>
 
-                                </Row>
-                            </div>
+                                    </Row>
+                                </div>
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=SeaDrive"}>
-                            <div className="plans sea">
-                                <Row>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='plan-details'>Sea Drive</h3>
-                                    </Col>
-                                    <Col md={7} className=" d-flex justify-content-center mt-3">
-                                    <h3 className='plan-rate'>Starting @15,999/-</h3>
-                                    </Col>
-                                </Row>
-                                <Row>
+                            <Link to={"search-package?plan=SeaDrive"}>
+                                <div className="plans sea">
+                                    <Row>
+                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-details'>Sea Drive</h3>
+                                        </Col>
+                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-rate'>Starting @15,999/-</h3>
+                                        </Col>
+                                    </Row>
+                                    <Row>
 
-                                    <span className='p-5 plan-info mt-3'>
-                                        Sea Drive is more than just a journey;
-                                        it's an invitation to connect with the raw power and breathtaking beauty of the ocean.
-                                        It's an opportunity to immerse yourself in nature's embrace,
-                                        to witness the harmony of life beneath the waves,
-                                        and to cultivate a profound appreciation for the fragile
-                                        ecosystem that exists beneath the surface. Get Your Sloats
+                                        <span className='p-5 plan-info mt-3'>
+                                            Sea Drive is more than just a journey;
+                                            it's an invitation to connect with the raw power and breathtaking beauty of the ocean.
+                                            It's an opportunity to immerse yourself in nature's embrace,
+                                            to witness the harmony of life beneath the waves,
+                                            and to cultivate a profound appreciation for the fragile
+                                            ecosystem that exists beneath the surface. Get Your Sloats
 
-                                    </span>
+                                        </span>
 
-                                </Row>
-                            </div>
+                                    </Row>
+                                </div>
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=Trucking"}>
-                            <div className="plans trucking">
-                                <Row>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='plan-details'>Trucking</h3>
-                                    </Col>
-                                    <Col md={7} className=" d-flex justify-content-center mt-3">
-                                    <h3 className='plan-rate'>Starting @4,999/-</h3>
-                                    </Col>
-                                </Row>
-                                <Row>
+                            <Link to={"search-package?plan=Trucking"}>
+                                <div className="plans trucking">
+                                    <Row>
+                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-details'>Trucking</h3>
+                                        </Col>
+                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-rate'>Starting @4,999/-</h3>
+                                        </Col>
+                                    </Row>
+                                    <Row>
 
-                                    <span className='p-5 plan-info mt-3'>
-                                        Trucking to the Mountain is just a thrilling ride;
-                                        it's an immersive experience that connects you with the raw power and majesty of the natural world.
-                                        It's an opportunity to leave the constraints of daily life behind, to embrace the freedom of the open road,
-                                        and to witness firsthand the awe-inspiring beauty that lies beyond the urban landscape.Book Your Slot with Our Expirienced Trainers
-                                    </span>
+                                        <span className='p-5 plan-info mt-3'>
+                                            Trucking to the Mountain is just a thrilling ride;
+                                            it's an immersive experience that connects you with the raw power and majesty of the natural world.
+                                            It's an opportunity to leave the constraints of daily life behind, to embrace the freedom of the open road,
+                                            and to witness firsthand the awe-inspiring beauty that lies beyond the urban landscape.Book Your Slot with Our Expirienced Trainers
+                                        </span>
 
-                                </Row>
-                            </div>
+                                    </Row>
+                                </div>
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                        <Link to={"search-package?plan=Campfire"}>
-                            <div className="plans campfire">
-                                <Row>
-                                    <Col md={5} className=" d-flex justify-content-center mt-3">
-                                        <h3 className='plan-details'>Camp Fire</h3>
-                                    </Col>
-                                    <Col md={7} className=" d-flex justify-content-center mt-3">
-                                    <h3 className='plan-rate'>Starting @2,999/-</h3>
-                                    </Col>
-                                </Row>
-                                <Row>
+                            <Link to={"search-package?plan=Campfire"}>
+                                <div className="plans campfire">
+                                    <Row>
+                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-details'>Camp Fire</h3>
+                                        </Col>
+                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                            <h3 className='plan-rate'>Starting @2,999/-</h3>
+                                        </Col>
+                                    </Row>
+                                    <Row>
 
-                                    <span className='p-5 plan-info mt-3'>
-                                        Campfire is more than just a gathering of flames; it's a timeless ritual that connects us to nature,
-                                        to each other, and to the depths of our own souls. It's a place where stories are shared, laughter is born,
-                                        and memories are etched into the fabric of our lives.so get your tickets as soon as possible
-                                    </span>
+                                        <span className='p-5 plan-info mt-3'>
+                                            Campfire is more than just a gathering of flames; it's a timeless ritual that connects us to nature,
+                                            to each other, and to the depths of our own souls. It's a place where stories are shared, laughter is born,
+                                            and memories are etched into the fabric of our lives.so get your tickets as soon as possible
+                                        </span>
 
-                                </Row>
-                            </div>
+                                    </Row>
+                                </div>
                             </Link>
                         </Col>
 

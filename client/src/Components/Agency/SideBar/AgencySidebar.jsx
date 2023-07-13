@@ -1,6 +1,6 @@
 import React from 'react'
 import './Sidebar.css'
-import { RiBankLine, RiBarChart2Line, RiBuilding4Line, RiFileWarningLine, RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
+import { RiBankLine, RiBarChart2Line, RiBuilding4Line,RiPlaneLine, RiBankCard2Line,RiAuctionFill,RiAuctionLine,RiFileWarningLine,RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 
 function AgencySidebar({ page, clicked }) {
@@ -29,7 +29,7 @@ function AgencySidebar({ page, clicked }) {
             <div className='side'></div>
             <div className="admin-sideItem">
 
-              <RiRefundLine className='icon' />
+              <RiBankCard2Line className='icon' />
               <span>Packages</span>
             </div>
           </li>
@@ -41,12 +41,12 @@ function AgencySidebar({ page, clicked }) {
             <div className='side'></div>
             <div className="admin-sideItem">
 
-              <RiHospitalLine className='icon' />
+              <RiAuctionLine className='icon' />
               <span>Plans</span>
             </div>
           </li>
         </Link>
-        <Link to="/admin/users">
+        <Link to="/agency/users">
 
           <li className={`admin-sideitems ${page == "user" && 'active'}`}>
 
@@ -59,21 +59,21 @@ function AgencySidebar({ page, clicked }) {
           </li>
         </Link>
 
-        <Link to="/account/admin/complaints">
+        <Link to="/agency/trips">
 
-          <li className={`admin-sideitems ${page == "complaints" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "trips" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">
 
-              <RiFileWarningLine className='icon' />
+              <RiPlaneLine className='icon' />
               <span>Trips</span>
             </div>
           </li>
         </Link>
-        <Link to="/account/admin/withdrawals">
+        <Link to="/agency/bookings">
 
-          <li className={`admin-sideitems ${page == "withdrawals" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "bookings" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -83,7 +83,7 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/account/admin/reports">
+        <Link to="/agency/reports">
 
           <li className={`admin-sideitems ${page == "report" && 'active'}`}>
 

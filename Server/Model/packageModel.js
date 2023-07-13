@@ -9,6 +9,17 @@ const PackageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true,
+    },
+    coordinates: {
+      type: Array,
+      required: true,
+    },
+  },
   duration: {
     type: String,
     required: true,
@@ -20,6 +31,12 @@ const PackageSchema = new mongoose.Schema({
   totalSlots: {
     type: Number,
     required: true,
+  },
+  balanceSlot: {
+    type: Number,
+    default: function() {
+      return this.totalSlots;
+    }
   },
   cost: {
     type: Number,
