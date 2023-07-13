@@ -28,7 +28,7 @@ function SearchPackage() {
     const { RangePicker } = DatePicker;
     const location = useLocation()
     console.log(location, 'location');
-    const [latitude, setLatitude] = useState(location.state.lat)
+    const [latitude, setLatitude] = useState(location.state.lat )
     const [longitude, setLongitude] = useState(location.state.lng)
     console.log('hiiiii', latitude, longitude);
     const handleSelectPrice = (event) => {
@@ -55,7 +55,7 @@ function SearchPackage() {
     const category = searchParams.get('category') ?? ""
     const plan = searchParams.get('plan') ?? ""
 
-
+console.log();
     // useEffect(() => {
     //     (async function () {
     //         let { data } = await axios.get("/user/search?key=" + key + "&category=" + category + "&plan=" + plan)

@@ -22,7 +22,7 @@ function AgencyTrip() {
         })()
 
     }, [refresh])
-  
+
     return (
         <div>
             <AgencyHeader handleClick={handleClick} />
@@ -41,20 +41,45 @@ function AgencyTrip() {
                                     <th>Date</th>
                                     <th>Destination</th>
                                     <th>Bookings</th>
+                                    <th>Balance Slot</th>
                                     <th>status</th>
-                                    <th>option</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    trips?.map((item, index) => (
-                                        <tr key={index}>
-                                            <td>{index+1}</td>
-                                            <td>{item.name}</td>
-                                            <td>{new Date(item.startDate).toLocaleDateString()} To {new Date(item.endDate).toLocaleDateString()}</td>
-                                            <td>{item.destination}</td>
-                                        </tr>
-                                    ))
+                                    trips?.map((item, index) => {
+                                        const currentDate = new Date();
+                                        const startDate = new Date(item.startDate);
+                                        const endDate = new Date(item.endDate);
+                                        let status = "";
+                                        let clr = "";
+
+                                        if (currentDate >= startDate && currentDate <= endDate) {
+                                            status = "Ongoing";
+                                            clr = "yellow";
+                                        } else if (currentDate < startDate) {
+                                            const timeDiff = startDate.getTime() - currentDate.getTime();
+                                            const daysCount = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                                            status = `${daysCount} days left`;
+                                            clr = "orange";
+                                        } else {
+                                            status = "Completed";
+                                            clr = "green";
+                                        }
+
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{item.name}</td>
+                                                <td>{startDate.toLocaleDateString()} To {endDate.toLocaleDateString()}</td>
+                                                <td>{item.destination}</td>
+                                                <td style={{color:"green",fontWeight:"500"}}>{item.totalSlots - item.balanceSlot} Bookings</td>
+                                                <td style={{color:"red",fontWeight:"500"}}>{item.balanceSlot} Slot</td>
+                                                <td style={{ color: clr ,fontWeight:"600"}}>{status}</td>
+                                            </tr>
+                                        );
+                                    })
                                 }
                             </tbody>
                         </Table>

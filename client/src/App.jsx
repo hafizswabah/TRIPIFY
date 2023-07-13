@@ -26,6 +26,7 @@ import PlanViewPage from './Pages/user/PlanViewPage'
 import BookingsPage from './Pages/user/BookingsPage'
 import AgnecyUsers from './Components/Agency/AgencyUsers/AgnecyUsers'
 import AgencyTrip from './Components/Agency/AgencyTrip/AgencyTrip'
+import AgencyBookings from './Components/Agency/AgencyBookings/AgencyBookings'
 
 
 
@@ -132,6 +133,7 @@ function App() {
             <Route path='/agency/plans' element={<AgencyPlansPage />} />
             <Route path='/agency/users' element={<AgnecyUsers />} />
             <Route path='/agency/trips' element={<AgencyTrip />} />
+            <Route path='/agency/bookings' element={<AgencyBookings />} />
           </>
         }
       </Routes>

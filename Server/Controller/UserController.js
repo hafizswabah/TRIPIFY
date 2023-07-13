@@ -50,3 +50,7 @@ export async function cancelBooking(req, res) {
         res.json({ err: true, error, message: "something went wrong" })
     }
 }
+export async function findPackages(req,res){
+    let category=req.query.category
+    console.log(req.query);
+}
