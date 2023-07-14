@@ -11,39 +11,30 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
   const [totalSlots, setTotalSlot] = useState('');
   const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
+  const [events, setEvenets] = useState('');
   const [description, setDescription] = useState('');
   const [programmeDetails, setProgrammeDetails] = useState([]);
   const [mainImage, setMainImage] = useState(null);
   const [subImages, setSubImages] = useState(null);
   const [isEventDetailsOpen, setIsEventDetailsOpen] = useState(true);
   const [showEventDetails, setShowEventDetails] = useState(false);
-
-
-  const addProgramDetails = () => {
-    if (isEventDetailsOpen) {
-      const newProgrammeDetails = [];
-
-      for (let i = 0; i < eventCount; i++) {
-        newProgrammeDetails.push({ event: '', description: '' });
-      }
-
-      setProgrammeDetails([...programmeDetails, ...newProgrammeDetails]);
-    }
-
-    setIsEventDetailsOpen(!isEventDetailsOpen);
-  };
-
-
-  const toggleEventDetails = () => {
-    setShowEventDetails(!showEventDetails);
-  };
-
+  const [eventCount, setEventCount] = useState(1);
 
   const { agency } = useSelector((state) => {
     return state
   })
   const agencyId = agency.details._id
 
+  const addEventDetails = () => {
+    setEventCount(eventCount + 1);
+    setProgrammeDetails([...programmeDetails, { event: '', description: '' }]);
+  };
+
+  const removeEventDetails = (index) => {
+    const updatedProgrammeDetails = [...programmeDetails];
+    updatedProgrammeDetails.splice(index, 1);
+    setProgrammeDetails(updatedProgrammeDetails);
+  };
   async function addPackage(e) {
     e.preventDefault()
     let eventDetails = [];
@@ -138,6 +129,13 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="slots">
+                <Form.Control type="number" style={{ width: '100%' }} placeholder='Events' value={events} onChange={(e) => { setEvenets(e.target.value) }} />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Group className="mb-3" controlId="slots">
                 <Form.Control type="number" style={{ width: '100%' }} placeholder='Per Head Cost' value={cost} onChange={(e) => { setCost(e.target.value) }} />
               </Form.Group>
             </Col>
@@ -166,7 +164,7 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
               </Form.Group>
             </Col>
           </Row>
-          {showEventDetails &&
+          {
             programmeDetails.map((programme, index) => (
               <div key={index}>
                 <Row>
@@ -203,15 +201,26 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
                       />
                     </Form.Group>
                   </Col>
+
+                </Row>
+                <Row>
+                  <Col md={8} className='d-flex justify-content-center align-item-center'>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => removeEventDetails(index)}
+                      
+                    >
+                      Close
+                    </Button>
+                  </Col>
                 </Row>
               </div>
             ))
           }
 
-          <Button variant="outline-secondary" onClick={toggleEventDetails}>
-            {showEventDetails ? 'Close Event Details' : 'Add Event Details'}
+          <Button variant="outline-secondary" onClick={addEventDetails}>
+            Add Event Details
           </Button>
-
 
 
 

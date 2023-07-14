@@ -11,7 +11,6 @@ import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 import { TextField } from '@mui/material';
 import { DatePicker, Space } from 'antd';
 import mapboxAPI from '../../MapBox/MapBoxApi';
@@ -24,25 +23,21 @@ function SearchPackage() {
     const [date, setDate] = React.useState(null);
     const [price, setPrice] = React.useState('');
     const [dates, setDates] = useState([])
-
     const { RangePicker } = DatePicker;
     const location = useLocation()
     console.log(location, 'location');
-    const [latitude, setLatitude] = useState(location.state.lat )
-    const [longitude, setLongitude] = useState(location.state.lng)
-    console.log('hiiiii', latitude, longitude);
+    const [latitude, setLatitude] = useState(location.state?.lat || 0);
+    const [longitude, setLongitude] = useState(location.state?.lng || 0)
+    console.log('Coordinates', latitude, longitude);
+
     const handleSelectPrice = (event) => {
         const selectedPrice = event.target.value;
-
-        // Sort the packages based on the selected price option
         let sortedPackages = [...pack];
         if (selectedPrice === -1) {
             sortedPackages.sort((a, b) => a.cost - b.cost); // Sort in ascending order
         } else if (selectedPrice === 1) {
             sortedPackages.sort((a, b) => b.cost - a.cost); // Sort in descending order
         }
-
-        // Update the state with sorted packages
         setPack(sortedPackages);
         setPrice(selectedPrice);
     };
@@ -55,21 +50,19 @@ function SearchPackage() {
     const category = searchParams.get('category') ?? ""
     const plan = searchParams.get('plan') ?? ""
 
-console.log();
-    // useEffect(() => {
-    //     (async function () {
-    //         let { data } = await axios.get("/user/search?key=" + key + "&category=" + category + "&plan=" + plan)
-    //         console.log(data)
-    //         if (data.pkg) {
-    //             setPackages(data.packages)
-    //             setAllData(data.packages)
-    //             setpkgUrl(true)
-    //         } else {
-    //             setPackages(data.plans)
-    //             setpkgUrl(false)
-    //         }
-    //     })()
-    // }, [])
+    useEffect(() => {
+        (async function () {
+            let { data } = await axios.get("/user/search-packages?category="+ category + "&plan=" + plan)
+            if (data.pkg) {
+                setPack(data.packages)
+                setAllData(data.packages)
+                setpkgUrl(true)
+            } else {
+                setPack(data.plans)
+                setpkgUrl(false)
+            }
+        })()
+    }, [])
 
 
     useEffect(() => {
@@ -87,14 +80,14 @@ console.log();
     }, [date])
 
     useEffect(() => {
-        if (latitude && longitude) {
+        if (latitude !== 0 && longitude !== 0) {
             axios
                 .get('/user/search')
                 .then((response) => {
                     const packages = response.data.packages;
-                    const promises = packages.map((mechanic) => {
-                        const location = mechanic.destination;
-                        console.log('loc', mechanic.destination);
+                    const promises = packages.map((item) => {
+                        const location = item.destination;
+                        console.log('loc', item.destination);
 
                         return mapboxAPI.get(
                             `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json`,
@@ -112,9 +105,9 @@ console.log();
                                 const distance = calculateDistance(userLocation, coordinates);
                                 console.log('hello', distance);
                                 if (distance <= 200000) {
-                                    mechanic.distance = (distance / 1000).toFixed(1);
-                                    console.log("DISTANCE :", mechanic);
-                                    return mechanic;
+                                    item.distance = (distance / 1000).toFixed(1);
+                                    console.log("DISTANCE :", item);
+                                    return item;
                                 }
                             }
                             return null;
@@ -123,7 +116,7 @@ console.log();
 
                     Promise.all(promises)
                         .then((results) => {
-                            const filteredMechanics = results.filter((mechanic) => mechanic !== null);
+                            const filteredMechanics = results.filter((item) => item !== null);
                             setPack([...pack, ...filteredMechanics]);
                         })
                         .catch((err) => console.log(err));

@@ -7,12 +7,8 @@ export async function GetPkg(req, res) {
     res.json({ err: false, packages })
 }
 export async function searchPkg(req, res) {
- 
-  
-  const packages = await PackageModel.find().lean();
-  
-  console.log('Packages:', packages);
-  
+   const packages = await PackageModel.find().lean();
+  console.log('location search get all pkk');
   return res.json({ packages });
 }
 export async function packageview(req, res) {
@@ -52,5 +48,7 @@ export async function cancelBooking(req, res) {
 }
 export async function findPackages(req,res){
     let category=req.query.category
-    console.log(req.query);
+   let packages=await PackageModel.find({category:category})
+
+   return res.json({err:false,packages})
 }

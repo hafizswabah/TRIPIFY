@@ -5,7 +5,7 @@ import {cancelBooking, findPackages, GetPkg,getuserBooking,packageview,planview,
 const router=express.Router()
 router.get("/get-pkg",GetPkg)
 router.get('/search',searchPkg)
-router.get('/search-packages?category',findPackages)
+router.get('/search-packages',findPackages)
 router.get("/package-view/:id",packageview)
 router.get("/plan-view/:id",planview)
 router.post("/payment",paymentOrder)
