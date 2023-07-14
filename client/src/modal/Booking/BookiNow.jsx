@@ -6,7 +6,7 @@ import './BookNow.css'
 import Swal from 'sweetalert2'
 import { TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-function BookNow({ setShowBookNow, refresh, setRefresh, packages }) {
+function BookNow({ setShowBookNow, refresh, setRefresh, packages ,planStatus}) {
 
     const [count, setCount] = useState("");
     const [totalCost, setTotalCost] = useState(0);
@@ -22,12 +22,21 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages }) {
         return state
       })
       const userId=user.details._id
-      const PackageId=packages._id
+ 
+
+      let PlanId;
+      let PackageId;
+      
+      if (planStatus) {
+        PlanId = packages._id;
+      } else {
+        PackageId = packages._id;
+      }
       const AgencyId=packages.agencyId
     useEffect(() => {
 
     }, [])
-
+console.log(planStatus);
     const handleBooking = async () => {
         const { data } = await axios.post("/user/payment", { totalCost:totalCost });
         if (!data.err) {
@@ -43,7 +52,8 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages }) {
             description: "Test Transaction",
             order_id: order.id,
             handler: async (response) => {
-                const { data } = await axios.post("/user/payment/verify", { response,userId,PackageId,BookedSlots:count,AgencyId});
+                const idToSend = planStatus ? PlanId : PackageId;
+                const { data } = await axios.post("/user/payment/verify", { response,userId,idToSend,BookedSlots:count,AgencyId});
                 if (data.err) {
                     Swal.fire({
                         icon: 'error',

@@ -14,7 +14,9 @@ function AgencyPlans() {
   const [plans, setPlans] = useState([]);
   const[reload,setReload]=useState(false)
   const[load,setLoad]=useState(false)
-
+const handleplanAdded=()=>{
+  setReload(!reload)
+}
   const handleClick = () => {
     setClicked(!clicked);
   };
@@ -154,7 +156,7 @@ async function handleDelete(e,id) {
                 </Button>
               </div>
             </Container>
-            <AddPlanModal showModal={showModal} handleCloseModal={handleCloseModal} />
+            <AddPlanModal showModal={showModal} handleCloseModal={handleCloseModal} handleplanAdded={handleplanAdded}/>
           </Row>
           <Row>
             <div className='admin-container'>

@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import { TextField } from '@mui/material';
 import { DatePicker, Space } from 'antd';
 import mapboxAPI from '../../MapBox/MapBoxApi';
+
 import { Select } from 'antd';
 function SearchPackage() {
     const [pack, setPack] = useState([])
@@ -29,7 +30,7 @@ function SearchPackage() {
     const [latitude, setLatitude] = useState(location.state?.lat || 0);
     const [longitude, setLongitude] = useState(location.state?.lng || 0)
     console.log('Coordinates', latitude, longitude);
-
+console.log(pack,'pkkk');
     const handleSelectPrice = (event) => {
         const selectedPrice = event.target.value;
         let sortedPackages = [...pack];
@@ -53,11 +54,14 @@ function SearchPackage() {
     useEffect(() => {
         (async function () {
             let { data } = await axios.get("/user/search-packages?category="+ category + "&plan=" + plan)
+            console.log(data,'dt');
             if (data.pkg) {
+                console.log('hhh');
                 setPack(data.packages)
                 setAllData(data.packages)
                 setpkgUrl(true)
             } else {
+                console.log('ggg');
                 setPack(data.plans)
                 setpkgUrl(false)
             }
@@ -65,65 +69,65 @@ function SearchPackage() {
     }, [])
 
 
-    useEffect(() => {
-        if (date) {
-            let result = pack?.filter((item) => {
-                console.log(item.startDate, new Date(item.startDate) >= new Date(date.start), new Date(item.startDate) <= new Date(date.end))
-                console.log(item.startDate, new Date(date.start), new Date(date.end))
-                return (
-                    new Date(item.startDate) >= new Date(date.start) &&
-                    new Date(item.startDate) <= new Date(date.end)
-                );
-            });
-            setPack(result)
-        }
-    }, [date])
+    // useEffect(() => {
+    //     if (date) {
+    //         let result = pack?.filter((item) => {
+    //             console.log(item.startDate, new Date(item.startDate) >= new Date(date.start), new Date(item.startDate) <= new Date(date.end))
+    //             console.log(item.startDate, new Date(date.start), new Date(date.end))
+    //             return (
+    //                 new Date(item.startDate) >= new Date(date.start) &&
+    //                 new Date(item.startDate) <= new Date(date.end)
+    //             );
+    //         });
+    //         setPack(result)
+    //     }
+    // }, [date])
 
-    useEffect(() => {
-        if (latitude !== 0 && longitude !== 0) {
-            axios
-                .get('/user/search')
-                .then((response) => {
-                    const packages = response.data.packages;
-                    const promises = packages.map((item) => {
-                        const location = item.destination;
-                        console.log('loc', item.destination);
+    // useEffect(() => {
+    //     if (latitude !== 0 && longitude !== 0) {
+    //         axios
+    //             .get('/user/search')
+    //             .then((response) => {
+    //                 const packages = response.data.packages;
+    //                 const promises = packages.map((item) => {
+    //                     const location = item.destination;
+    //                     console.log('loc', item.destination);
 
-                        return mapboxAPI.get(
-                            `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json`,
-                            {
-                                params: {
-                                    access_token: 'pk.eyJ1Ijoic2hpamFzMDkiLCJhIjoiY2xpaXUyZHQzMDFzeDNlcGEwbHd6ejJmOCJ9.TZzIUmMeUTVSKfdqqSWgWg',
-                                    limit: 1,
-                                },
-                            }
-                        ).then((geocodingResponse) => {
-                            const features = geocodingResponse.data.features;
-                            if (features.length > 0) {
-                                const coordinates = features[0].geometry.coordinates;
-                                const userLocation = [longitude, latitude];
-                                const distance = calculateDistance(userLocation, coordinates);
-                                console.log('hello', distance);
-                                if (distance <= 200000) {
-                                    item.distance = (distance / 1000).toFixed(1);
-                                    console.log("DISTANCE :", item);
-                                    return item;
-                                }
-                            }
-                            return null;
-                        });
-                    });
+    //                     return mapboxAPI.get(
+    //                         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json`,
+    //                         {
+    //                             params: {
+    //                                 access_token: 'pk.eyJ1Ijoic2hpamFzMDkiLCJhIjoiY2xpaXUyZHQzMDFzeDNlcGEwbHd6ejJmOCJ9.TZzIUmMeUTVSKfdqqSWgWg',
+    //                                 limit: 1,
+    //                             },
+    //                         }
+    //                     ).then((geocodingResponse) => {
+    //                         const features = geocodingResponse.data.features;
+    //                         if (features.length > 0) {
+    //                             const coordinates = features[0].geometry.coordinates;
+    //                             const userLocation = [longitude, latitude];
+    //                             const distance = calculateDistance(userLocation, coordinates);
+    //                             console.log('hello', distance);
+    //                             if (distance <= 200000) {
+    //                                 item.distance = (distance / 1000).toFixed(1);
+    //                                 console.log("DISTANCE :", item);
+    //                                 return item;
+    //                             }
+    //                         }
+    //                         return null;
+    //                     });
+    //                 });
 
-                    Promise.all(promises)
-                        .then((results) => {
-                            const filteredMechanics = results.filter((item) => item !== null);
-                            setPack([...pack, ...filteredMechanics]);
-                        })
-                        .catch((err) => console.log(err));
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [latitude, longitude]);
+    //                 Promise.all(promises)
+    //                     .then((results) => {
+    //                         const filteredMechanics = results.filter((item) => item !== null);
+    //                         setPack([...pack, ...filteredMechanics]);
+    //                     })
+    //                     .catch((err) => console.log(err));
+    //             })
+    //             .catch((err) => console.log(err));
+    //     }
+    // }, [latitude, longitude]);
 
     function calculateDistance(coord1, coord2) {
         const [lon1, lat1] = coord1;
@@ -188,10 +192,11 @@ function SearchPackage() {
 
                 </Row>
                 <Row>
+
                     {
                         pack?.map((item) => {
 
-                            return <Col md={3} className=" d-flex justify-content-center pkg-card">
+                            return <Col md={3} className=" d-flex justify-content-center pkg-card mt-5">
                                 <div className="packages himalaya" style={{ backgroundImage: `url(${baseImgUrl + item.mainImage[0].filename})` }}>
 
                                     <Row>
@@ -210,7 +215,7 @@ function SearchPackage() {
 
                                     </Row>
                                     <Row>
-                                        <Link to={'/package-details/' + item._id} >
+                                        <Link to={pkgUrl ? '/package-details/' + item._id :'/plan-details/'+item._id} >
                                             <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
                                         </Link>
                                     </Row>

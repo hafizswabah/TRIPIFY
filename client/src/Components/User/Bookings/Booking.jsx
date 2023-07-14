@@ -105,18 +105,18 @@ function Booking() {
 
                             return <Col md={12} className='p-2'> <div className="user-booking-item" >
                                 <div className="ub-dr-profile">
-                                    <img src={baseImgUrl + item?.PackageId.mainImage[0].filename} alt="" />
+                                    <img src={baseImgUrl + item?.PackageId?.mainImage[0].filename} alt="" />
                                 </div>
                                 <div className="ub-dr-desc">
                                     <div className="ub-dr-desc-item">
-                                        <b>{item.PackageId.name}</b>
+                                        <b>{item.PackageId?.name}</b>
                                         <div className="mt-2">
                                             <p>Destination: </p>
-                                            <p> {item?.PackageId.destination}</p>
+                                            <p> {item?.PackageId?.destination}</p>
                                         </div>
                                         <div>
                                             <p>Date : </p>
-                                            <p>{new Date(item?.PackageId.startDate).toLocaleDateString()} to {new Date(item?.PackageId.endDate).toLocaleDateString()}</p>
+                                            <p>{new Date(item?.PackageId?.startDate).toLocaleDateString()} to {new Date(item?.PackageId?.endDate).toLocaleDateString()}</p>
                                         </div>
                                         <div>
                                             <p>Slots Booked : </p>

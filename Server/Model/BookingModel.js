@@ -5,6 +5,10 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Packages'
     },
+    PlanId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Plans'
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'

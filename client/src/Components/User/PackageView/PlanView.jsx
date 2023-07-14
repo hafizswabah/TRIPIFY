@@ -19,14 +19,17 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import NavBar from '../NavBar/NavBar'
+import BookNow from '../../../modal/Booking/BookiNow'
 function PlanView() {
     const [plans, setPlans] = useState([])
     const [value, setValue] = useState('');
     const [images, setImages] = useState([])
     const [steps, setSteps] = useState([]);
-
+    const [showBookNow, setShowBookNow] = useState(false)
+    const [refresh, setRefresh] = useState(false)
     const [activeStep, setActiveStep] = React.useState(0);
-
+    const planStatus = true
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -49,15 +52,16 @@ function PlanView() {
                     return { label: item.name, imgPath: baseImgUrl + item.filename }
                 })
                 setImages([{ label: data.plans.name, imgPath: baseImgUrl + data.plans.mainImage[0].filename }, ...subImages])
-                // const dayDetails = data.packages.dayDetails;
-                // const newSteps = dayDetails.map((day, index) => ({
-                //   label: `Trip Day ${index + 1}`,
-                //   description: day.description,
-                // }));
-                // setSteps(newSteps);
+                const eventDetails = data.plans.ProgrammeDetails;
+                const newSteps = eventDetails.map((event, index) => ({
+                    label: event.events,
+                    description: event.description,
+                }));
+                setSteps(newSteps);
             }
-        })()},[])
-    // }, [])
+        })()
+    }, [])
+
     // const formattedStartDate = new Date(packages.startDate).toLocaleDateString();
     // const formattedEndDate = new Date(packages.endDate).toLocaleDateString()
 
@@ -66,12 +70,14 @@ function PlanView() {
 
 
 
+
     return (
         <>
+            <NavBar />
             <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
-                        <aside className="col-lg-6">
+                        <aside className="">
                             <div className=" rounded-4 mb-3 d-flex justify-content-center">
 
                                 {
@@ -79,7 +85,13 @@ function PlanView() {
                                     <ImageViewer data={images} />
                                 }
                             </div>
-                            {/* <div className="stepers m-5">
+
+
+                        </aside>
+                    </div>
+                    <Row>
+                        <Col lg={6}>
+                            <div className="stepers m-5">
                                 <Stepper activeStep={activeStep} orientation="vertical">
                                     {steps.map((step, index) => (
                                         <Step key={step.label}>
@@ -93,7 +105,7 @@ function PlanView() {
                                                 {step.label}
                                             </StepLabel>
                                             <StepContent>
-                                                <Typography style={{fontSize:"11px",fontWeight:'400'}}>{step.description}</Typography>
+                                                <Typography style={{ fontSize: "11px", fontWeight: '400' }}>{step.description}</Typography>
                                                 <Box sx={{ mb: 2 }}>
                                                     <div>
                                                         <Button
@@ -118,16 +130,15 @@ function PlanView() {
                                 </Stepper>
                                 {activeStep === steps.length && (
                                     <Paper square elevation={0} sx={{ p: 3 }}>
-                                        <Typography style={{fontSize:"14px",fontWeight:'600'}}>Complted Your Journey OverView</Typography>
+                                        <Typography style={{ fontSize: "14px", fontWeight: '600' }}>Complted Your Journey OverView</Typography>
                                         <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                                             Reset
                                         </Button>
                                     </Paper>
                                 )}
-                            </div> */}
-
-                        </aside>
-                        <main className="col-lg-6">
+                            </div>
+                        </Col>
+                        <Col lg={6}>
                             <div className="ps-lg-3">
                                 <h4 className="title text-dark">
                                     {plans.name}
@@ -153,50 +164,33 @@ function PlanView() {
 
                                 <div className="row">
                                     <dt className="col-3 pkg-det">Destination:</dt>
-                                    <dd className="col-9 pkg-details">{packages.destination}</dd>
+                                    <dd className="col-9 pkg-details">{plans.location}</dd>
                                     <dt className="col-3 pkg-det">Date:</dt>
-                                    <dd className="col-9 pkg-details">{formattedStartDate} to {formattedEndDate}</dd>
+                                    <dd className="col-9 pkg-details">{new Date(plans.date).toLocaleDateString()}</dd>
 
-                                    <dt className="col-3 pkg-det">Duration</dt>
-                                    <dd className="col-9 pkg-details">{packages.duration}</dd>
+                                    <dt className="col-3 pkg-det">Time</dt>
+                                    <dd className="col-9 pkg-details">{plans.time}</dd>
 
-                                    <dt className="col-3 pkg-det">Visit Places</dt>
-                                    <dd className="col-9 pkg-details">{packages.visitPlaces}</dd>
-
-                                    <dt className="col-3 pkg-det">Flight Bookings</dt>
-                                    <dd className="col-9 pkg-details">{packages.flightbooking ? 'Inluded Flight Tickets' : 'No Flight Tickets'}</dd>
-                                    <dt className="col-3 pkg-det">Stay Bookings</dt>
-                                    <dd className="col-9 pkg-details">{packages.staybooking ? 'Inluded Stay Tickets' : 'No Stay Booking Included'}</dd>
                                     <dt className="col-3 pkg-det">Slots Remaining</dt>
-                                    <dd className="col-9 pkg-details">{packages.totalSlots}</dd>
+                                    <dd className="col-9 pkg-details">{plans.totalSlots}</dd>
                                 </div>
 
                                 <hr />
 
                                 <div className="row mb-4">
-                                    <div className=" mb-3 ">
-                                        <p>Tickets</p>
-                                        <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }} style={{ margin: "0px" }}>
-                                            <Input
-                                                id="standard-adornment-weight"
-                                                endAdornment={<InputAdornment position="end"></InputAdornment>}
-                                                aria-describedby="standard-weight-helper-text"
-                                                inputProps={{
-                                                    'aria-label': 'How many tickets would you like?',
-                                                }}
-                                                type='number'
-                                            />
-                                            <FormHelperText id="standard-weight-helper-text">How many tickets would you like to purchase?</FormHelperText>
-                                        </FormControl>
 
-                                    </div>
                                 </div>
-                                <button className='bookpkgbtn'> Book Package </button>
+                                <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
                             </div>
-                        </main>
-                    </div>
+                        </Col>
+
+                    </Row>
                 </div>
             </section>
+            {
+                showBookNow &&
+                <BookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} packages={plans} planStatus={planStatus} />
+            }
 
         </>
     )

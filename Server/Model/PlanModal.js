@@ -45,7 +45,14 @@ const PlanSchema = new Mongoose.Schema({
     }, agencyId: {
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'Agency'
-    },  ProgrammeDetails: [{
+    }, 
+    balanceSlot: {
+        type: Number,
+        default: function() {
+          return this.totalSlots;
+        }
+      },
+     ProgrammeDetails: [{
         events: {
           type: String,
           required: true,

@@ -24,9 +24,12 @@ export async function editPackage(req, res) {
     console.log(req.files)
 }
 export async function addPlan(req, res) {
+    console.log(req.body);
     let mainImage = req.files.mainImage
     let subImages = req.files.subImages
-    let Plan = await PlanModel.create({ ...req.body, mainImage, subImages })
+let eventDetails=req.body.programmeDetails
+let parsedEventDetails=JSON.parse(eventDetails)
+    let Plan = await PlanModel.create({ ...req.body, mainImage, subImages,ProgrammeDetails:parsedEventDetails })
     res.json({ err: false, message: "plan added succesfully" })
 }
 

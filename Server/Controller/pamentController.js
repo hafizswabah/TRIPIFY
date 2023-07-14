@@ -33,7 +33,7 @@ export async function verifyPayment(req, res) {
     try {
 
         const {
-            response,BookedSlots,PackageId,AgencyId,userId
+            response,BookedSlots,idToSend,AgencyId,userId
           
         } = req.body;
         console.log(req.body);
@@ -45,13 +45,20 @@ export async function verifyPayment(req, res) {
             .digest('hex');
 
         if (expectedSignature === response.razorpay_signature){
-            const booking= await BookingModel.create({
-                payment:response,
+            let bookingData = {
+                payment: response,
                 BookedSlots,
-                PackageId,
                 AgencyId,
                 userId
-            })
+              };
+        
+              if (idToSend.includes("PlanId")) {
+                bookingData.PlanId = idToSend;
+              } else {
+                bookingData.PackageId = idToSend;
+              }
+        
+              const booking = await BookingModel.create(bookingData);
             const packageUpdate=await PackageModel.findByIdAndUpdate(PackageId,
                 { $inc: { balanceSlot: - BookedSlots } })          
             return res.json({

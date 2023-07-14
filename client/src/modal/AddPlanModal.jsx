@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import MapSearchBox from '../Components/MapBox/MapSearchBox';
 
-const AddPlanModal = ({ showModal, handleCloseModal }) => {
+const AddPlanModal = ({ showModal, handleCloseModal ,handleplanAdded}) => {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [time, setTime] = useState('');
@@ -38,12 +39,12 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
   async function addPackage(e) {
     e.preventDefault()
     let eventDetails = [];
-    if (showEventDetails) {
+
       eventDetails = programmeDetails.map((programme) => ({
         events: programme.event,
         description: programme.description,
       }));
-    }
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('location', location);
@@ -69,6 +70,7 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
 
     })
     handleCloseModal()
+    handleplanAdded()
   }
 
   return (
@@ -99,9 +101,7 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
           </Row>
           <Row>
             <Col>
-              <Form.Group className="mb-3" controlId="Time">
-                <Form.Control type="text" style={{ width: '100%' }} placeholder='Location' value={location} onChange={(e) => { setLocation(e.target.value) }} />
-              </Form.Group>
+              <MapSearchBox setDestination={setLocation}></MapSearchBox>
             </Col>
           </Row>
 
@@ -123,13 +123,6 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
             <Col>
               <Form.Group className="mb-3" controlId="slots">
                 <Form.Control type="number" style={{ width: '100%' }} placeholder='Total Slots' value={totalSlots} onChange={(e) => { setTotalSlot(e.target.value) }} />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Form.Group className="mb-3" controlId="slots">
-                <Form.Control type="number" style={{ width: '100%' }} placeholder='Events' value={events} onChange={(e) => { setEvenets(e.target.value) }} />
               </Form.Group>
             </Col>
           </Row>
@@ -204,26 +197,27 @@ const AddPlanModal = ({ showModal, handleCloseModal }) => {
 
                 </Row>
                 <Row>
-                  <Col md={8} className='d-flex justify-content-center align-item-center'>
+                  <Col md={12} className='w-100'>
                     <Button
                       variant="outline-secondary"
+                      className='w-100 mb-2'
                       onClick={() => removeEventDetails(index)}
-                      
                     >
                       Close
                     </Button>
                   </Col>
+            
                 </Row>
               </div>
             ))
+   
           }
-
-          <Button variant="outline-secondary" onClick={addEventDetails}>
-            Add Event Details
-          </Button>
-
-
-
+                 
+            <Button variant="outline-secondary" onClick={addEventDetails}
+            className='w-100'>
+              Add Event Details
+            </Button>
+   
         </Form>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">

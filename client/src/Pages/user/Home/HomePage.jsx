@@ -220,7 +220,7 @@ function HomePage() {
                             </Link>
                         </Col>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
-                            <Link to={"search-package?plan=DjNight"}>
+                            <Link to={"search-package?plan=Dj Night"}>
                                 <div className="plans dj">
                                     <Row>
                                         <Col md={5} className=" d-flex justify-content-center mt-3">

@@ -46,9 +46,25 @@ export async function cancelBooking(req, res) {
         res.json({ err: true, error, message: "something went wrong" })
     }
 }
-export async function findPackages(req,res){
-    let category=req.query.category
-   let packages=await PackageModel.find({category:category})
-
-   return res.json({err:false,packages})
-}
+export async function findPackages(req, res) {
+    const category = req.query.category;
+    const plan = req.query.plan;
+  
+    if (plan) {
+      try {
+        const plans = await PlanModel.find({ category: plan }).exec();
+        console.log(plan);
+        return res.json({ err: false, plans, pkg: false });
+      } catch (error) {
+        return res.json({ err: true, message: 'Error retrieving plans' });
+      }
+    }
+  
+    try {
+      const packages = await PackageModel.find({ category: category }).exec();
+      return res.json({ err: false, packages, pkg: true });
+    } catch (error) {
+      return res.json({ err: true, message: 'Error retrieving packages' });
+    }
+  }
+  
