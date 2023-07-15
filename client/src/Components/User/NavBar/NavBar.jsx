@@ -62,7 +62,7 @@ function NavBar() {
     <AppBar position="static" style={{ backgroundColor: "rgba(255, 255, 255, 0.92)", color: "rgba(55, 83, 156, 1)" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -71,14 +71,12 @@ function NavBar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '1px',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            Tripify
+            TRIPIFY
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -140,15 +138,15 @@ function NavBar() {
             TRIPIFY
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link to={'/search-package'}>
-            <Button
-              style={{ color: "rgba(55, 83, 156, 1)" }}
+            <Link to={'/search-package'}>
+              <Button
+                style={{ color: "rgba(55, 83, 156, 1)" }}
 
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              Packages
-            </Button>
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Packages
+              </Button>
             </Link>
             <Button
               style={{ color: "rgba(55, 83, 156, 1)" }}

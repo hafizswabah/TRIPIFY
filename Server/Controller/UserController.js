@@ -1,5 +1,6 @@
 import BookingModel from '../Model/BookingModel.js';
 import PackageModel from '../Model/packageModel.js'
+import PlanBookingModel from '../Model/PlanBookModel.js';
 import PlanModel from '../Model/PlanModal.js'
 
 export async function GetPkg(req, res) {
@@ -26,7 +27,8 @@ export async function planview(req, res) {
 export async function getuserBooking(req, res) {
     const userId = req.params.id
     const bookings = await BookingModel.find({ userId: userId }).populate('PackageId');
-    res.json({ err: false, bookings })
+    const PlanBookings=await PlanBookingModel.find({userId:userId}).populate('PlanId')
+    res.json({ err: false, bookings,PlanBookings })
 }
 export async function cancelBooking(req, res) {
     try {

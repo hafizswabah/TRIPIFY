@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import NavBar from '../NavBar/NavBar'
 import BookNow from '../../../modal/Booking/BookiNow'
+import PlanBookNow from '../../../modal/Booking/PlanBookNow'
 function PlanView() {
     const [plans, setPlans] = useState([])
     const [value, setValue] = useState('');
@@ -189,7 +190,7 @@ function PlanView() {
             </section>
             {
                 showBookNow &&
-                <BookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} packages={plans} planStatus={planStatus} />
+                <PlanBookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} plans={plans}  />
             }
 
         </>

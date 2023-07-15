@@ -30,9 +30,9 @@ function SearchPackage() {
     const [latitude, setLatitude] = useState(location.state?.lat || 0);
     const [longitude, setLongitude] = useState(location.state?.lng || 0)
     console.log('Coordinates', latitude, longitude);
-console.log(pack,'pkkk');
-    const handleSelectPrice = (event) => {
-        const selectedPrice = event.target.value;
+
+    const handleSelectPrice = (selectedOption) => {
+        const selectedPrice = selectedOption;
         let sortedPackages = [...pack];
         if (selectedPrice === -1) {
             sortedPackages.sort((a, b) => a.cost - b.cost); // Sort in ascending order
@@ -42,6 +42,7 @@ console.log(pack,'pkkk');
         setPack(sortedPackages);
         setPrice(selectedPrice);
     };
+
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -53,8 +54,8 @@ console.log(pack,'pkkk');
 
     useEffect(() => {
         (async function () {
-            let { data } = await axios.get("/user/search-packages?category="+ category + "&plan=" + plan)
-            console.log(data,'dt');
+            let { data } = await axios.get("/user/search-packages?category=" + category + "&plan=" + plan)
+            console.log(data, 'dt');
             if (data.pkg) {
                 console.log('hhh');
                 setPack(data.packages)
@@ -69,19 +70,17 @@ console.log(pack,'pkkk');
     }, [])
 
 
-    // useEffect(() => {
-    //     if (date) {
-    //         let result = pack?.filter((item) => {
-    //             console.log(item.startDate, new Date(item.startDate) >= new Date(date.start), new Date(item.startDate) <= new Date(date.end))
-    //             console.log(item.startDate, new Date(date.start), new Date(date.end))
-    //             return (
-    //                 new Date(item.startDate) >= new Date(date.start) &&
-    //                 new Date(item.startDate) <= new Date(date.end)
-    //             );
-    //         });
-    //         setPack(result)
-    //     }
-    // }, [date])
+    useEffect(() => {
+        if (date) {
+            const result = pack.filter((item) => {
+              return (
+                new Date(item.startDate) >= new Date(date.start) &&
+                new Date(item.startDate) <= new Date(date.end)
+              );
+            });
+            setPack(result);
+          }
+    }, [date])
 
     // useEffect(() => {
     //     if (latitude !== 0 && longitude !== 0) {
@@ -176,12 +175,12 @@ console.log(pack,'pkkk');
                             </Select>
                         </FormControl> */}
                         <Select
-                            defaultValue="Price"
+                            defaultValue={-1}
                             style={{ width: 120 }}
-                            onChange={handleSelectPrice}
+                            onChange={(selectedOption) => handleSelectPrice(selectedOption)}
                             options={[
                                 { value: -1, label: "Low to High" },
-                                { value: 1, label: 'High to Low' },
+                                { value: 1, label: "High to Low" },
                             ]}
                         />
                         <Space direction="vertical" size={12}>
@@ -215,7 +214,7 @@ console.log(pack,'pkkk');
 
                                     </Row>
                                     <Row>
-                                        <Link to={pkgUrl ? '/package-details/' + item._id :'/plan-details/'+item._id} >
+                                        <Link to={pkgUrl ? '/package-details/' + item._id : '/plan-details/' + item._id} >
                                             <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
                                         </Link>
                                     </Row>

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { baseImgUrl } from '../../../urls';
 function Booking() {
     const [bookingList, setBookingList] = useState([])
+    const [planBookingList, setPlanBookings] = useState([])
     const [refresh, setRefresh] = useState(true)
     const { user } = useSelector((state) => {
         return state
@@ -79,6 +80,7 @@ function Booking() {
                 console.log(data);
                 if (!data.err) {
                     setBookingList(data.bookings)
+                    setPlanBookings(data.PlanBookings)
                 }
             }
         )()
@@ -99,24 +101,88 @@ function Booking() {
                     </div>
                 </div>
                 <Row>
-                    {
+                    <div className="plan-book-head-sec">
+                        <div className="plan-book-head">
+                            <h4>Package Tickets</h4>
+                        </div>
+                    </div>
+                    {bookingList.length === 0 ? (
+                    <div className="no-ticket-area">
+                        <h4>No Package Bookings History</h4>
+                    </div>
+                    ) : (
+                        bookingList.map((item) => {
+                            return (
+                                <Col md={12} className="p-2">
+                                    <div className="user-booking-item">
+                                        <div className="ub-dr-profile">
+                                            <img src={baseImgUrl + item?.PackageId?.mainImage[0].filename} alt="" />
+                                        </div>
+                                        <div className="ub-dr-desc">
+                                            <div className="ub-dr-desc-item">
+                                                <b>{item.PackageId?.name}</b>
+                                                <div className="mt-2">
+                                                    <p>Destination:</p>
+                                                    <p>{item?.PackageId?.destination}</p>
+                                                </div>
+                                                <div>
+                                                    <p>Date:</p>
+                                                    <p>
+                                                        {new Date(item?.PackageId?.startDate).toLocaleDateString()} to {new Date(item?.PackageId?.endDate).toLocaleDateString()}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <p>Slots Booked:</p>
+                                                    <p>{item?.BookedSlots}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="cancle-bookings">
+                                            {item?.status === 'upcoming' ? (
+                                                <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
+                                                    Cancel Booking
+                                                </Button>
+                                            ) : (
+                                                <Button variant="text">Refund Processing</Button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Col>
+                            );
+                        })
+                    )}
 
-                        bookingList?.map((item) => {
+
+
+
+                </Row>
+                <Row>
+                    <div className="plan-book-head-sec">
+                        <div className="plan-book-head">
+                            <h4>Activity Tickets</h4>
+                        </div>
+                    </div>
+                    {planBookingList.length === 0 ? (
+                    <div className="no-ticket-area">
+                        <h4>No Package Bookings History</h4>
+                    </div>
+                    ) : (
+                        planBookingList?.map((item) => {
 
                             return <Col md={12} className='p-2'> <div className="user-booking-item" >
                                 <div className="ub-dr-profile">
-                                    <img src={baseImgUrl + item?.PackageId?.mainImage[0].filename} alt="" />
+                                    <img src={baseImgUrl + item?.PlanId?.mainImage[0].filename} alt="" />
                                 </div>
                                 <div className="ub-dr-desc">
                                     <div className="ub-dr-desc-item">
                                         <b>{item.PackageId?.name}</b>
                                         <div className="mt-2">
-                                            <p>Destination: </p>
-                                            <p> {item?.PackageId?.destination}</p>
+                                            <p>Location: </p>
+                                            <p> {item?.PlanId?.location}</p>
                                         </div>
                                         <div>
                                             <p>Date : </p>
-                                            <p>{new Date(item?.PackageId?.startDate).toLocaleDateString()} to {new Date(item?.PackageId?.endDate).toLocaleDateString()}</p>
+                                            <p>{new Date(item.PlanId.date).toDateString()}</p>
                                         </div>
                                         <div>
                                             <p>Slots Booked : </p>
@@ -137,7 +203,7 @@ function Booking() {
 
 
 
-                        })
+                        }))
 
                     }
 

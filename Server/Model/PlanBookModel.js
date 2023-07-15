@@ -1,9 +1,10 @@
 import mongoose from "mongoose"
 
 const schema = new mongoose.Schema({
-    PackageId: {
+
+    PlanId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Packages',
+        ref: 'Plans'
     
     },
     userId: {
@@ -29,5 +30,5 @@ const schema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-const BookingModel = mongoose.model("Booking", schema)
-export default BookingModel
+const PlanBookingModel = mongoose.model("PlanBookings", schema)
+export default PlanBookingModel

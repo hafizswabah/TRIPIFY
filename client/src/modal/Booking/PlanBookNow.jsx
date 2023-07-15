@@ -6,28 +6,28 @@ import './BookNow.css'
 import Swal from 'sweetalert2'
 import { TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
+function PlanBookNow({ setShowBookNow, refresh, setRefresh, plans}) {
 
     const [count, setCount] = useState("");
     const [totalCost, setTotalCost] = useState(0);
     const [errMsg, setErrorMessage] = useState('');
-    const [remainingSlots, setRemainingSlots] = useState(packages.balanceSlot);
+    const [remainingSlots, setRemainingSlots] = useState(plans.balanceSlot);
     const [err, setErr] = useState(false)
 
     const navigate = useNavigate()
-    const TripStartDate = new Date(packages.startDate).toLocaleDateString()
-    const TripEndDate = new Date(packages.endDate).toLocaleDateString()
+  
 
     const { user } = useSelector((state) => {
         return state
     })
     const userId = user.details._id
-    let PackageId = packages._id;
-    const AgencyId = packages.agencyId
+    let PlanId = plans._id;
+    const AgencyId = plans.agencyId
 
     const handleBooking = async () => {
         const { data } = await axios.post("/user/payment", { totalCost: totalCost });
         if (!data.err) {
+            console.log(data);
             handleRazorPay(data.order);
         }
     }
@@ -41,7 +41,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
             order_id: order.id,
             handler: async (response) => {
 
-                const { data } = await axios.post("/user/payment/verify", { response, userId, PackageId, BookedSlots: count, AgencyId });
+                const { data } = await axios.post("/user/plan/payment/verify", { response, userId, PlanId, BookedSlots: count, AgencyId });
                 if (data.err) {
                     Swal.fire({
                         icon: 'error',
@@ -78,13 +78,13 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
         const value = e.target.value;
         setCount(value);
 
-        // Calculate total cost based on count and packages.cost
+       
         const parsedCount = parseInt(value, 10); // Convert the value to an integer
-        const calculatedCost = parsedCount * packages.cost;
+        const calculatedCost = parsedCount * plans.cost;
         setTotalCost(calculatedCost);
 
         // Calculate remaining slots and handle invalid count
-        const calculatedRemainingSlots = packages.balanceSlot - parsedCount; // Replace 'packages.totalSlots' with the actual total slots value
+        const calculatedRemainingSlots = plans.balanceSlot - parsedCount; 
         if (calculatedRemainingSlots < 0) {
             setErrorMessage('Sorry we running out of slots')
             setRemainingSlots(0)
@@ -118,7 +118,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
                             Package
                         </div>
                         <div className="booking-row-head" style={{ fontWeight: "500" }}>
-                            {packages.name}
+                            {plans.name}
                         </div>
                     </div>
                     <div className="booking-details">
@@ -126,7 +126,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
                             Location
                         </div>
                         <div className="booking-row-head" style={{ fontWeight: "500" }}>
-                            {packages.destination}
+                            {plans.location}
                         </div>
                     </div>
                     <div className="booking-details">
@@ -134,7 +134,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
                             Date
                         </div>
                         <div className="booking-row-head" style={{ fontWeight: "500" }}>
-                            {TripStartDate} to {TripEndDate}
+                         {new Date(plans.date).toDateString()}
                         </div>
                     </div>
                     <div className="booking-details">
@@ -185,4 +185,4 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
     )
 }
 
-export default BookNow
+export default PlanBookNow

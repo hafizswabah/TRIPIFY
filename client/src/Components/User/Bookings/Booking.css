@@ -86,3 +86,21 @@
     justify-content: center;
     gap: 30px;
 }
+.plan-book-head-sec{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.plan-book-head h4{
+    font-size: 16px;
+font-weight: 100;
+}
+.no-ticket-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.no-ticket-area h4{
+    font-weight: 300;
+    font-size: 18px;
+}
