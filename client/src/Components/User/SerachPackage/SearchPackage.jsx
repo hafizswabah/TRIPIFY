@@ -71,62 +71,70 @@ function SearchPackage() {
 
 
     useEffect(() => {
+        let filteredPack = allData;
+        let result = []
         if (date) {
-            const result = pack.filter((item) => {
-              return (
-                new Date(item.startDate) >= new Date(date.start) &&
-                new Date(item.startDate) <= new Date(date.end)
-              );
+            result = filteredPack.filter((item) => {
+                console.log('item:', new Date(item.startDate), 'start:', new Date(date.start), 'end:', new Date(date.end));
+                return (
+                    new Date(item.startDate) >= new Date(date.start) &&
+                    new Date(item.startDate) <= new Date(date.end)
+                );
             });
-            setPack(result);
-          }
-    }, [date])
+        }
 
-    // useEffect(() => {
-    //     if (latitude !== 0 && longitude !== 0) {
-    //         axios
-    //             .get('/user/search')
-    //             .then((response) => {
-    //                 const packages = response.data.packages;
-    //                 const promises = packages.map((item) => {
-    //                     const location = item.destination;
-    //                     console.log('loc', item.destination);
+        console.log(filteredPack);
+        setPack(result);
+    }, [date]);
 
-    //                     return mapboxAPI.get(
-    //                         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json`,
-    //                         {
-    //                             params: {
-    //                                 access_token: 'pk.eyJ1Ijoic2hpamFzMDkiLCJhIjoiY2xpaXUyZHQzMDFzeDNlcGEwbHd6ejJmOCJ9.TZzIUmMeUTVSKfdqqSWgWg',
-    //                                 limit: 1,
-    //                             },
-    //                         }
-    //                     ).then((geocodingResponse) => {
-    //                         const features = geocodingResponse.data.features;
-    //                         if (features.length > 0) {
-    //                             const coordinates = features[0].geometry.coordinates;
-    //                             const userLocation = [longitude, latitude];
-    //                             const distance = calculateDistance(userLocation, coordinates);
-    //                             console.log('hello', distance);
-    //                             if (distance <= 200000) {
-    //                                 item.distance = (distance / 1000).toFixed(1);
-    //                                 console.log("DISTANCE :", item);
-    //                                 return item;
-    //                             }
-    //                         }
-    //                         return null;
-    //                     });
-    //                 });
 
-    //                 Promise.all(promises)
-    //                     .then((results) => {
-    //                         const filteredMechanics = results.filter((item) => item !== null);
-    //                         setPack([...pack, ...filteredMechanics]);
-    //                     })
-    //                     .catch((err) => console.log(err));
-    //             })
-    //             .catch((err) => console.log(err));
-    //     }
-    // }, [latitude, longitude]);
+
+    useEffect(() => {
+        if (latitude !== 0 && longitude !== 0) {
+            axios
+                .get('/user/search')
+                .then((response) => {
+                    const packages = response.data.packages;
+                    const promises = packages.map((item) => {
+                        const location = item.destination;
+                        console.log('loc', item.destination);
+
+                        return mapboxAPI.get(
+                            `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json`,
+                            {
+                                params: {
+                                    access_token: 'pk.eyJ1Ijoic2hpamFzMDkiLCJhIjoiY2xpaXUyZHQzMDFzeDNlcGEwbHd6ejJmOCJ9.TZzIUmMeUTVSKfdqqSWgWg',
+                                    limit: 1,
+                                },
+                            }
+                        ).then((geocodingResponse) => {
+                            const features = geocodingResponse.data.features;
+                            if (features.length > 0) {
+                                const coordinates = features[0].geometry.coordinates;
+                                const userLocation = [longitude, latitude];
+                                const distance = calculateDistance(userLocation, coordinates);
+                                console.log('hello', distance);
+                                if (distance <= 200000) {
+                                    item.distance = (distance / 1000).toFixed(1);
+                                    console.log("DISTANCE :", item);
+                                    return item;
+                                }
+                            }
+                            return null;
+                        });
+                    });
+
+                    Promise.all(promises)
+                        .then((results) => {
+                            const filteredMechanics = results.filter((item) => item !== null);
+                            setPack([...pack, ...filteredMechanics]);
+                            setAllData([...pack, ...filteredMechanics]);
+                        })
+                        .catch((err) => console.log(err));
+                })
+                .catch((err) => console.log(err));
+        }
+    }, [latitude, longitude]);
 
     function calculateDistance(coord1, coord2) {
         const [lon1, lat1] = coord1;

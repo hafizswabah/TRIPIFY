@@ -90,8 +90,8 @@ function HomePage() {
             </Row>
             <Row>
 
-                <Container fluid>
-                    <div className="category-sec mt-5">
+                <Container>
+                    <div className="category-sec mt-5 container">
                         <Row >    <h3 className='category-head ms-4 mt-5 '>Categories</h3></Row>
                         <Row className='pt-3'>
                             <Col md={2} className="d-flex justify-content-center each-cat">
@@ -138,11 +138,16 @@ function HomePage() {
                     </div>
                 </Container>
                 <Container>
+                    <Container>
+
                     <Row>
                         <div className="package-heading ms-4 mt-5 mb-4">
                             Explore Your Top Packages
                         </div>
                     </Row>
+                    </Container>
+                    <Container>
+
                     <Row>
                         {
                             packages.map((item) => {
@@ -184,13 +189,20 @@ function HomePage() {
 
 
                     </Row>
+                    </Container>
+
                 </Container>
+                <Container>
                 <Container>
                     <Row>
                         <div className="package-heading ms-4 mt-5 mb-4">
                             Get Your Favorite Adventures
                         </div>
                     </Row>
+                </Container>
+                <Container>
+
+
                     <Row>
                         <Col md={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=skydive"}>
@@ -344,6 +356,8 @@ function HomePage() {
                         </Col>
 
                     </Row>
+                </Container>
+
                 </Container>
                 <Container fluid>
                     <Row>

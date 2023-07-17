@@ -32,8 +32,8 @@ function AgencyTrip() {
                 </Col>
                 <Col md={8}>
                     <div className="admin-container">
-                        <h5 className='p-4' style={{ fontSize: '22px', fontWeight: 300 }}>Users</h5>
-                        <Table className='table-main' responsive>
+                        <h5 className='p-4' style={{ fontSize: '22px', fontWeight: 300 }}>Trips Details</h5>
+                        <Table className='table-main' responsive size="sm" style={{ fontSize: ".8rem" }}>
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -62,7 +62,7 @@ function AgencyTrip() {
                                             const timeDiff = startDate.getTime() - currentDate.getTime();
                                             const daysCount = Math.ceil(timeDiff / (1000 * 3600 * 24));
                                             status = `${daysCount} days left`;
-                                            clr = "orange";
+                                            clr = "#ff5400";
                                         } else {
                                             status = "Completed";
                                             clr = "green";
@@ -72,10 +72,10 @@ function AgencyTrip() {
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
                                                 <td>{item.name}</td>
-                                                <td>{startDate.toLocaleDateString()} To {endDate.toLocaleDateString()}</td>
+                                                <td>{startDate.toDateString()} To {endDate.toDateString()}</td>
                                                 <td>{item.destination}</td>
-                                                <td style={{color:"green",fontWeight:"500"}}>{item.totalSlots - item.balanceSlot} Bookings</td>
-                                                <td style={{color:"red",fontWeight:"500"}}>{item.balanceSlot} Slot</td>
+                                                <td style={{color:"#00a500",fontWeight:"500"}}>{item.totalSlots - item.balanceSlot} Bookings</td>
+                                                <td style={{color:"#c70000",fontWeight:"500"}}>{item.balanceSlot} Slot Available</td>
                                                 <td style={{ color: clr ,fontWeight:"600"}}>{status}</td>
                                             </tr>
                                         );

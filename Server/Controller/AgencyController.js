@@ -1,6 +1,7 @@
 import PackageModel from "../Model/packageModel.js";
 import PlanModel from "../Model/PlanModal.js"
-
+import BookingModel from "../Model/BookingModel.js"
+import PlanBookModel from "../Model/PlanBookModel.js"
 export async function addPackage(req, res) {
     try {
         console.log(req.body);
@@ -71,4 +72,22 @@ export async function deletePlan(req, res) {
     let _id = req.body.id
     await PlanModel.findByIdAndDelete({ _id })
     res.json({ err: false, message: "deleted" })
+}
+export async function getBookings(req, res) {
+    try {
+  const PlanBookings=await PlanBookModel.find().populate("PlanId").populate("userId")
+  const bookings=await BookingModel.find().populate("PackageId").populate("userId")
+
+  console.log(PlanBookings);
+      res.json({ err: false, bookings ,PlanBookings});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ err: true, message: "Failed to fetch bookings" });
+    }
+  }
+
+export async function getDashboardBookings(req,res){
+    let currentDate=new Date()
+    let count=await BookingModel.countDocuments({status:"upcooming"})
+    console.log(count);
 }
