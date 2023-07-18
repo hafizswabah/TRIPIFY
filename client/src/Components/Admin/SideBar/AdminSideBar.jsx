@@ -106,7 +106,7 @@ function AdminSidebar({ page, clicked }) {
         </Link>
         <Link to="/admin/reports">
 
-          <li className={`admin-sideitems ${page == "report" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "reports" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">

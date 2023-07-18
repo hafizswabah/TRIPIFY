@@ -239,38 +239,36 @@ export async function getDashboardBookings(req, res) {
                 }
             }]
         )
-   
+
         const monthlyData = [];
 
         for (const tripData of tripsMonthlyData) {
-          const matchingPlanData = PlanMonthlyData.find(
-            (planData) => planData._id === tripData._id
-          );
-        
-          if (matchingPlanData) {
-            monthlyData.push({
-              _id: tripData._id,
-              count: tripData.count + matchingPlanData.count,
-              totalCost: tripData.totalCost + matchingPlanData.totalCost,
-            });
-        
-            // Remove the matched plan data from PlanMonthlyData
-            const planIndex = PlanMonthlyData.indexOf(matchingPlanData);
-            PlanMonthlyData.splice(planIndex, 1);
-          } else {
-            monthlyData.push(tripData);
-          }
+            const matchingPlanData = PlanMonthlyData.find(
+                (planData) => planData._id === tripData._id
+            );
+
+            if (matchingPlanData) {
+                monthlyData.push({
+                    _id: tripData._id,
+                    count: tripData.count + matchingPlanData.count,
+                    totalCost: tripData.totalCost + matchingPlanData.totalCost,
+                });
+
+                // Remove the matched plan data from PlanMonthlyData
+                const planIndex = PlanMonthlyData.indexOf(matchingPlanData);
+                PlanMonthlyData.splice(planIndex, 1);
+            } else {
+                monthlyData.push(tripData);
+            }
         }
-        
+
         // Append the remaining unmatched plan data from PlanMonthlyData
         monthlyData.push(...PlanMonthlyData);
-        
-        console.log("month",monthlyData);
 
         res.json({
             err: false, completedTripsCount, PackageBookedAmount,
             pendingTripsCount, totalTripCount, totalPlanCount,
-            completedPlansCount, pendingPlanCount, PlanBookedAmount,monthlyData
+            completedPlansCount, pendingPlanCount, PlanBookedAmount, monthlyData
         });
     } catch (error) {
         console.error("Error:", error);

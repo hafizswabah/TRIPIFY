@@ -30,6 +30,7 @@ import AgencyBookings from './Components/Agency/AgencyBookings/AgencyBookings'
 import AdminPlanDetails from './Components/Admin/AdminPlanDetails/AdminPlanDetails'
 import AdminTripDetails from './Components/Admin/AdminTripDetails/AdminTripDetails'
 import AdminBookingDetails from './Components/Admin/AdminBookingDetails/AdminBookingDetails'
+import AdminReport from './Components/Admin/AdminReport/AdminReport'
 
 
 
@@ -95,6 +96,7 @@ function App() {
             <Route path='/admin/plans' element={<AdminPlanDetails />} />
             <Route path='/admin/trips' element={<AdminTripDetails />} />
             <Route path='/admin/bookings' element={<AdminBookingDetails />} />
+            <Route path='/admin/reports' element={<AdminReport />} />
           </>
         }
         {

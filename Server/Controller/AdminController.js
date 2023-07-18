@@ -79,7 +79,6 @@ export async function getBookings(req, res) {
         const PlanBookings = await PlanBookingModel.find().populate("PlanId").populate("userId").populate("AgencyId")
         const bookings = await BookingModel.find().populate("PackageId").populate("userId").populate("AgencyId")
 
-        console.log(PlanBookings);
         res.json({ err: false, bookings, PlanBookings });
     } catch (error) {
         console.error(error);
