@@ -158,7 +158,7 @@ function AdminPackage() {
       
           <Row>
             <div className='admin-container'>
-              <h5 className='p-1' style={{ fontSize: '22px', fontWeight: 300 }}>Packages</h5>
+              <h5 className='p-4' style={{ fontSize: '22px', fontWeight: 300 }}>Packages</h5>
               <Table className='table-main' responsive size="sm" style={{ fontSize: ".8rem" }}>
                 <thead>
                   <tr>

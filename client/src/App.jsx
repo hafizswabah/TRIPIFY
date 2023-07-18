@@ -27,6 +27,9 @@ import BookingsPage from './Pages/user/BookingsPage'
 import AgnecyUsers from './Components/Agency/AgencyUsers/AgnecyUsers'
 import AgencyTrip from './Components/Agency/AgencyTrip/AgencyTrip'
 import AgencyBookings from './Components/Agency/AgencyBookings/AgencyBookings'
+import AdminPlanDetails from './Components/Admin/AdminPlanDetails/AdminPlanDetails'
+import AdminTripDetails from './Components/Admin/AdminTripDetails/AdminTripDetails'
+import AdminBookingDetails from './Components/Admin/AdminBookingDetails/AdminBookingDetails'
 
 
 
@@ -89,6 +92,9 @@ function App() {
             <Route path='/admin/agency' element={<AdminAgencyPage />} />
             <Route path='/admin/users' element={<AdminUserShowPage />} />
             <Route path='/admin/packages' element={<AdminPackagePage />} />
+            <Route path='/admin/plans' element={<AdminPlanDetails />} />
+            <Route path='/admin/trips' element={<AdminTripDetails />} />
+            <Route path='/admin/bookings' element={<AdminBookingDetails />} />
           </>
         }
         {

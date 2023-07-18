@@ -206,10 +206,11 @@
     font-weight: 600;
     font-size: 30px;
 }
-.plan-rate{
+
+.plan-rate {
     color: white;
     font-weight: 500;
-    font-size: 26px; 
+    font-size: 26px;
 }
 
 .plan-info {
@@ -245,12 +246,38 @@
     height: 38px;
     width: 38px;
 }
-.main-head{
+
+.main-head {
     color: #1f6096;
     font-weight: 600;
 }
-.main-sub-head{
+
+.main-sub-head {
     color: #1f6096;
     font-weight: 300;
     font-size: 20px;
 }
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #c8c8c8;
+    padding-bottom: 30p;
+}
+
+.footer-head h4 {
+    font-weight: 500;
+    font-size: 16px;
+}
+.point {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #454545;
+  }
+  .contactDetFooter{
+    font-size: 15px;
+    font-weight: 400;
+    padding: 18px;
+  }
+  

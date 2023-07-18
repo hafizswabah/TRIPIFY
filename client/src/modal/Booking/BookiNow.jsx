@@ -41,7 +41,7 @@ function BookNow({ setShowBookNow, refresh, setRefresh, packages}) {
             order_id: order.id,
             handler: async (response) => {
 
-                const { data } = await axios.post("/user/payment/verify", { response, userId, PackageId, BookedSlots: count, AgencyId });
+                const { data } = await axios.post("/user/payment/verify", { response, userId, PackageId, BookedSlots: count, AgencyId ,totalCost});
                 if (data.err) {
                     Swal.fire({
                         icon: 'error',

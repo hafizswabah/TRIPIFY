@@ -41,7 +41,7 @@ function PlanBookNow({ setShowBookNow, refresh, setRefresh, plans}) {
             order_id: order.id,
             handler: async (response) => {
 
-                const { data } = await axios.post("/user/plan/payment/verify", { response, userId, PlanId, BookedSlots: count, AgencyId });
+                const { data } = await axios.post("/user/plan/payment/verify", { response, userId, PlanId, BookedSlots: count, AgencyId ,totalCost});
                 if (data.err) {
                     Swal.fire({
                         icon: 'error',

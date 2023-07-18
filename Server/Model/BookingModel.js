@@ -22,7 +22,10 @@ const schema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    
+    totalCost:{
+        type:Number,
+        required:true
+    },
     status: {
         type: String,
         default: "upcoming"

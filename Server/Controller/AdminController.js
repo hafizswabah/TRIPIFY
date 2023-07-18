@@ -1,7 +1,10 @@
 import AgencyModel from '../Model/AgencyModel.js'
 import sentMail from '../helper/sentMail.js'
 import UserModel from '../Model/UserModel.js'
-
+import PlanModal from '../Model/PlanModal.js'
+import PackageModel from '../Model/packageModel.js'
+import PlanBookingModel from '../Model/PlanBookModel.js'
+import BookingModel from '../Model/BookingModel.js'
 export async function getAgencyRequests(req, res) {
     try {
         const Agencies = await AgencyModel.find({ active: false, rejected: { $ne: true } }).lean()
@@ -61,4 +64,25 @@ export async function unblock(req, res) {
     let { email } = req.body
     let unblock = await UserModel.updateOne({ email }, { block: false })
     res.json({ err: false, message: "unblocked" })
+}
+export async function getPlans(req,res){
+    let plans=await PlanModal.find().lean()
+    res.json({err:false,plans})
+}
+export async function getPackages(req, res) {
+    let packages = await PackageModel.find().populate("agencyId")
+
+    res.json({ err: false, packages })
+}
+export async function getBookings(req, res) {
+    try {
+        const PlanBookings = await PlanBookingModel.find().populate("PlanId").populate("userId").populate("AgencyId")
+        const bookings = await BookingModel.find().populate("PackageId").populate("userId").populate("AgencyId")
+
+        console.log(PlanBookings);
+        res.json({ err: false, bookings, PlanBookings });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: "Failed to fetch bookings" });
+    }
 }

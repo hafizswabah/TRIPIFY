@@ -3,21 +3,47 @@ import AgencyHeader from '../Header/AgencyHeader'
 import AgencySidebar from '../SideBar/AgencySidebar'
 import { Row, Col, Container } from 'react-bootstrap'
 import { BiTrip, BiMoneyWithdraw, BiTimer } from "react-icons/bi";
+import { RiFlightLandFill } from "react-icons/ri";
 import './AgencyHome.css'
 import Chart from "react-apexcharts";
 import axios from 'axios';
 function AgencyHome() {
   const [clicked, setCLicked] = useState(false)
+  const [completedTripsCount, setcompletedTripsCount] = useState('')
+  const [completedPlansCount, setcompletedPlansCount] = useState('')
+  const [PackageBookedAmount, setPackageBookedAmount] = useState('')
+  const [pendingTripsCount, setpendingTripsCount] = useState('')
+  const [pendingPlanCount, setpendingPlanCount] = useState('')
+  const [PlanBookedAmount, setPlanBookedAmount] = useState('')
+  const [totalTripCount, settotalTripCount] = useState('')
+  const [totalPlanCount, settotalPlanCount] = useState('')
+  const [monthlyData, setmonthlyData] = useState([])
+
   const handleClick = () => {
     setCLicked(!clicked)
   }
 
   useEffect(() => {
-  (async function(){
-    let {data}=await axios.get('/agency/dashboard-bookings')
-    console.log(data);
-  })()
+    (async function () {
+      let { data } = await axios.get('/agency/dashboard-bookings')
+      console.log(data);
+      if (!data.err) {
+        setcompletedTripsCount(data.completedTripsCount[0].count)
+        setPackageBookedAmount(data.PackageBookedAmount)
+        setpendingTripsCount(data.pendingTripsCount[0].count)
+        settotalTripCount(data.totalTripCount)
+        setmonthlyData(data.monthlyData)
+        setcompletedPlansCount(data.completedPlansCount[0].count)
+        setPlanBookedAmount(data.PlanBookedAmount)
+        settotalPlanCount(data.totalPlanCount)
+      }
+
+    })()
   }, [])
+  let TotalRevenuie = PackageBookedAmount + PlanBookedAmount;
+  let totalBookings = totalTripCount + totalPlanCount
+  let totalPending=pendingPlanCount+pendingTripsCount
+  let completedBookings=completedPlansCount+completedTripsCount
   const state = {
     options: {
       chart: {
@@ -34,6 +60,13 @@ function AgencyHome() {
       }
     ]
   };
+  monthlyData.forEach(monthlyData => {
+    const index = monthlyData._id - 1;
+    if (index >= 0 && index < 12) {
+      state.series[0].data[index] = monthlyData.totalCost.toString();
+    }
+  })
+
   return (
     <div>
       <AgencyHeader handleClick={handleClick} />
@@ -61,7 +94,7 @@ function AgencyHome() {
                           <div className="card-headigs">
                             <h5 className='mt-2'>Total Bookings</h5>
                             <div className="card-ddetails">
-                              5 Trips
+                              {totalBookings} Bookings
                             </div>
                           </div>
                         </Col>
@@ -86,7 +119,7 @@ function AgencyHome() {
                           <div className="card-headigs">
                             <h5 className='mt-2'>Total Revenuie</h5>
                             <div className="card-ddetails">
-                              99,999/-
+                              {TotalRevenuie}/-
                             </div>
                           </div>
                         </Col>
@@ -111,7 +144,7 @@ function AgencyHome() {
                           <div className="card-headigs">
                             <h5 className='mt-2'>Pending</h5>
                             <div className="card-ddetails">
-                              1 Trip
+                              {totalPending} Bookings
                             </div>
                           </div>
                         </Col>
@@ -127,7 +160,7 @@ function AgencyHome() {
                         <Col md={5}>
                           <div className="card-round-full mb-4">
                             <div className="card-round">
-                              <BiTimer style={{ fontSize: "30px", color: "white" }} />
+                              <RiFlightLandFill style={{ fontSize: "30px", color: "white" }} />
                             </div>
 
                           </div>
@@ -136,7 +169,7 @@ function AgencyHome() {
                           <div className="card-headigs">
                             <h5 className='mt-2'>Completed</h5>
                             <div className="card-ddetails">
-                              1 Trip
+                              {completedBookings} Bookings
                             </div>
                           </div>
                         </Col>

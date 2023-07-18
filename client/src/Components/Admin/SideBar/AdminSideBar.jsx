@@ -67,9 +67,9 @@ function AdminSidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/account/admin/hospitals/requests">
+        <Link to="/admin/plans">
 
-          <li className={`admin-sideitems ${page == "" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "plans" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -80,9 +80,9 @@ function AdminSidebar({ page, clicked }) {
           </li>
         </Link>
 
-        <Link to="/account/admin/complaints">
+        <Link to="/admin/trips">
 
-          <li className={`admin-sideitems ${page == "complaints" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "trips" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -92,9 +92,9 @@ function AdminSidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/account/admin/withdrawals">
+        <Link to="/admin/bookings">
 
-          <li className={`admin-sideitems ${page == "withdrawals" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "bookings" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -104,7 +104,7 @@ function AdminSidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/account/admin/reports">
+        <Link to="/admin/reports">
 
           <li className={`admin-sideitems ${page == "report" && 'active'}`}>
 

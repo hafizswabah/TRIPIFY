@@ -112,7 +112,7 @@ export default function Agencies() {
         <Col md={8}>
         <div className="admin-container">
        <h5 className='p-4' style={{fontSize:'22px',fontWeight:300}}>Travel Agencies</h5>
-          <Table className='table-main' responsive>
+          <Table className='table-main' responsive size="sm" style={{ fontSize: ".8rem" }}>
          <thead>
             <tr>
                  <th>#</th>

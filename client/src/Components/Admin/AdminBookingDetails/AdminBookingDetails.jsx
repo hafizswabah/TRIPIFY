@@ -1,9 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Dropdown, Row, Table } from 'react-bootstrap'
-import AgencyHeader from '../Header/AgencyHeader'
-import AgencySidebar from '../SideBar/AgencySidebar'
-function AgencyBookings() {
+import AdminHeader from '../Header/AdminHeader'
+import AdminSidebar from '../SideBar/AdminSideBar'
+
+function AdminBookingDetails() {
     const [clicked, setCLicked] = useState(false)
     const [BookingList, setBookingList] = useState([])
     const [PlanBookingList, setPlanBookingList] = useState([])
@@ -14,7 +15,7 @@ function AgencyBookings() {
     useEffect(() => {
         (
             async function () {
-                const { data } = await axios.get("/agency/get-bookings");
+                const { data } = await axios.get("/admin/get-bookings");
                 if (!data.err) {
                     setBookingList(data.bookings)
                     setPlanBookingList(data.PlanBookings)
@@ -25,10 +26,10 @@ function AgencyBookings() {
     }, [])
     return (
         <div>
-            <AgencyHeader handleClick={handleClick} />
+            <AdminHeader handleClick={handleClick} />
             <Row className='m-0'>
                 <Col md={3}>
-                    <AgencySidebar page={'bookings'} clicked={clicked} />
+                    <AdminSidebar page={'bookings'} clicked={clicked} />
                 </Col>
                 <Col md={8}>
                     <div className="admin-container">
@@ -44,6 +45,7 @@ function AgencyBookings() {
                                     <th>Location</th>
                                     <th>Tickets</th>
                                     <th>Booked Date</th>
+                                    <th>Travel Agent</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -58,6 +60,7 @@ function AgencyBookings() {
                                             <td>{item.PlanId.location}</td>
                                             <td>{item.BookedSlots}</td>
                                             <td>{new Date(item.createdAt).toDateString()}</td>
+                                            <td>{item.AgencyId.name}</td>
                                             <td style={{color:item.status==="upcoming"? "green" : "red"}}>{item.status=="upcoming" ? "paid" : "Refund Proceess"}</td>
 
                                         </tr>
@@ -75,6 +78,7 @@ function AgencyBookings() {
                                             <td>{item.PackageId.destination}</td>
                                             <td>{item.BookedSlots}</td>
                                             <td>{new Date(item.createdAt).toDateString()}</td>
+                                            <td>{item.AgencyId.name}</td>
                                             <td style={{color:item.status==="upcoming"? "green" : "red"}}>{item.status==="upcoming" ? "paid" : "Refund Proceess"}</td>
 
                                         </tr>
@@ -93,4 +97,4 @@ function AgencyBookings() {
     )
 }
 
-export default AgencyBookings
+export default AdminBookingDetails

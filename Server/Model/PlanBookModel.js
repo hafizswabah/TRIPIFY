@@ -22,6 +22,10 @@ const schema = new mongoose.Schema({
     BookedSlots: {
         type: Number,
         required: true
+    }, 
+     totalCost:{
+        type:Number,
+        required:true
     },
     
     status: {

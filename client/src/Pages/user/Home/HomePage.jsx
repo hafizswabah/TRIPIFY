@@ -358,22 +358,34 @@ function HomePage() {
                     </Row>
                 </Container>
 
+               
+                    <Container>
+                 
+                    <Container>
+                    <Row>
+                    <div className="footer-head ps-3">
+                            <h4>Contact Us</h4>
+                        </div>
+                    </Row>
+                    </Container>
+                    <Container>
+                        <Row>
+                            <Col md={4}>
+                            <h5 className='contactDetFooter'>TRIPIFY@gmail.com</h5>
+                            </Col>
+                            <Col md={4}>
+                            <h5 className='contactDetFooter'>swabahhafizamb@gmail.com</h5>
+                            </Col>
+                            <Col md={4}>
+                            <h5 className='contactDetFooter'>8113983262</h5>
+                            </Col>
+                           
+                         
+                         
+                        </Row>
+                        <div className="line mb-4"></div> 
+                    </Container>
                 </Container>
-                <Container fluid>
-                    <Row>
-                        <div className="package-heading ms-4 mt-5 mb-4">
-                            Exprirince Your Best Tour With us
-                        </div>
-                    </Row>
-                    <Row>
-                        <div className="banner-sec d-flex justify-content-center mb-5 ">
-                            <div className="agency-banner">
-
-                            </div>
-                        </div>
-
-                    </Row>
-
                 </Container>
             </Row>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Sidebar.css'
 import { RiBankLine, RiBarChart2Line, RiBuilding4Line,RiPlaneLine, RiBankCard2Line,RiAuctionFill,RiAuctionLine,RiFileWarningLine,RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
-
+import { RiFlightTakeoffLine } from "react-icons/ri";
 function AgencySidebar({ page, clicked }) {
   
   return (
@@ -66,7 +66,7 @@ function AgencySidebar({ page, clicked }) {
             <div className='side'></div>
             <div className="admin-sideItem">
 
-              <RiPlaneLine className='icon' />
+              <RiFlightTakeoffLine className='icon' />
               <span>Trips</span>
             </div>
           </li>

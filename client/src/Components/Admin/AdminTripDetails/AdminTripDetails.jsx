@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import AgencyHeader from '../Header/AgencyHeader'
-import AgencySidebar from '../SideBar/AgencySidebar'
 import { Col, Dropdown, Row, Table } from 'react-bootstrap'
 import axios from 'axios';
+import AdminHeader from '../Header/AdminHeader';
+import AdminSidebar from '../SideBar/AdminSideBar';
 
-function AgencyTrip() {
+function AdminTripDetails() {
     const [clicked, setClicked] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [trips, setTrips] = useState([]);
@@ -14,7 +14,7 @@ function AgencyTrip() {
 
     useEffect(() => {
         (async function () {
-            let { data } = await axios.get("/agency/get-packages")
+            let { data } = await axios.get("/admin/get-trips")
             console.log(data);
             if (!data.err) {
                 setTrips(data.packages)
@@ -25,10 +25,10 @@ function AgencyTrip() {
 
     return (
         <div>
-            <AgencyHeader handleClick={handleClick} />
+            <AdminHeader handleClick={handleClick} />
             <Row className='m-0'>
                 <Col md={3}>
-                    <AgencySidebar page={'trips'} clicked={clicked} />
+                    <AdminSidebar page={'trips'} clicked={clicked} />
                 </Col>
                 <Col md={8}>
                     <div className="admin-container">
@@ -40,6 +40,7 @@ function AgencyTrip() {
                                     <th>Trip</th>
                                     <th>Date</th>
                                     <th>Destination</th>
+                                    <th>Travel Agent</th>
                                     <th>Bookings</th>
                                     <th>Balance Slot</th>
                                     <th>status</th>
@@ -74,6 +75,7 @@ function AgencyTrip() {
                                                 <td>{item.name}</td>
                                                 <td>{startDate.toDateString()} To {endDate.toDateString()}</td>
                                                 <td>{item.destination}</td>
+                                                <td>{item.agencyId.name}</td>
                                                 <td style={{color:"#00a500",fontWeight:"500"}}>{item.totalSlots - item.balanceSlot} Bookings</td>
                                                 <td style={{color:"#ff5400",fontWeight:"500"}}>{item.balanceSlot} Slot Available</td>
                                                 <td style={{ color: clr ,fontWeight:"600"}}>{status}</td>
@@ -90,4 +92,4 @@ function AgencyTrip() {
     )
 }
 
-export default AgencyTrip
+export default AdminTripDetails

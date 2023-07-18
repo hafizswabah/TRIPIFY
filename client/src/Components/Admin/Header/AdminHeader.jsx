@@ -201,7 +201,7 @@ export default function AdminHeader(props) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Tripify Admins
+            TRIPIFY ADMIN
           </Typography>
        
           <Box sx={{ flexGrow: 1 }} />

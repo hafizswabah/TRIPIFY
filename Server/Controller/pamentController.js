@@ -36,7 +36,7 @@ export async function verifyPayment(req, res) {
     try {
 
         const {
-            response, BookedSlots, PackageId, AgencyId, userId
+            response, BookedSlots, PackageId, AgencyId, userId,totalCost
 
         } = req.body;
   
@@ -53,7 +53,8 @@ export async function verifyPayment(req, res) {
                 BookedSlots,
                 PackageId,
                 AgencyId,
-                userId
+                userId,
+                totalCost
             };
     
             const booking = await BookingModel.create(bookingData);
@@ -80,7 +81,7 @@ export async function PlanverifyPayment(req, res) {
     try {
 
         const {
-            response, BookedSlots, PlanId, AgencyId, userId
+            response, BookedSlots, PlanId, AgencyId, userId,totalCost
 
         } = req.body;
 
@@ -97,8 +98,8 @@ export async function PlanverifyPayment(req, res) {
                 BookedSlots,
                 PlanId,
                 AgencyId,
-                userId
-            };
+                userId, 
+                totalCost}
  
             const booking = await PlanBookingModel.create(bookingData);
             const planUpdate = await PlanModel.findByIdAndUpdate(PlanId,
