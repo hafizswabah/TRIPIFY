@@ -65,9 +65,9 @@ export async function unblock(req, res) {
     let unblock = await UserModel.updateOne({ email }, { block: false })
     res.json({ err: false, message: "unblocked" })
 }
-export async function getPlans(req,res){
-    let plans=await PlanModal.find().lean()
-    res.json({err:false,plans})
+export async function getPlans(req, res) {
+    let plans = await PlanModal.find().lean()
+    res.json({ err: false, plans })
 }
 export async function getPackages(req, res) {
     let packages = await PackageModel.find().populate("agencyId")
@@ -84,4 +84,96 @@ export async function getBookings(req, res) {
         console.error(error);
         res.status(500).json({ err: true, message: "Failed to fetch bookings" });
     }
+}
+
+export async function report(req, res) {
+    let startDate = req.query.startDate;
+    let endDate = req.query.endDate;
+    let currentDate = new Date()
+    const completedTrips = await BookingModel.aggregate([
+        {
+            $match: {
+                status: "upcoming",
+                createdAt: {
+                    $gte: new Date(startDate),
+                    $lte: new Date(endDate),
+                },
+            },
+        },
+        {
+            $lookup: {
+                from: "packages",
+                localField: "PackageId",
+                foreignField: "_id",
+                as: "packages",
+            },
+        },
+        {
+            $lookup: {
+                from: "agencies",
+                localField: "AgencyId",
+                foreignField: "_id",
+                as: "agency",
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "userId",
+                foreignField: "_id",
+                as: "user",
+            },
+        },
+        {
+            $match: {
+                "packages.endDate": { $lt: currentDate },
+            },
+        },
+    ]).exec();
+    const completedPlans = await PlanBookingModel.aggregate([
+        {
+            $match: {
+                status: "upcoming",
+                createdAt: {
+                    $gte: new Date(startDate),
+                    $lte: new Date(endDate),
+                },
+            },
+        },
+        {
+            $lookup: {
+                from: "plans",
+                localField: "PlanId",
+                foreignField: "_id",
+                as: "plans",
+            },
+        },
+        {
+            $lookup: {
+                from: "agencies",
+                localField: "AgencyId",
+                foreignField: "_id",
+                as: "agency",
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "userId",
+                foreignField: "_id",
+                as: "user",
+            },
+        },
+        {
+            $match: {
+                "plans.date": { $lt: currentDate },
+            },
+        },
+    ]).exec();
+    console.log(completedPlans);
+   
+
+    res.json({ err: false, completedTrips,completedPlans })
+
+    // Rest of your code...
 }
