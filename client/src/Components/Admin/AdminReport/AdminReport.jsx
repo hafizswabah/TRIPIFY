@@ -206,7 +206,10 @@ function AdminReport() {
                                                     <div className="report-input-row">
                                                         <div className="report-input-date-picker">
                                                             <Space direction="vertical" size={12}>
-                                                                <RangePicker onChange={(data) => setDate({ start: new Date(data[0]), end: new Date(data[1]) })} />
+                                                                <RangePicker onChange={(data) => {
+                                                                    setStartDate(new Date(data[0])) 
+                                                                    setEndDate(new Date(data[1]))}
+                                                                    } />
                                                             </Space>
                                                         </div>
 
