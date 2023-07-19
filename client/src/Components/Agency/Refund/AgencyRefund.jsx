@@ -4,7 +4,7 @@ import { Col, Dropdown, Row, Table } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import AgencyHeader from '../Header/AgencyHeader'
 import AgencySidebar from '../SideBar/AgencySidebar'
-import noDataImg from '../../../../public/NoData.jpg'
+import noDataImg from '../../../../src/assets/NoData.jpg'
 function AgencyRefund() {
     const [clicked, setCLicked] = useState(false)
     const [RefundList, setRefundList] = useState([])

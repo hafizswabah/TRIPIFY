@@ -3,6 +3,13 @@ import PlanModel from "../Model/PlanModal.js"
 import BookingModel from "../Model/BookingModel.js"
 import PlanBookingModel from "../Model/PlanBookModel.js"
 import { count } from "console";
+import Razorpay from 'razorpay'
+
+let instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
 export async function addPackage(req, res) {
     try {
         console.log(req.body);
@@ -79,7 +86,7 @@ export async function getBookings(req, res) {
         const PlanBookings = await PlanBookingModel.find().populate("PlanId").populate("userId")
         const bookings = await BookingModel.find().populate("PackageId").populate("userId")
 
-   
+
         res.json({ err: false, bookings, PlanBookings });
     } catch (error) {
         console.error(error);
@@ -264,7 +271,21 @@ export async function getDashboardBookings(req, res) {
 
         // Append the remaining unmatched plan data from PlanMonthlyData
         monthlyData.push(...PlanMonthlyData);
+     
 
+        if (!completedTripsCount.length) {
+            completedTripsCount.push({ count: 0 });
+        }
+        if (!completedPlansCount.length) {
+            completedPlansCount.push({ count: 0 });
+        }
+        if (!pendingPlanCount.length ) {
+            pendingPlanCount.push({ count: 0 });
+        }
+        if (!pendingTripsCount.length) {
+            pendingTripsCount.push({ count: 0 });
+        }
+    
         res.json({
             err: false, completedTripsCount, PackageBookedAmount,
             pendingTripsCount, totalTripCount, totalPlanCount,
@@ -275,24 +296,42 @@ export async function getDashboardBookings(req, res) {
         res.json({ err: "Internal Server Error" });
     }
 }
-export async function getRefund(req,res){
+export async function getRefund(req, res) {
 
-    let refundList=await BookingModel.find({status:"refund processing"})
-    res.json({err:false,refundList})
+    let refundList = await BookingModel.find({ status: "refund processing" })
+    res.json({ err: false, refundList })
 }
-export async function refundComplete(req, res){
-    try{
-        const {id}=req.body; 
-        await BookingModel.findByIdAndUpdate(id,{
-            $set:{
-                status:"cancelled"
-            }
-        })
-        return res.json({
-            err:false
-        })
-    }catch(error){
-        console.log(error)
-        res.json({err:true, error, message:"something went wrong"})
+export async function refundComplete(req, res) {
+    try {
+      const { id } = req.body;
+      console.log(id);
+      const booking= await BookingModel.findById(id);
+      if(!booking){
+        return res.json({err:true, message:"No booking found"})
+      }
+      console.log(booking);
+      const paymentId=booking.payment.razorpay_payment_id;
+      const payment = await instance.payments.fetch(paymentId);
+      if (payment.amount_refunded) {
+        return res.json({err:true, message:"Payment has been refunded."})
+      }
+      const result= await instance.payments.refund(paymentId,{
+        "amount": booking.fees,
+        "speed": "normal",
+        "notes": {
+          "notes_key_1": "Thank you for using TRIPIFY",
+        }
+      })
+      await BookingModel.findByIdAndUpdate(id, {
+        $set: {
+          status: "cancelled",
+        },
+      });
+      return res.json({
+        err: false,
+      });
+    } catch (error) {
+      console.log(error);
+      res.json({ err: true, error, message: "something went wrong" });
     }
-}
+  }

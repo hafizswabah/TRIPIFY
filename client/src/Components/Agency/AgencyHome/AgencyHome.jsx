@@ -28,13 +28,13 @@ function AgencyHome() {
       let { data } = await axios.get('/agency/dashboard-bookings')
       console.log(data);
       if (!data.err) {
-        setcompletedTripsCount(data.completedTripsCount[0].count)
+        setmonthlyData(data.monthlyData)
         setPackageBookedAmount(data.PackageBookedAmount)
+        setPlanBookedAmount(data.PlanBookedAmount)
+        setcompletedTripsCount(data.completedTripsCount[0].count)
         setpendingTripsCount(data.pendingTripsCount[0].count)
         settotalTripCount(data.totalTripCount)
-        setmonthlyData(data.monthlyData)
         setcompletedPlansCount(data.completedPlansCount[0].count)
-        setPlanBookedAmount(data.PlanBookedAmount)
         settotalPlanCount(data.totalPlanCount)
       }
 
@@ -42,8 +42,13 @@ function AgencyHome() {
   }, [])
   let TotalRevenuie = PackageBookedAmount + PlanBookedAmount;
   let totalBookings = totalTripCount + totalPlanCount
-  let totalPending=pendingPlanCount+pendingTripsCount
-  let completedBookings=completedPlansCount+completedTripsCount
+  console.log(totalPlanCount);
+  console.log(totalTripCount);
+  console.log(pendingPlanCount);
+  console.log(pendingTripsCount);
+  console.log(monthlyData);
+  let totalPending = pendingPlanCount + pendingTripsCount
+  let completedBookings = completedPlansCount + completedTripsCount
   const state = {
     options: {
       chart: {

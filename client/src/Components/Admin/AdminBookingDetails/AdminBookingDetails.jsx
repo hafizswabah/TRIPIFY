@@ -61,8 +61,7 @@ function AdminBookingDetails() {
                                             <td>{item.BookedSlots}</td>
                                             <td>{new Date(item.createdAt).toDateString()}</td>
                                             <td>{item.AgencyId.name}</td>
-                                            <td style={{color:item.status==="upcoming"? "green" : "red"}}>{item.status=="upcoming" ? "paid" : "Refund Proceess"}</td>
-
+                                            <td style={{color:item.status==="upcoming"? "green" : "red"}}>{item.status==="upcoming" ? "paid" : item.status==="cancelled" ? "cancleled" : "Refund Proceess"}</td>
                                         </tr>
                                     )
                                 })
@@ -79,7 +78,7 @@ function AdminBookingDetails() {
                                             <td>{item.BookedSlots}</td>
                                             <td>{new Date(item.createdAt).toDateString()}</td>
                                             <td>{item.AgencyId.name}</td>
-                                            <td style={{color:item.status==="upcoming"? "green" : "red"}}>{item.status==="upcoming" ? "paid" : "Refund Proceess"}</td>
+                                            <td style={{color:item.status==="upcoming"? "green" : "red"}}>{item.status==="upcoming" ? "paid" : item.status==="cancelled" ? "cancleled" : "Refund Proceess"}</td>
 
                                         </tr>
                                     )
