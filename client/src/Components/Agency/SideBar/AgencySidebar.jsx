@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './Sidebar.css'
-import { RiBankLine, RiBarChart2Line, RiBuilding4Line,RiPlaneLine, RiBankCard2Line,RiAuctionFill,RiAuctionLine,RiFileWarningLine,RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
+import { RiBankLine, RiBarChart2Line,RiRestartLine ,RiBuilding4Line, RiPlaneLine, RiBankCard2Line, RiAuctionFill, RiAuctionLine, RiFileWarningLine, RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import { RiFlightTakeoffLine } from "react-icons/ri";
 function AgencySidebar({ page, clicked }) {
-  
+
   return (
     <div className={`admin-sidebar ${clicked && 'open'}`}>
       <ul>
@@ -83,9 +83,21 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
+        <Link to="/agency/refund">
+
+          <li className={`admin-sideitems ${page == "refund" && 'active'}`}>
+
+            <div className='side'></div>
+            <div className="admin-sideItem">
+
+              <RiRestartLine className='icon' />
+              <span>Refund</span>
+            </div>
+          </li>
+        </Link>
         <Link to="/agency/reports">
 
-          <li className={`admin-sideitems ${page == "report" && 'active'}`}>
+          <li className={`admin-sideitems ${page == "reports" && 'active'}`}>
 
             <div className='side'></div>
             <div className="admin-sideItem">

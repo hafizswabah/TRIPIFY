@@ -55,7 +55,7 @@ export async function deacitvatePackage(req, res) {
 }
 export async function acitvatePlan(req, res) {
     let _id = req.body.id
-    console.log(_id);
+
     let activate = await PlanModel.findByIdAndUpdate(_id, { active: true })
     res.json({ err: false, message: "activated" })
 }
@@ -79,7 +79,7 @@ export async function getBookings(req, res) {
         const PlanBookings = await PlanBookingModel.find().populate("PlanId").populate("userId")
         const bookings = await BookingModel.find().populate("PackageId").populate("userId")
 
-        console.log(PlanBookings);
+   
         res.json({ err: false, bookings, PlanBookings });
     } catch (error) {
         console.error(error);
@@ -273,5 +273,26 @@ export async function getDashboardBookings(req, res) {
     } catch (error) {
         console.error("Error:", error);
         res.json({ err: "Internal Server Error" });
+    }
+}
+export async function getRefund(req,res){
+
+    let refundList=await BookingModel.find({status:"refund processing"})
+    res.json({err:false,refundList})
+}
+export async function refundComplete(req, res){
+    try{
+        const {id}=req.body; 
+        await BookingModel.findByIdAndUpdate(id,{
+            $set:{
+                status:"cancelled"
+            }
+        })
+        return res.json({
+            err:false
+        })
+    }catch(error){
+        console.log(error)
+        res.json({err:true, error, message:"something went wrong"})
     }
 }

@@ -48,7 +48,7 @@ function SearchPackage() {
         setPage(value);
     };
     const [searchParams, setSearchParams] = useSearchParams();
-    const key = searchParams.get('key') ?? ""
+    const packages = searchParams.get('packages') ?? ""
     const category = searchParams.get('category') ?? ""
     const plan = searchParams.get('plan') ?? ""
 

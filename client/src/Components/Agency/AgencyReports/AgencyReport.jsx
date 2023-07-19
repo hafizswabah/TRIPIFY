@@ -8,13 +8,14 @@ import { FcCancel, FcOk, FcOvertime, FcTodoList } from "react-icons/fc";
 
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable'
-import './AdminReport.css'
-import { DatePicker, Space } from 'antd';
-import AdminHeader from '../Header/AdminHeader'
-import AdminSidebar from '../SideBar/AdminSideBar'
-import axios from 'axios';
 
-function AdminReport() {
+import { DatePicker, Space } from 'antd';
+
+import axios from 'axios';
+import AgencyHeader from '../Header/AgencyHeader';
+import AgencySidebar from '../SideBar/AgencySidebar';
+
+function AgencyReport() {
     const [clicked, setCLicked] = useState(false)
     const [BookingList, setBookingList] = useState([])
     const [PlanBookingList, setPlanBookingList] = useState([])
@@ -47,7 +48,7 @@ function AdminReport() {
         )()
 
     }, [startDate, endDate]);
-    console.log("cc", completedTrips);
+
 
     const handleLastWeekChange = () => {
         const today = new Date();
@@ -115,10 +116,10 @@ function AdminReport() {
 
     return (
         <div>
-            <AdminHeader handleClick={handleClick} />
+            <AgencyHeader handleClick={handleClick} />
             <Row className='m-0'>
                 <Col md={3}>
-                    <AdminSidebar page={'reports'} clicked={clicked} />
+                    <AgencySidebar page={'reports'} clicked={clicked} />
                 </Col>
                 <Col md={8}>
                     <Container fluid>
@@ -290,4 +291,4 @@ function AdminReport() {
         </div>
     )
 }
-export default AdminReport
+export default AgencyReport

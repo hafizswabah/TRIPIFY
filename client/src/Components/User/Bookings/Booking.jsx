@@ -107,9 +107,9 @@ function Booking() {
                         </div>
                     </div>
                     {bookingList.length === 0 ? (
-                    <div className="no-ticket-area">
-                        <h4>No Package Bookings History</h4>
-                    </div>
+                        <div className="no-ticket-area">
+                            <h4>No Package Bookings History</h4>
+                        </div>
                     ) : (
                         bookingList.map((item) => {
                             return (
@@ -137,11 +137,13 @@ function Booking() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="cancle-bookings">
+                                        <div className="cancel-bookings">
                                             {item?.status === 'upcoming' ? (
                                                 <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
                                                     Cancel Booking
                                                 </Button>
+                                            ) : item?.status === 'cancelled' ? (
+                                                <span style={{color:"red"}}>Cancelled</span>
                                             ) : (
                                                 <Button variant="text">Refund Processing</Button>
                                             )}
@@ -163,9 +165,9 @@ function Booking() {
                         </div>
                     </div>
                     {planBookingList.length === 0 ? (
-                    <div className="no-ticket-area">
-                        <h4>No Package Bookings History</h4>
-                    </div>
+                        <div className="no-ticket-area">
+                            <h4>No Package Bookings History</h4>
+                        </div>
                     ) : (
                         planBookingList?.map((item) => {
 
