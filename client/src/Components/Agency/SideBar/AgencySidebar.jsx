@@ -83,18 +83,7 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/agency/refund">
 
-          <li className={`admin-sideitems ${page == "refund" && 'active'}`}>
-
-            <div className='side'></div>
-            <div className="admin-sideItem">
-
-              <RiRestartLine className='icon' />
-              <span>Refund</span>
-            </div>
-          </li>
-        </Link>
         <Link to="/agency/reports">
 
           <li className={`admin-sideitems ${page == "reports" && 'active'}`}>

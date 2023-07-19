@@ -84,7 +84,7 @@ function Booking() {
                 }
             }
         )()
-    }, [])
+    }, [refresh])
 
 
     return (
@@ -139,11 +139,15 @@ function Booking() {
                                         </div>
                                         <div className="cancel-bookings">
                                             {item?.status === 'upcoming' ? (
-                                                <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
-                                                    Cancel Booking
-                                                </Button>
+                                                new Date(item?.PackageId?.startDate) > new Date() ? (
+                                                    <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
+                                                        Cancel Booking
+                                                    </Button>
+                                                ) : (
+                                                    <Button variant="text">Completed</Button>
+                                                )
                                             ) : item?.status === 'cancelled' ? (
-                                                <span style={{color:"red"}}>Cancelled</span>
+                                                <span style={{ color: "red" }}>Cancelled</span>
                                             ) : (
                                                 <Button variant="text">Refund Processing</Button>
                                             )}

@@ -309,7 +309,7 @@ export async function refundComplete(req, res) {
       if(!booking){
         return res.json({err:true, message:"No booking found"})
       }
-      console.log(booking);
+    
       const paymentId=booking.payment.razorpay_payment_id;
       const payment = await instance.payments.fetch(paymentId);
       if (payment.amount_refunded) {
@@ -322,7 +322,7 @@ export async function refundComplete(req, res) {
           "notes_key_1": "Thank you for using TRIPIFY",
         }
       })
-      await BookingModel.findByIdAndUpdate(id, {
+      await BookingModel.findByIdAndUpdate(booking._id, {
         $set: {
           status: "cancelled",
         },

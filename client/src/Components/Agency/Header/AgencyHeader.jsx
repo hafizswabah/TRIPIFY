@@ -201,7 +201,7 @@ export default function AgencyHeader(props) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Tripify 
+            TRIPIFY
           </Typography>
        
           <Box sx={{ flexGrow: 1 }} />

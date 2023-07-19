@@ -99,6 +99,7 @@ function App() {
             <Route path='/admin/trips' element={<AdminTripDetails />} />
             <Route path='/admin/bookings' element={<AdminBookingDetails />} />
             <Route path='/admin/reports' element={<AdminReport />} />
+            <Route path='/admin/refund' element={<AgencyRefund/>} />
           </>
         }
         {
@@ -145,7 +146,7 @@ function App() {
             <Route path='/agency/trips' element={<AgencyTrip />} />
             <Route path='/agency/bookings' element={<AgencyBookings />} />
             <Route path='/agency/reports' element={<AgencyReport/>} />
-            <Route path='/agency/refund' element={<AgencyRefund/>} />
+       
           </>
         }
       </Routes>

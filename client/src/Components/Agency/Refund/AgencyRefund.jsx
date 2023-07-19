@@ -5,6 +5,8 @@ import Swal from 'sweetalert2'
 import AgencyHeader from '../Header/AgencyHeader'
 import AgencySidebar from '../SideBar/AgencySidebar'
 import noDataImg from '../../../../src/assets/NoData.jpg'
+import AdminHeader from '../../Admin/Header/AdminHeader'
+import AdminSidebar from '../../Admin/SideBar/AdminSideBar'
 function AgencyRefund() {
     const [clicked, setCLicked] = useState(false)
     const [RefundList, setRefundList] = useState([])
@@ -58,10 +60,10 @@ function AgencyRefund() {
 
     return (
         <div>
-            <AgencyHeader handleClick={handleClick} />
+            <AdminHeader handleClick={handleClick} />
             <Row className='m-0'>
                 <Col md={3}>
-                    <AgencySidebar page={'refund'} clicked={clicked} />
+                    <AdminSidebar page={'refund'} clicked={clicked} />
                 </Col>
                 <Col md={8}>
                     <div className="admin-container">

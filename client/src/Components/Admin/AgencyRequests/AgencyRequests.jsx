@@ -6,6 +6,7 @@ import { RiMore2Fill } from 'react-icons/ri';
 import AdminHeader from '../Header/AdminHeader';
 import AdminSidebar from '../SideBar/AdminSideBar';
 import Swal from 'sweetalert2'
+import noDataImg from '../../../../src/assets/NoData.jpg'
 import { Backdrop, CircularProgress } from '@mui/material';
 
 
@@ -112,6 +113,8 @@ export default function AgencyRequests() {
         <Col md={8}>
         <div className="admin-container">
         <h5 className='p-4' style={{fontSize:'22px',fontWeight:300}}>Agency Requests</h5>
+
+        { AgencyList[0] ?
           <Table className='table-main' responsive>
          <thead>
             <tr>
@@ -125,6 +128,7 @@ export default function AgencyRequests() {
              </tr>
              </thead>
               <tbody>
+                
                 {
                   AgencyList.map((item, index) => {
                     return <tr key={index}>
@@ -156,6 +160,13 @@ export default function AgencyRequests() {
 
               </tbody>
             </Table>
+                         :
+                         <Row className='d-flex justify-content-center flex-column align-items-center'>
+                             <img src={noDataImg}
+                                 style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
+                             <h6 className='text-center'>No data found</h6>
+                         </Row>
+                 }
 
           </div>
        

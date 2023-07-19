@@ -1,6 +1,6 @@
 import React from 'react'
 import './Sidebar.css'
-import { RiBankLine, RiBarChart2Line, RiBuilding4Line, RiFileWarningLine, RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
+import { RiBankLine, RiBarChart2Line, RiBuilding4Line,RiRestartLine, RiFileWarningLine, RiHome2Line, RiHospitalLine, RiRefundLine, RiUser2Line, RiUserLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 
 function AdminSidebar({ page, clicked }) {
@@ -51,6 +51,18 @@ function AdminSidebar({ page, clicked }) {
 
               <RiBuilding4Line className='icon' />
               <span>Agencies</span>
+            </div>
+          </li>
+        </Link>
+        <Link to="/admin/refund">
+
+          <li className={`admin-sideitems ${page == "refund" && 'active'}`}>
+
+            <div className='side'></div>
+            <div className="admin-sideItem">
+
+              <RiRestartLine className='icon' />
+              <span>Refund</span>
             </div>
           </li>
         </Link>
