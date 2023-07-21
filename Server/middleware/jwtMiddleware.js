@@ -1,18 +1,23 @@
 import jwt from 'jsonwebtoken';
-
+import AdminModel from '../Model/AdminModel.js'
 // Middleware function to verify JWT token
-export const verifyToken = (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
   const token = req.cookies.adminToken;
-  
+
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
-
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.userId = decoded.id; // Attach the decoded user ID to the request object
-    next(); // Move to the next middleware or route handler
+    console.log(decoded);
+    let Id = decoded.id;
+    let admin = await AdminModel.findById(Id, { password: 0 })
+    if (!admin) {
+      res.json({ loggedIn: false })
+    }
+    console.log( req.admin);
+    req.admin = admin
+    next();
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' });
   }

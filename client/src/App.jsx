@@ -33,6 +33,7 @@ import AdminBookingDetails from './Components/Admin/AdminBookingDetails/AdminBoo
 import AdminReport from './Components/Admin/AdminReport/AdminReport'
 import AgencyReport from './Components/Agency/AgencyReports/AgencyReport'
 import AgencyRefund from './Components/Agency/Refund/AgencyRefund'
+import UserProfile from './Components/User/Profile/UserProfile'
 
 
 
@@ -73,6 +74,7 @@ function App() {
             <Route path='/package-details/:id' element={<PackageViewPage/>}/> 
             <Route path='/plan-details/:id' element={<PlanViewPage/>}/> 
             <Route path='/Bookings' element={<BookingsPage/>}/> 
+            <Route path='/profile' element={<UserProfile/>}/> 
 
 
           </>

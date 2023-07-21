@@ -197,7 +197,7 @@ function NavBar() {
 
               <MenuItem onClick={handleCloseUserMenu}>
                 <Button textAlign="center" onClick={logout}>Logout</Button>
-                <Link to={"/Bookings"}>
+                <Link to={"/profile"}>
                   <Button textAlign="center">Profile</Button>
                 </Link>
               </MenuItem>
