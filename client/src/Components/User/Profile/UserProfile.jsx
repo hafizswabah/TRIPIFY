@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import NavBar from '../NavBar/NavBar';
 import './UserProfile.css'
 const UserProfile = () => {
@@ -8,6 +10,23 @@ const UserProfile = () => {
   })
   console.log(user);
   const userId = user.details._id
+  async function logout() {
+    Swal.fire({
+        title: 'Do you want to logout',
+        text: "Are you sure ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'red',
+        cancelButtonColor: '##a8a8a8',
+        confirmButtonText: 'Yes,Logout!'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+
+            await axios.get("/user/auth/logout");
+            dispatch({ type: "refresh" })
+        }
+    })
+}
 
   return (
     <div>
@@ -19,26 +38,28 @@ const UserProfile = () => {
               <div className="about-text go-to">
                 <h3 className="dark-color">{user.details.name}</h3>
                 <h6 className="theme-color lead">{user.details.email}</h6>
-      
+
                 <div className="row about-list">
                   <div className="col-md-4">
                     <div className="media">
                       <label>Contact :</label>
-               
+
                     </div>
-       
+
                   </div>
                   <div className="col-md-6">
                     <div className="media">
                       <label>{user.details.contact}</label>
-     
+
                     </div>
-               
+
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-6 d-flex align-items-center justify-content-center">
-                    <button>hh</button>
+                  <div className="col-6 d-flex align-items-center justify-content-center mt-4">
+                    <button onClick={logout}>
+                      LOG OUT
+                    </button>
                   </div>
                 </div>
               </div>
