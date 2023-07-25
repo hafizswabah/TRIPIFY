@@ -3,21 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
- 
 
-const EditProfileModal = ({ showModal, handleCloseModal}) => {
-    const Alert = React.forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-      });
-     
-    
+
+
+const EditProfileModal = ({ showModal, handleCloseModal }) => {
+  
+
+
     const [userName, setUserName] = useState('')
     const [_id, setId] = useState(null)
     const [userEmail, setEmail] = useState('')
-    const [userContact, setContact] = useState('')
-    const [open, setOpen] =useState(false);
+    const [userContact, setContact] = useState(0)
+
+
 
     const { user } = useSelector((state) => {
         return state
@@ -35,7 +33,8 @@ const EditProfileModal = ({ showModal, handleCloseModal}) => {
             userName, userEmail, userContact, _id
         })
         if (!data.err) {
-            setOpen(true);
+       
+            handleCloseModal()
         }
     }
     return (
@@ -58,7 +57,7 @@ const EditProfileModal = ({ showModal, handleCloseModal}) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="slots">
 
-                                <Form.Control type="number" placeholder='Contact' style={{ width: '100%' }} defaultValue={user.details.contact} onChange={(e) => { setEmail(e.target.value) }} />
+                                <Form.Control type="number" placeholder='Contact' style={{ width: '100%' }} defaultValue={user.details.contact} onChange={(e) => { setContact(e.target.value) }} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -66,7 +65,7 @@ const EditProfileModal = ({ showModal, handleCloseModal}) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="slots">
 
-                                <Form.Control type="email" placeholder='Email' style={{ width: '100%' }} defaultValue={user.details.email} onChange={(e) => { setContact(e.target.value) }} />
+                                <Form.Control type="email" placeholder='Email' style={{ width: '100%' }} defaultValue={user.details.email} onChange={(e) => { setEmail(e.target.value) }} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -80,11 +79,7 @@ const EditProfileModal = ({ showModal, handleCloseModal}) => {
                     Edit Profile
                 </Button>
             </Modal.Footer>
-            <Snackbar open={open} autoHideDuration={1000} >
-                <Alert  severity="success" sx={{ width: '100%' }}>
-                    This is a success message!
-                </Alert>
-            </Snackbar>
+      
         </Modal>
     );
 };
