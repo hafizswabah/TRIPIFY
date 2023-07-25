@@ -2,6 +2,7 @@ import BookingModel from '../Model/BookingModel.js';
 import PackageModel from '../Model/packageModel.js'
 import PlanBookingModel from '../Model/PlanBookModel.js';
 import PlanModel from '../Model/PlanModal.js'
+import UserModel from '../Model/UserModel.js'
 
 export async function GetPkg(req, res) {
   let packages = await PackageModel.find().limit(4).lean()
@@ -75,4 +76,17 @@ export async function findPackages(req, res) {
   } catch (error) {
     return res.json({ err: true, message: 'Error retrieving packages' });
   }
+}
+export async function editProfile(req,res){
+  console.log(req.body);
+  let {_id}=req.body
+  let name=req.body.userName
+  let email=req.body.userEmail
+  let contact=req.body.userContact
+  let user=await UserModel.findByIdAndUpdate(_id,{
+    name:name,
+    email:email,
+    contact:contact
+  })
+  res.json({err:false,message:"profile Updated Successfully"})
 }

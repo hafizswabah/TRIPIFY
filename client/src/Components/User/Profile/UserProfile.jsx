@@ -1,14 +1,17 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import EditProfileModal from '../../../modal/EditProfile';
 import NavBar from '../NavBar/NavBar';
 import './UserProfile.css'
 const UserProfile = () => {
+
+  const [showModal,setShowModal]=useState(false)
   const { user } = useSelector((state) => {
     return state
   })
-  console.log(user);
+
   const userId = user.details._id
   async function logout() {
     Swal.fire({
@@ -27,10 +30,16 @@ const UserProfile = () => {
         }
     })
 }
-
+const handleModel=()=>{
+  setShowModal(true)
+}
+const handleCloseModal=()=>{
+setShowModal(false)
+}
   return (
     <div>
       <NavBar />
+      <EditProfileModal showModal={showModal} handleCloseModal={handleCloseModal}/>
       <section className="section about-section gray-bg" id="about">
         <div className="container">
           <div className="row align-items-center flex-row-reverse">
@@ -56,9 +65,14 @@ const UserProfile = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-6 d-flex align-items-center justify-content-center mt-4">
-                    <button onClick={logout}>
+                  <div className="col-3 d-flex align-items-center justify-content-center mt-4 m-1">
+                    <button className='log-btn' onClick={logout}>
                       LOG OUT
+                    </button>
+                  </div>
+                  <div className="col-3 d-flex align-items-center justify-content-center mt-4 m-1">
+                    <button className='log-btn' onClick={handleModel}>
+                     EDIT PROFILE
                     </button>
                   </div>
                 </div>
