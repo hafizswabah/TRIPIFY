@@ -282,7 +282,13 @@ function Booking() {
                                                 <Button variant="text">Refund Processing</Button>
                                             )}
                                 </div>
-                            </div> </Col>
+                                <div className="view-details w-100 d-flex justify-content-end">
+                                            <Link to={"/plan-details/"+item.PlanId._id}>
+                                      <div>view Details</div>
+                                            </Link>
+                                        </div>
+                            </div>
+                             </Col>
 
 
 

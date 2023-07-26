@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import BookNow from '../../../modal/Booking/BookiNow'
 import NavBar from '../NavBar/NavBar'
+import { useSelector } from 'react-redux'
 function PackageView() {
     const [packages, setPackages] = useState([])
     const [value, setValue] = useState('');
@@ -28,9 +29,13 @@ function PackageView() {
     const [steps, setSteps] = useState([]);
     const [showBookNow, setShowBookNow] = useState(false)
     const [refresh, setRefresh] = useState(false)
-
+    const [reviwer, setreviewer] = useState(null)
     const [activeStep, setActiveStep] = React.useState(0);
-
+    let {user}=useSelector((state)=>{
+        return state
+    })
+    console.log(user);
+    let userId=user.details._id
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -55,11 +60,17 @@ function PackageView() {
                 setImages([{ label: data.packages.name, imgPath: baseImgUrl + data.packages.mainImage[0].filename }, ...subImages])
                 const dayDetails = data.packages.dayDetails;
                 const newSteps = dayDetails.map((day, index) => ({
-                  label: `Trip Day ${index + 1}`,
-                  description: day.description,
+                    label: `Trip Day ${index + 1}`,
+                    description: day.description,
                 }));
                 setSteps(newSteps);
             }
+        })()
+    }, [])
+    useEffect(() => {
+        (async function () {
+            let { data } = await axios.get(`/user/check-reviewer?userId=${userId}&PackageId=${id}`)
+
         })()
     }, [])
     const formattedStartDate = new Date(packages.startDate).toLocaleDateString();
@@ -72,7 +83,7 @@ function PackageView() {
 
     return (
         <>
-        <NavBar/>
+            <NavBar />
             <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
@@ -81,15 +92,15 @@ function PackageView() {
 
                                 {
                                     images &&
-                                    <ImageViewer  data={images} />
+                                    <ImageViewer data={images} />
                                 }
                             </div>
-                            
+
 
                         </aside>
                     </div>
                     <Row>
-                    <Col lg={6}>
+                        <Col lg={6}>
                             <div className="stepers m-5">
                                 <Stepper activeStep={activeStep} orientation="vertical">
                                     {steps.map((step, index) => (
@@ -104,7 +115,7 @@ function PackageView() {
                                                 {step.label}
                                             </StepLabel>
                                             <StepContent>
-                                                <Typography style={{fontSize:"11px",fontWeight:'400'}}>{step.description}</Typography>
+                                                <Typography style={{ fontSize: "11px", fontWeight: '400' }}>{step.description}</Typography>
                                                 <Box sx={{ mb: 2 }}>
                                                     <div>
                                                         <Button
@@ -129,7 +140,7 @@ function PackageView() {
                                 </Stepper>
                                 {activeStep === steps.length && (
                                     <Paper square elevation={0} sx={{ p: 3 }}>
-                                        <Typography style={{fontSize:"14px",fontWeight:'600'}}>Complted Your Journey OverView</Typography>
+                                        <Typography style={{ fontSize: "14px", fontWeight: '600' }}>Complted Your Journey OverView</Typography>
                                         <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
                                             Reset
                                         </Button>
@@ -137,13 +148,16 @@ function PackageView() {
                                 )}
                             </div>
                         </Col>
-                    <Col lg={6}>
+                        <Col lg={6}>
                             <div className="ps-lg-3">
                                 <h4 className="title text-dark">
                                     {packages.name}
                                 </h4>
                                 <div className="d-flex flex-row my-3">
                                     <div className="text-warning mb-1 me-2">
+                                        {new Date(packages.endDate) < new Date() ? 'h' : 'jj'
+
+                                        }
                                         <Rating
                                             name="simple-controlled"
                                             value={value}
@@ -184,19 +198,19 @@ function PackageView() {
                                 <hr />
 
                                 <div className="row mb-4">
-                              
+
                                 </div>
                                 <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
                             </div>
                         </Col>
-                       
+
                     </Row>
                 </div>
             </section>
             {
-                            showBookNow &&
-                            <BookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} packages={packages} />
-                        }
+                showBookNow &&
+                <BookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} packages={packages} />
+            }
 
         </>
     )

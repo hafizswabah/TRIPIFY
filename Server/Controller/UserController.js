@@ -1,3 +1,4 @@
+
 import BookingModel from '../Model/BookingModel.js';
 import PackageModel from '../Model/packageModel.js'
 import PlanBookingModel from '../Model/PlanBookModel.js';
@@ -89,4 +90,14 @@ export async function editProfile(req,res){
     contact:contact
   })
   res.json({err:false,message:"profile Updated Successfully"})
+}
+export async function checkReviewer(req,res){
+  let userId=req.query.userId
+  let PackageId=req.query.PackageId
+  console.log(req.query);
+  let booking=await BookingModel.findOne({UserId:userId,PackageId:PackageId})
+  console.log(booking);
+
+
+
 }

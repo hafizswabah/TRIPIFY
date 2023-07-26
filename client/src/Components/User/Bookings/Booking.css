@@ -17,10 +17,13 @@
 }
 
 .ub-dr-profile img {
-    width: 90px;
+    width: 100%;
     height: 120px;
     object-fit: cover;
     border-radius: 10px;
+}
+.ub-dr-profile{
+    width: 14%;
 }
 
 .ub-dr-desc {
