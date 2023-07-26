@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 
 const EditProfileModal = ({ showModal, handleCloseModal }) => {
-  
+
 
 
     const [userName, setUserName] = useState('')
@@ -33,7 +33,7 @@ const EditProfileModal = ({ showModal, handleCloseModal }) => {
             userName, userEmail, userContact, _id
         })
         if (!data.err) {
-       
+
             handleCloseModal()
         }
     }
@@ -56,9 +56,19 @@ const EditProfileModal = ({ showModal, handleCloseModal }) => {
                     <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="slots">
-
-                                <Form.Control type="number" placeholder='Contact' style={{ width: '100%' }} defaultValue={user.details.contact} onChange={(e) => { setContact(e.target.value) }} />
+                                <Form.Control
+                                    type="number"
+                                    placeholder="Contact"
+                                    style={{ width: '100%' }}
+                                    defaultValue={user.details.contact}
+                                    onChange={(e) => {
+                                        const value = e.target.value.trim(); // Remove any leading/trailing spaces
+                                        const contact = value.slice(0, 10).padStart(10, '0'); // Pad or truncate to 10 digits
+                                        setContact(contact);
+                                    }}
+                                />
                             </Form.Group>
+
                         </Col>
                     </Row>
                     <Row>
@@ -79,7 +89,7 @@ const EditProfileModal = ({ showModal, handleCloseModal }) => {
                     Edit Profile
                 </Button>
             </Modal.Footer>
-      
+
         </Modal>
     );
 };

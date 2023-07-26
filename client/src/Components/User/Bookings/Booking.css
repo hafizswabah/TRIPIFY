@@ -104,3 +104,8 @@ font-weight: 100;
     font-weight: 300;
     font-size: 18px;
 }
+.sort-area{
+    display: flex;
+    justify-content: flex-end;
+
+}

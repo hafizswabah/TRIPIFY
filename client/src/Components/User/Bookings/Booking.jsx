@@ -2,21 +2,75 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import NavBar from '../NavBar/NavBar'
 import Button from '@mui/material/Button';
-
+import { Select } from 'antd';
 import './Booking.css'
 import Swal from 'sweetalert2';
 import { Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { baseImgUrl } from '../../../urls';
+import { Link } from 'react-router-dom';
 function Booking() {
     const [bookingList, setBookingList] = useState([])
     const [planBookingList, setPlanBookings] = useState([])
+    const [selectedOption, setSelectedOption] = useState("all");
     const [refresh, setRefresh] = useState(true)
     const { user } = useSelector((state) => {
         return state
     })
     const userId = user.details._id
-
+    function handleSelect(option) {
+      setSelectedOption(option)
+  
+        }
+    
+        function filterBookings(selectedOption, bookingList) {
+            const currentDate = new Date();
+            switch (selectedOption) {
+              case "all":
+                return bookingList;
+              case "completed":
+                return bookingList.filter(
+                  (item) =>
+                    item.status === "upcoming" &&
+                    new Date(item.PackageId.endDate)<currentDate
+                );
+              case "upcoming":
+                return bookingList.filter(
+                  (item) =>
+                    item.status === "upcoming" &&
+                    new Date(item.PackageId.startDate)>currentDate
+                );
+              case "cancelled":
+                return bookingList.filter((item) => item.status === "cancelled");
+              default:
+                return bookingList;
+            }
+          }
+          function filterPlans(selectedOption,planBookingList ) {
+            const currentDate = new Date();
+            switch (selectedOption) {
+              case "all":
+                return planBookingList;
+              case "completed":
+                return planBookingList.filter(
+                  (item) =>
+                    item.status === "upcoming" &&
+                    new Date(item.PlanId.date)<currentDate
+                );
+              case "upcoming":
+                return planBookingList.filter(
+                  (item) =>
+                    item.status === "upcoming" &&
+                    new Date(item.PlanId.date)>currentDate
+                );
+              case "cancelled":
+                return planBookingList.filter((item) => item.status === "cancelled");
+              default:
+                return planBookingList;
+            }
+          }
+    const filteredBookingList=filterBookings(selectedOption,bookingList)
+    const filteredPlanList=filterPlans(selectedOption,planBookingList)
     async function cancelBooking(bookingId) {
         console.log(bookingId);
         const { data } = await axios.patch("/user/booking/cancel", { bookingId });
@@ -92,15 +146,21 @@ function Booking() {
             <NavBar></NavBar>
             <div className="user-booking-container">
 
-                <div className="profile-comp">
-                    <img src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png" alt="" />
-                    <h6 className="text-center mt-2">{user.details.name.toUpperCase()}</h6>
-                    <span className="text-center">{user.details.email}</span>
-                    <div className="profile-btn mt-4">
-                        <Button variant="text" onClick={logout} >Log Out</Button>
-                    </div>
-                </div>
+            
                 <Row>
+                    <div className="sort-area">
+                        <Select
+                            defaultValue={"all"}
+                            style={{ width: 120 }}
+                            onChange={(selectedOption) => handleSelect(selectedOption)}
+                            options={[
+                                { value: "all", label: "All" },
+                                { value: "completed", label: "Completed" },
+                                { value: "upcoming", label: "upcomings" },
+                                { value: "cancelled", label: "cancelled" },
+                            ]}
+                        />
+                    </div>
                     <div className="plan-book-head-sec">
                         <div className="plan-book-head">
                             <h4>Package Tickets</h4>
@@ -111,7 +171,7 @@ function Booking() {
                             <h4>No Package Bookings History</h4>
                         </div>
                     ) : (
-                        bookingList.map((item) => {
+                        filteredBookingList.map((item) => {
                             return (
                                 <Col md={12} className="p-2">
                                     <div className="user-booking-item">
@@ -144,13 +204,22 @@ function Booking() {
                                                         Cancel Booking
                                                     </Button>
                                                 ) : (
-                                                    <Button variant="text">Completed</Button>
+                                                    <>
+                                                    <Button variant="text">Completed</Button> 
+                                    
+                                                    </>
+                                           
                                                 )
                                             ) : item?.status === 'cancelled' ? (
                                                 <span style={{ color: "red" }}>Cancelled</span>
                                             ) : (
                                                 <Button variant="text">Refund Processing</Button>
                                             )}
+                                        </div>
+                                        <div className="view-details w-100 d-flex justify-content-end">
+                                            <Link to={"/package-details/"+item.PackageId._id}>
+                                      <div>view Details</div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </Col>
@@ -173,7 +242,7 @@ function Booking() {
                             <h4>No Package Bookings History</h4>
                         </div>
                     ) : (
-                        planBookingList?.map((item) => {
+                        filteredPlanList?.map((item) => {
 
                             return <Col md={12} className='p-2'> <div className="user-booking-item" >
                                 <div className="ub-dr-profile">
@@ -199,11 +268,19 @@ function Booking() {
 
                                 </div>
                                 <div className="cancle-bookings">
-                                    {item?.status == 'upcoming' ?
-                                        <Button variant="text" onClick={() => handleCancelBooking(item._id)}>Cancle Booking</Button>
-                                        : <Button variant="text">Refund Processing</Button>
-                                    }
-
+                                {item?.status === 'upcoming' ? (
+                                                new Date(item?.PlanId?.date) > new Date() ? (
+                                                    <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
+                                                        Cancel Booking
+                                                    </Button>
+                                                ) : (
+                                                    <Button variant="text">Completed</Button>
+                                                )
+                                            ) : item?.status === 'cancelled' ? (
+                                                <span style={{ color: "red" }}>Cancelled</span>
+                                            ) : (
+                                                <Button variant="text">Refund Processing</Button>
+                                            )}
                                 </div>
                             </div> </Col>
 

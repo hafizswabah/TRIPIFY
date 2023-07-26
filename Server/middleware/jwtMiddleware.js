@@ -9,14 +9,13 @@ export const verifyToken = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(decoded);
+ 
     let Id = decoded.id;
     let admin = await AdminModel.findById(Id, { password: 0 })
+ 
     if (!admin) {
       res.json({ loggedIn: false })
     }
-    console.log( req.admin);
-    req.admin = admin
     next();
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' });
