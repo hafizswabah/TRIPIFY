@@ -22,6 +22,7 @@ import Box from '@mui/material/Box';
 import BookNow from '../../../modal/Booking/BookiNow'
 import NavBar from '../NavBar/NavBar'
 import { useSelector } from 'react-redux'
+import TextField from '@mui/material/TextField';
 function PackageView() {
     const [packages, setPackages] = useState([])
     const [value, setValue] = useState('');
@@ -29,13 +30,14 @@ function PackageView() {
     const [steps, setSteps] = useState([]);
     const [showBookNow, setShowBookNow] = useState(false)
     const [refresh, setRefresh] = useState(false)
-    const [reviwer, setreviewer] = useState(null)
+    const [reviewer, setreviewer] = useState(null)
+    const [review, setReviews] = useState('')
     const [activeStep, setActiveStep] = React.useState(0);
-    let {user}=useSelector((state)=>{
+    let { user } = useSelector((state) => {
         return state
     })
     console.log(user);
-    let userId=user.details._id
+    let userId = user.details._id
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -70,14 +72,23 @@ function PackageView() {
     useEffect(() => {
         (async function () {
             let { data } = await axios.get(`/user/check-reviewer?userId=${userId}&PackageId=${id}`)
-
+            if (!data.err) {
+                setreviewer(data.reviewer)
+            }
         })()
     }, [])
     const formattedStartDate = new Date(packages.startDate).toLocaleDateString();
     const formattedEndDate = new Date(packages.endDate).toLocaleDateString()
 
 
+    async function addReview() {
 
+        if (review == '') {
+            let message = 'Enter your expirience'
+        } else {
+            let { data } = await axios.post("/user/add-review",{review})
+        }
+    }
 
 
 
@@ -155,9 +166,7 @@ function PackageView() {
                                 </h4>
                                 <div className="d-flex flex-row my-3">
                                     <div className="text-warning mb-1 me-2">
-                                        {new Date(packages.endDate) < new Date() ? 'h' : 'jj'
 
-                                        }
                                         <Rating
                                             name="simple-controlled"
                                             value={value}
@@ -196,6 +205,33 @@ function PackageView() {
                                 </div>
 
                                 <hr />
+                                {reviewer ?
+                                    <>
+                                        <div className="row mb-3">
+                                            <Rating
+                                                name="simple-controlled"
+                                                value={value}
+                                                onChange={(event, newValue) => {
+                                                    setValue(newValue);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="row mb-3">
+                                            <TextField
+                                                id="outlined-textarea"
+                                                label="Give your feedback"
+                                                placeholder="Placeholder"
+                                                multiline
+                                                onChange={(e) => { setReviews(e.target.value.trim()) }}
+                                            />
+                                        </div>
+
+                                        <Button onClick={addReview}>Add Review</Button>
+                                    </>
+                                    : <>
+                                    </>
+
+                                }
 
                                 <div className="row mb-4">
 

@@ -78,26 +78,30 @@ export async function findPackages(req, res) {
     return res.json({ err: true, message: 'Error retrieving packages' });
   }
 }
-export async function editProfile(req,res){
+export async function editProfile(req, res) {
   console.log(req.body);
-  let {_id}=req.body
-  let name=req.body.userName
-  let email=req.body.userEmail
-  let contact=req.body.userContact
-  let user=await UserModel.findByIdAndUpdate(_id,{
-    name:name,
-    email:email,
-    contact:contact
+  let { _id } = req.body
+  let name = req.body.userName
+  let email = req.body.userEmail
+  let contact = req.body.userContact
+  let user = await UserModel.findByIdAndUpdate(_id, {
+    name: name,
+    email: email,
+    contact: contact
   })
-  res.json({err:false,message:"profile Updated Successfully"})
+  res.json({ err: false, message: "profile Updated Successfully" })
 }
-export async function checkReviewer(req,res){
-  let userId=req.query.userId
-  let PackageId=req.query.PackageId
+export async function checkReviewer(req, res) {
+  let userId = req.query.userId
+  let PackageId = req.query.PackageId
+  let reviewer = false
   console.log(req.query);
-  let booking=await BookingModel.findOne({UserId:userId,PackageId:PackageId})
-  console.log(booking);
-
-
-
+  let booking = await BookingModel.findOne({ userId: userId, PackageId: PackageId }).populate("PackageId")
+  if (new Date(booking.PackageId.endDate) < new Date) {
+    reviewer = true
+  } else {
+    reviewer = false
+  }
+  console.log();
+  res.json({err:false,reviewer})
 }
