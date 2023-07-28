@@ -4,6 +4,7 @@ import PackageModel from '../Model/packageModel.js'
 import PlanBookingModel from '../Model/PlanBookModel.js';
 import PlanModel from '../Model/PlanModal.js'
 import UserModel from '../Model/UserModel.js'
+import feedbackModel from '../Model/feedbackModel.js'
 
 export async function GetPkg(req, res) {
   let packages = await PackageModel.find().limit(4).lean()
@@ -79,7 +80,6 @@ export async function findPackages(req, res) {
   }
 }
 export async function editProfile(req, res) {
-  console.log(req.body);
   let { _id } = req.body
   let name = req.body.userName
   let email = req.body.userEmail
@@ -95,13 +95,38 @@ export async function checkReviewer(req, res) {
   let userId = req.query.userId
   let PackageId = req.query.PackageId
   let reviewer = false
-  console.log(req.query);
   let booking = await BookingModel.findOne({ userId: userId, PackageId: PackageId }).populate("PackageId")
   if (new Date(booking.PackageId.endDate) < new Date) {
     reviewer = true
   } else {
     reviewer = false
   }
-  console.log();
   res.json({err:false,reviewer})
+}
+export async function addReview(req, res) {
+  console.log(req.body);
+  let { userId, id, review, value } = req.body;
+  try {
+    let user = await feedbackModel.findOne({ userId });
+    if (user) {
+      await feedbackModel.findOneAndUpdate(
+        { userId },
+        { review, rating: value, PackageId: id },
+        { new: true }
+      );
+    } else {
+      await feedbackModel.create({ userId, PackageId: id, review, rating: value });
+    }
+    res.json({err:false, message: "Review added successfully" });
+  } catch (error) {
+    console.error(error);
+    res.json({ error: "Internal server error" });
+  }
+}
+
+export async function userReviews(req,res){
+  let userId=req.user._id
+  let PackageId=req.query.packageId
+    let review=await feedbackModel.find({PackageId,userId}).populate("userId")
+    res.json({err:false,review})
 }

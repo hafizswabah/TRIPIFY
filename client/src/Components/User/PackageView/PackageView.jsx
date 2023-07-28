@@ -23,6 +23,9 @@ import BookNow from '../../../modal/Booking/BookiNow'
 import NavBar from '../NavBar/NavBar'
 import { useSelector } from 'react-redux'
 import TextField from '@mui/material/TextField';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 function PackageView() {
     const [packages, setPackages] = useState([])
     const [value, setValue] = useState('');
@@ -32,11 +35,23 @@ function PackageView() {
     const [refresh, setRefresh] = useState(false)
     const [reviewer, setreviewer] = useState(null)
     const [review, setReviews] = useState('')
+    const [userReview, setUSerReview] = useState('')
+    const [rating, setRating] = useState(null)
     const [activeStep, setActiveStep] = React.useState(0);
+    const [open, setOpen] = useState(false);
+    const [snackPos, setsnackPos] = React.useState({
+
+        vertical: 'bottom',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal } = snackPos;
+    const Alert = React.forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
     let { user } = useSelector((state) => {
         return state
     })
-    console.log(user);
+
     let userId = user.details._id
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -49,8 +64,11 @@ function PackageView() {
     const handleReset = () => {
         setActiveStep(0);
     };
-
+    const handleClickVariant = (variant) => () => {
+        enqueueSnackbar('Thank You for your Feedback!', { variant });
+    };
     const { id } = useParams()
+
     useEffect(() => {
         (async function () {
             let { data } = await axios.get("/user/package-view/" + id)
@@ -76,25 +94,49 @@ function PackageView() {
                 setreviewer(data.reviewer)
             }
         })()
-    }, [])
+    }, [review])
     const formattedStartDate = new Date(packages.startDate).toLocaleDateString();
     const formattedEndDate = new Date(packages.endDate).toLocaleDateString()
 
 
     async function addReview() {
-
         if (review == '') {
             let message = 'Enter your expirience'
         } else {
-            let { data } = await axios.post("/user/add-review",{review})
+
+            let { data } = await axios.post("/user/add-review", { review, id, userId, value })
+            if (!data.err) {
+                setOpen(true)
+            }
         }
     }
+    useEffect(() => {
+        (async function () {
+            let { data } = await axios.get("/user/get-userReview?packageId=" + id)
+            if (!data.err) {
+                setUSerReview(data.review)
+                setRating(data.review[0].rating)
+            }
+        })()
+    }, []
+    )
 
-
+    const handleCloseSnackBar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
     return (
         <>
             <NavBar />
+            <Snackbar open={open} autoHideDuration={2000} onClose={handleCloseSnackBar} key={vertical + horizontal} anchorOrigin={{ vertical, horizontal }}>
+                <Alert severity="success" sx={{ width: '100%' }}>
+                    Thank you for your feedback
+                </Alert>
+            </Snackbar>
+
             <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
@@ -165,16 +207,7 @@ function PackageView() {
                                     {packages.name}
                                 </h4>
                                 <div className="d-flex flex-row my-3">
-                                    <div className="text-warning mb-1 me-2">
 
-                                        <Rating
-                                            name="simple-controlled"
-                                            value={value}
-                                            onChange={(event, newValue) => {
-                                                setValue(newValue);
-                                            }}
-                                        />
-                                    </div>
                                 </div>
 
                                 <div className="mb-3">
@@ -202,20 +235,45 @@ function PackageView() {
                                     <dd className="col-9 pkg-details">{packages.staybooking ? 'Inluded Stay Tickets' : 'No Stay Booking Included'}</dd>
                                     <dt className="col-3 pkg-det">Slots Remaining</dt>
                                     <dd className="col-9 pkg-details">{packages.totalSlots}</dd>
+                                    <div className="row">
+                                        {userReview.length > 0 ?
+                                            (
+                                                <>
+                                                    <h4 className='mt-4 reviewerName'>
+                                                        {userReview[0]?.userId.name}
+                                                    </h4>
+                                                    <div className='reviewer mt-2 mb-0'>
+                                                        <h4>
+                                                            {userReview[0]?.review}
+                                                        </h4>
+                                                    </div>
+                                                    <Rating
+                                                        name="simple-controlled"
+                                                        value={rating}
+
+                                                    />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <h4 className='mt-4 reviewerName'>
+                                                        No User Reviewed
+                                                    </h4>
+                                                    <div className='reviewer mt-2 mb-0'>
+                                                        <h4>
+                                                            No Reviews
+                                                        </h4>
+                                                    </div>
+                                                </>
+                                            )
+                                        }
+
+                                    </div>
                                 </div>
 
                                 <hr />
                                 {reviewer ?
                                     <>
-                                        <div className="row mb-3">
-                                            <Rating
-                                                name="simple-controlled"
-                                                value={value}
-                                                onChange={(event, newValue) => {
-                                                    setValue(newValue);
-                                                }}
-                                            />
-                                        </div>
+
                                         <div className="row mb-3">
                                             <TextField
                                                 id="outlined-textarea"
@@ -223,6 +281,15 @@ function PackageView() {
                                                 placeholder="Placeholder"
                                                 multiline
                                                 onChange={(e) => { setReviews(e.target.value.trim()) }}
+                                            />
+                                        </div>
+                                        <div className="row mb-3">
+                                            <Rating
+                                                name="simple-controlled"
+                                                value={value}
+                                                onChange={(event, newValue) => {
+                                                    setValue(newValue);
+                                                }}
                                             />
                                         </div>
 

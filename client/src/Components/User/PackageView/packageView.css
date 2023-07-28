@@ -94,3 +94,16 @@
  letter-spacing: .5px;
     line-height: 1.5;
   }
+  /* .review{
+    margin
+  } */
+  .reviewer h4{
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 6px;
+ 
+  }
+  .reviewerName{
+    font-size: 16px;
+    font-weight: 800;
+  }

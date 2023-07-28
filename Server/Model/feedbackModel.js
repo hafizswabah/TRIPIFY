@@ -1,4 +1,4 @@
-import mongoose from mongoose
+import mongoose from 'mongoose'
 const feedbackSchema=new mongoose.Schema({
     PackageId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -9,9 +9,9 @@ const feedbackSchema=new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
     },
-    AgencyId: {
+    PlanId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Agency'
+        ref: 'Plans'
     },
     review:{
         type:String,

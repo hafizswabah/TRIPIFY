@@ -54,7 +54,7 @@ const UserProfile = () => {
     let completedTicket = planBookingList.filter((item) => {
       return item.status === 'upcoming' && new Date(item?.PlanId.date) < currentDate
     })
-    console.log(completedTicket, 'hhh');
+
     return completedTicket.length
   }
   let upcomingevent = getupcomingTickets()
@@ -69,7 +69,7 @@ const UserProfile = () => {
   let completedTicketCount = getCompletedTickets()
 
   let upcomings = upcomingevent + upcomingTripCount
-  console.log(upcomingevent);
+
 
   let completed = completedTicketCount + completedTripCount
 

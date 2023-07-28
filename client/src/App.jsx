@@ -34,6 +34,7 @@ import AdminReport from './Components/Admin/AdminReport/AdminReport'
 import AgencyReport from './Components/Agency/AgencyReports/AgencyReport'
 import AgencyRefund from './Components/Agency/Refund/AgencyRefund'
 import UserProfile from './Components/User/Profile/UserProfile'
+import UserChat from './Components/User/chat/UserChat'
 
 
 
@@ -75,6 +76,8 @@ function App() {
             <Route path='/plan-details/:id' element={<PlanViewPage/>}/> 
             <Route path='/Bookings' element={<BookingsPage/>}/> 
             <Route path='/profile' element={<UserProfile/>}/> 
+            <Route path='/chat' element={<UserChat/>}/> 
+
 
 
           </>
