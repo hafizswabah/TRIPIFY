@@ -1,3 +1,4 @@
+import { log } from "console";
 import messageModel from "../Model/messageModel.js";
 export async function addChat(req, res) {
     try {
@@ -14,11 +15,10 @@ export async function addChat(req, res) {
 }
 export async function getChat(req, res) {
     try {
-        console.log(req.params);
         let chatId= req.params.chatId
         let message = await messageModel.find({chatId })
-        console.log(message);
-        res.json({ err: false, message })
+        res.json({err:false,message})
+   
     } catch (error) {
         res.json(error)
     }

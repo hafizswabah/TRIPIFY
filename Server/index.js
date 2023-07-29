@@ -1,4 +1,4 @@
-import  express  from "express";
+import express from "express";
 import 'dotenv/config'
 import DBConnect from "./config/DBconnect.js";
 import cookieParser from "cookie-parser";
@@ -14,11 +14,39 @@ import chatRouter from './Router/chatRouter.js'
 import messageRouter from './Router/messageRouter.js'
 import { verifyAdmin } from "./middleware/adminMiddleware.js";
 import { verifyUser } from "./middleware/userMiddleware.js";
-const app=express()
+import { Server } from 'socket.io'
+import http from "http"
+const app = express()
 app.use(express.json({ limit: '50mb' }))
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true,limit:'50mb' }))
+app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use(express.static(path.resolve() + "/public"))
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:3000",]
+  },
+});
+
+let acitveUsers = []
+
+io.on("connection",(socket)=>{
+  
+  //add new user
+  socket.on("new-user-add", (newUserId) => {
+    if (!acitveUsers.some((user) => user.userId === newUserId)) {
+      acitveUsers.push({ userId: newUserId, socketId: socket.id });
+    }
+    io.emit("get-users", acitveUsers);
+ 
+  });
+
+  socket.on("disconnect", () => {
+    acitveUsers = acitveUsers.filter((user) => user.socketId !== socket.id);
+    io.emit("get-users", acitveUsers);
+  });
+})
+
 app.use(
   cors({
     origin: [
@@ -27,13 +55,14 @@ app.use(
     credentials: true,
   })
 );
+
 DBConnect()
-app.use("/user/auth",UserAuthRouter)
-app.use("/chat",verifyUser,chatRouter)
-app.use("/message",messageRouter)
-app.use("/user",verifyUser,UserRouter)
-app.use("/admin/auth",adminAuthRouter)
-app.use("/agency/auth",AgencyAuthRouter)
-app.use("/admin",verifyAdmin,adminRouter)
-app.use("/agency",AgencyRouter)
-app.listen(8888,()=>console.log('server running at port 8000'))
+app.use("/user/auth", UserAuthRouter)
+app.use("/chat", verifyUser, chatRouter)
+app.use("/message", messageRouter)
+app.use("/user", verifyUser, UserRouter)
+app.use("/admin/auth", adminAuthRouter)
+app.use("/agency/auth", AgencyAuthRouter)
+app.use("/admin", verifyAdmin, adminRouter)
+app.use("/agency", AgencyRouter)
+server.listen(8888, () => console.log('server running at port 8888'))
