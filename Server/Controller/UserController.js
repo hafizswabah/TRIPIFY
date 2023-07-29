@@ -101,7 +101,7 @@ export async function checkReviewer(req, res) {
   } else {
     reviewer = false
   }
-  res.json({err:false,reviewer})
+  res.json({ err: false, reviewer })
 }
 export async function addReview(req, res) {
   console.log(req.body);
@@ -117,16 +117,21 @@ export async function addReview(req, res) {
     } else {
       await feedbackModel.create({ userId, PackageId: id, review, rating: value });
     }
-    res.json({err:false, message: "Review added successfully" });
+    res.json({ err: false, message: "Review added successfully" });
   } catch (error) {
     console.error(error);
     res.json({ error: "Internal server error" });
   }
 }
 
-export async function userReviews(req,res){
-  let userId=req.user._id
-  let PackageId=req.query.packageId
-    let review=await feedbackModel.find({PackageId,userId}).populate("userId")
-    res.json({err:false,review})
+export async function userReviews(req, res) {
+  let userId = req.user._id
+  let PackageId = req.query.packageId
+  let review = await feedbackModel.find({ PackageId, userId }).populate("userId")
+  res.json({ err: false, review })
+}
+export async function getUser(req, res) {
+  let userId=req.params.id
+  let userData=await UserModel.find({_id:userId})
+  res.json({err:false,userData})
 }

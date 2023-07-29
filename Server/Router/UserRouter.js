@@ -1,6 +1,6 @@
 import express from 'express'
 import { paymentOrder, PlanverifyPayment, verifyPayment } from '../Controller/pamentController.js'
-import {addReview, cancelBooking, checkReviewer, editProfile, findPackages, GetPkg,getuserBooking,packageview,planview,searchPkg, userReviews} from '../Controller/UserController.js'
+import {addReview, cancelBooking, checkReviewer, editProfile, findPackages, GetPkg,getUser,getuserBooking,packageview,planview,searchPkg, userReviews} from '../Controller/UserController.js'
 
 const router=express.Router()
 router.get("/get-pkg",GetPkg)
@@ -17,6 +17,7 @@ router.post("/edit-profile",editProfile)
 router.get("/check-reviewer",checkReviewer)
 router.post("/add-review",addReview)
 router.get("/get-userReview",userReviews)
+router.get("/get-user/:id",getUser)
 
 
 export default router

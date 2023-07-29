@@ -1,6 +1,7 @@
 import messageModel from "../Model/messageModel.js";
 export async function addChat(req, res) {
     try {
+        console.log(req.body);
         let { chatId, senderId, text } = req.body
         let message = new messageModel({
             chatId, senderId, text
@@ -13,8 +14,10 @@ export async function addChat(req, res) {
 }
 export async function getChat(req, res) {
     try {
-        let { chatId } = req.params.chatId
-        let message = await messageModel.find({ userId })
+        console.log(req.params);
+        let chatId= req.params.chatId
+        let message = await messageModel.find({chatId })
+        console.log(message);
         res.json({ err: false, message })
     } catch (error) {
         res.json(error)
