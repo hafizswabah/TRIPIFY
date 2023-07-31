@@ -115,7 +115,7 @@ function PackageView() {
             let { data } = await axios.get("/user/get-userReview?packageId=" + id)
             if (!data.err) {
                 setUSerReview(data.review)
-                setRating(data.review[0].rating)
+                setRating(data.review?.[0].rating)
             }
         })()
     }, []
@@ -127,7 +127,16 @@ function PackageView() {
         }
         setOpen(false);
     };
-
+    async function handleChat(agentId, userId) {
+        console.log(agentId);
+        let reciverId = agentId
+        let senderId = userId
+        let { data } = await axios.post("/chat", { senderId, reciverId })
+        if(!data.err){
+            console.log('hii');
+            <Link to={'/chat'}/>
+        }
+    }
     return (
         <>
             <NavBar />
@@ -204,9 +213,13 @@ function PackageView() {
                         <Col lg={6}>
                             <div className="ps-lg-3">
                                 <h4 className="title text-dark">
-                                    {packages.name}
+                                    {packages?.name}
                                 </h4>
                                 <div className="d-flex flex-row my-3">
+
+                                    <span className="text-muted">  {packages?.agencyId?.name.toUpperCase()}
+
+                                    </span>
 
                                 </div>
 
@@ -300,10 +313,16 @@ function PackageView() {
 
                                 }
 
-                                <div className="row mb-4">
-
+                                <div className="book-pkg-and-chat">
+                                    <div>
+                                        <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
+                                    </div>
+                                    <div >
+                                        <button className='bookpkgbtn' onClick={() => handleChat(packages.agencyId._id, userId)}> Chat for more Enquiries</button>
+                                    </div>
                                 </div>
-                                <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
+
+
                             </div>
                         </Col>
 

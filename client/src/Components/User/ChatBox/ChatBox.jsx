@@ -13,7 +13,10 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
   const [messages, setMessages] = useState([])
   const [newMessages, setnewMessages] = useState("")
   let userId = chat?.members.find((id) => id !== currentUserId)
-
+  console.log('user',currentUserId);
+  console.log('msguser',userId);
+console.log(recieveMessage,'recievedmsg');
+console.log(chat,'chat');
 console.log(messages,'messages');
   useEffect(() => {
     (async function () {
@@ -38,6 +41,7 @@ console.log(messages,'messages');
 
     })()
   }, [chat])
+  let sendMsg;
   async function sendMessage(e) {
     e.preventDefault()
     let message = {
@@ -45,17 +49,28 @@ console.log(messages,'messages');
       text: newMessages,
       chatId: chat._id
     }
-    let { data } = await axios.post("/message/", message)
-    let recieverId = chat?.members.find((id) => id !== currentUserId);
-    setMessages([...messages, data.result]);
-    setnewMessages("");
-    setSendMeessage({ ...messages, recieverId })
 
+    try{
+      let { data } = await axios.post("/message/", message)
+      console.log(data);
+      setMessages([...messages, data.result]);
+       sendMsg=[...messages,data.result]
+      setnewMessages("");
+   
+   
+  }catch(error){
+    console.log(error);
   }
+  let recieverId = chat?.members.find((id) => id !== currentUserId);
+  setSendMeessage({...sendMsg,recieverId})
+  }
+
   useEffect(() => {
-    if (recieveMessage !== null && recieveMessage.chatId === chat._id)
+    console.log('working');
+    
+    if (recieveMessage !== null)
     {
-      setMessages([...messages,recieveMessage])
+      setMessages(recieveMessage)
     }
   }, [recieveMessage])
 

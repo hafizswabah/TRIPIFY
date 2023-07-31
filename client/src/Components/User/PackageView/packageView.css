@@ -107,3 +107,7 @@
     font-size: 16px;
     font-weight: 800;
   }
+  .book-pkg-and-chat{
+    display: flex;
+    gap: 12px;
+  }

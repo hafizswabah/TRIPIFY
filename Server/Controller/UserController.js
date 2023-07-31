@@ -17,8 +17,7 @@ export async function searchPkg(req, res) {
 }
 export async function packageview(req, res) {
   const _id = req.params.id
-  const packages = await PackageModel.findOne({ _id })
-
+  const packages = await PackageModel.findOne({ _id }).populate("agencyId")
   res.json({ err: false, packages })
 }
 

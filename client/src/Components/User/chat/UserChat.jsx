@@ -7,42 +7,19 @@ import NavBar from '../NavBar/NavBar'
 import './UserChat.css'
 import { io } from "socket.io-client"
 
-function UserChat() {
+function Chat() {
     const socket = useRef()
     const [chats, setChats] = useState([])
     const [onlineUsers, setOnlineUsers] = useState([])
     const [currentChat, setcurrentChat] = useState(null)
     const [sendMessage, setSendMeessage] = useState(null)
     const [recieveMessage, setRecieveMeessage] = useState(null)
-    console.log(recieveMessage, "recieveMessage");
     console.log(sendMessage, "sendMessage");
+    console.log(recieveMessage, "recieveMessage");
     let { user } = useSelector((state) => {
         return state
     })
     let userId = user.details._id
-
-
-
-    useEffect(() => {
-        socket.current = io(import.meta.env.VITE_SERVER_URL);
-        socket.current.emit("new-user-add", userId);
-        socket.current.on("get-users", (users) => {
-            setOnlineUsers(users);
-        });
-    }, [user]);
-
-    useEffect(() => {
-        if (sendMessage !== null) {
-            socket.current.emit('send-message', sendMessage)
-        }
-    }, [sendMessage])
-
-    useEffect(() => {
-        socket.current.on("recieve-message", (data) => {
-            console.log(data,"recive-data");
-            setRecieveMeessage(data);
-        });
-    }, [])
 
     useEffect(() => {
         (async function () {
@@ -52,7 +29,31 @@ function UserChat() {
                 setChats(data.userChats)
             }
         })()
-    }, [])
+    }, [userId])
+
+    useEffect(() => {
+        socket.current = io(import.meta.env.VITE_SERVER_URL);
+        socket.current.emit("new-user-add", userId);
+        socket.current.on("get-users", (users) => {
+            setOnlineUsers(users);
+        });
+    }, [userId]);
+
+    useEffect(() => {
+        if (sendMessage !== null) {
+            socket.current.emit('send-message', sendMessage)
+        }
+    }, [sendMessage])
+
+    useEffect(() => {
+      
+        socket.current.on("recieve-message", (data) => {
+            console.log(data,'recivedata');
+            setRecieveMeessage(data);
+        });
+    }, []);
+
+ 
     return (
         <div>
             <NavBar />
@@ -82,4 +83,4 @@ function UserChat() {
     )
 }
 
-export default UserChat
+export default Chat
