@@ -30,22 +30,34 @@ const io = new Server(server, {
 
 let acitveUsers = []
 
-io.on("connection",(socket)=>{
-  
+io.on("connection", (socket) => {
+
   //add new user
   socket.on("new-user-add", (newUserId) => {
     if (!acitveUsers.some((user) => user.userId === newUserId)) {
       acitveUsers.push({ userId: newUserId, socketId: socket.id });
     }
     io.emit("get-users", acitveUsers);
- 
+    console.log(acitveUsers, "online");
+
   });
 
   socket.on("disconnect", () => {
     acitveUsers = acitveUsers.filter((user) => user.socketId !== socket.id);
     io.emit("get-users", acitveUsers);
   });
+
+  socket.on("send-message", (data) => {
+    const { recieverId } = data
+    const user = acitveUsers.find((user) => user.userId === recieverId)
+    if (user) {
+      console.log(data,'data');
+      io.to(user.socketId).emit("recieve-message", data);
+
+    }
+  })
 })
+
 
 app.use(
   cors({

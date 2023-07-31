@@ -2,7 +2,6 @@ import { log } from "console";
 import messageModel from "../Model/messageModel.js";
 export async function addChat(req, res) {
     try {
-        console.log(req.body);
         let { chatId, senderId, text } = req.body
         let message = new messageModel({
             chatId, senderId, text

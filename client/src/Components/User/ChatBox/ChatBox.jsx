@@ -6,12 +6,15 @@ import './chatbox.css'
 import { format } from "timeago.js"
 import InputEmoji from 'react-input-emoji'
 import { Button } from '@mui/material';
+import { Socket } from 'socket.io-client';
 
-function ChatBox({ chat, currentUserId }) {
+function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
   const [userData, setUserData] = useState(null)
   const [messages, setMessages] = useState([])
   const [newMessages, setnewMessages] = useState("")
   let userId = chat?.members.find((id) => id !== currentUserId)
+
+console.log(messages,'messages');
   useEffect(() => {
     (async function () {
       if (chat !== null) {
@@ -23,19 +26,18 @@ function ChatBox({ chat, currentUserId }) {
 
     })()
   }, [chat, currentUserId])
+
   useEffect(() => {
     (async function () {
       if (chat !== null) {
         let { data } = await axios.get(`/message/${chat._id}`)
         if (!data.err) {
-          console.log(data.message);
           setMessages(data.message)
         }
       }
 
     })()
   }, [chat])
-  console.log(messages);
   async function sendMessage(e) {
     e.preventDefault()
     let message = {
@@ -43,10 +45,20 @@ function ChatBox({ chat, currentUserId }) {
       text: newMessages,
       chatId: chat._id
     }
-    let { data } = await axios.post("/message/",message)
+    let { data } = await axios.post("/message/", message)
+    let recieverId = chat?.members.find((id) => id !== currentUserId);
     setMessages([...messages, data.result]);
     setnewMessages("");
+    setSendMeessage({ ...messages, recieverId })
+
   }
+  useEffect(() => {
+    if (recieveMessage !== null && recieveMessage.chatId === chat._id)
+    {
+      setMessages([...messages,recieveMessage])
+    }
+  }, [recieveMessage])
+
   return (
     <>
       <div className="ChatBox-container">

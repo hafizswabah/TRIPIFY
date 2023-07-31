@@ -12,19 +12,37 @@ function UserChat() {
     const [chats, setChats] = useState([])
     const [onlineUsers, setOnlineUsers] = useState([])
     const [currentChat, setcurrentChat] = useState(null)
-
+    const [sendMessage, setSendMeessage] = useState(null)
+    const [recieveMessage, setRecieveMeessage] = useState(null)
+    console.log(recieveMessage, "recieveMessage");
+    console.log(sendMessage, "sendMessage");
     let { user } = useSelector((state) => {
         return state
     })
     let userId = user.details._id
 
+
+
     useEffect(() => {
         socket.current = io(import.meta.env.VITE_SERVER_URL);
         socket.current.emit("new-user-add", userId);
         socket.current.on("get-users", (users) => {
-          setOnlineUsers(users);
+            setOnlineUsers(users);
         });
-      }, []);
+    }, [user]);
+
+    useEffect(() => {
+        if (sendMessage !== null) {
+            socket.current.emit('send-message', sendMessage)
+        }
+    }, [sendMessage])
+
+    useEffect(() => {
+        socket.current.on("recieve-message", (data) => {
+            console.log(data,"recive-data");
+            setRecieveMeessage(data);
+        });
+    }, [])
 
     useEffect(() => {
         (async function () {
@@ -56,7 +74,7 @@ function UserChat() {
                 </div>
 
                 <div className="Right-side-chat">
-                    <ChatBox chat={currentChat} currentUserId={userId}></ChatBox>
+                    <ChatBox chat={currentChat} currentUserId={userId} setSendMeessage={setSendMeessage} recieveMessage={recieveMessage} ></ChatBox>
                 </div>
             </div>
 
