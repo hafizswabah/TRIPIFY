@@ -14,8 +14,6 @@ function Chat() {
     const [currentChat, setcurrentChat] = useState(null)
     const [sendMessage, setSendMeessage] = useState(null)
     const [recieveMessage, setRecieveMeessage] = useState({})
-    console.log(sendMessage, "sendMessage");
-    console.log(recieveMessage, "recieveMessage");
     let { user } = useSelector((state) => {
         return state
     })
@@ -46,14 +44,14 @@ function Chat() {
     }, [sendMessage])
 
     useEffect(() => {
-      
+
         socket.current.on("recieve-message", (data) => {
-          console.log(data,'recive-dataaa');
+            console.log(data, 'recive-dataaa');
             setRecieveMeessage(data);
         });
     }, []);
 
- 
+
     return (
         <div>
             <NavBar />
@@ -62,21 +60,32 @@ function Chat() {
                     <div className="Chat-container">
                         <h4>chats</h4>
                         <div className="Chat-list">
-                            {chats?.map((chat) => (
-
-                                <div onClick={() => { setcurrentChat(chat) }}>
-                                    <Conversation data={chat} currentUserId={userId}></Conversation>
-                                </div>
-                            )
+                            {chats && chats.length > 0 ? (
+                                chats.map((chat) => (
+                                    <div key={chat.id} onClick={() => { setcurrentChat(chat) }}>
+                                        <Conversation data={chat} currentUserId={userId} />
+                                    </div>
+                                ))
+                            ) : (
+                                "No Chat found"
                             )}
+
+
                         </div>
                     </div>
 
                 </div>
 
+                    {currentChat && (
                 <div className="Right-side-chat">
-                    <ChatBox chat={currentChat} currentUserId={userId} setSendMeessage={setSendMeessage} recieveMessage={recieveMessage} ></ChatBox>
+                        <ChatBox
+                            chat={currentChat}
+                            currentUserId={userId}
+                            setSendMeessage={setSendMeessage}
+                            recieveMessage={recieveMessage}
+                        />
                 </div>
+                    )}
             </div>
 
         </div>

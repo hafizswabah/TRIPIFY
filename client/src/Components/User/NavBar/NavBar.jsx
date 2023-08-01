@@ -168,6 +168,16 @@ function NavBar() {
                 Bookings
               </Button>
             </Link>
+            <Link to={'/chat'}>
+              <Button
+                style={{ color: "rgba(55, 83, 156, 1)" }}
+
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+               Chat
+              </Button>
+            </Link>
 
 
           </Box>

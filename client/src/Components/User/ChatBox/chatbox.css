@@ -1,5 +1,5 @@
 .ChatBox-container {
-    background: var(--cardColor);
+    background: #fbfbfb;;
     border-radius: 1rem;
     display: grid;
     grid-template-rows: 14vh 60vh 13vh;
@@ -17,12 +17,14 @@
     gap: 0.5rem;
     padding: 1.5rem;
     overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .message {
 
-    background: white;
-    color: black;
+    background: #ff8100;
+    color: white;
     padding: 0.7rem;
     border-radius: 1rem 1rem 1rem 0;
     max-width: 28rem;

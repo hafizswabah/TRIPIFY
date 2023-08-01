@@ -13,11 +13,7 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
   const [messages, setMessages] = useState([])
   const [newMessages, setnewMessages] = useState("")
   let agentId = chat?.members.find((id) => id !== currentUserId)
-  console.log('user', currentUserId);
-  console.log('msguser', agentId);
-  console.log(recieveMessage, 'recievedmsg');
-  console.log(chat, 'chat');
-  console.log(messages, 'messages');
+
   useEffect(() => {
     (async function () {
       if (chat !== null) {
@@ -64,8 +60,6 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
   }
 
   useEffect(() => {
-    console.log('working');
-
     if (recieveMessage !== null) {
       setMessages([...messages, recieveMessage])
     }
