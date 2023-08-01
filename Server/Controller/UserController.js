@@ -5,6 +5,7 @@ import PlanBookingModel from '../Model/PlanBookModel.js';
 import PlanModel from '../Model/PlanModal.js'
 import UserModel from '../Model/UserModel.js'
 import feedbackModel from '../Model/feedbackModel.js'
+import AgencyModel from '../Model/AgencyModel.js';
 
 export async function GetPkg(req, res) {
   let packages = await PackageModel.find().limit(4).lean()
@@ -128,6 +129,11 @@ export async function userReviews(req, res) {
   let PackageId = req.query.packageId
   let review = await feedbackModel.find({ PackageId, userId }).populate("userId")
   res.json({ err: false, review })
+}
+export async function getAgent(req, res) {
+  let agentId=req.params.id
+  let agentData=await AgencyModel.find({_id:agentId})
+  res.json({err:false,agentData})
 }
 export async function getUser(req, res) {
   let userId=req.params.id

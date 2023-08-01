@@ -1,13 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import ChatBox from '../ChatBox/ChatBox'
-import Conversation from '../Conversation/Conversation'
-import NavBar from '../NavBar/NavBar'
-import './UserChat.css'
 import { io } from "socket.io-client"
+import AgencyHeader from '../Header/AgencyHeader'
+import Conversation from '../AgentConversation/AgentConversation'
+import ChatBox from '../AgentChatBox/AgentChatBox'
 
-function Chat() {
+function AgentChat() {
     const socket = useRef()
     const [chats, setChats] = useState([])
     const [onlineUsers, setOnlineUsers] = useState([])
@@ -15,29 +14,29 @@ function Chat() {
     const [sendMessage, setSendMeessage] = useState(null)
     const [recieveMessage, setRecieveMeessage] = useState({})
     console.log(sendMessage, "sendMessage");
-    console.log(recieveMessage, "recieveMessage");
-    let { user } = useSelector((state) => {
+ 
+    let { agency } = useSelector((state) => {
         return state
     })
-    let userId = user.details._id
+    let agentId = agency.details._id
 
     useEffect(() => {
         (async function () {
-            let { data } = await axios.get(`/chat/${userId}`)
+            let { data } = await axios.get(`/chat/${agentId}`)
             console.log(data);
             if (!data.err) {
                 setChats(data.userChats)
             }
         })()
-    }, [userId])
+    }, [agentId])
 
     useEffect(() => {
         socket.current = io(import.meta.env.VITE_SERVER_URL);
-        socket.current.emit("new-user-add", userId);
+        socket.current.emit("new-user-add", agentId);
         socket.current.on("get-users", (users) => {
             setOnlineUsers(users);
         });
-    }, [userId]);
+    }, [agentId]);
 
     useEffect(() => {
         if (sendMessage !== null) {
@@ -48,15 +47,15 @@ function Chat() {
     useEffect(() => {
       
         socket.current.on("recieve-message", (data) => {
-          console.log(data,'recive-dataaa');
+            console.log(data,'recivedata');
             setRecieveMeessage(data);
         });
     }, []);
 
- 
+    console.log(recieveMessage, "recieveMessage");
     return (
         <div>
-            <NavBar />
+    <AgencyHeader/>
             <div className="Chat">
                 <div className="Left-side-chat">
                     <div className="Chat-container">
@@ -65,7 +64,7 @@ function Chat() {
                             {chats?.map((chat) => (
 
                                 <div onClick={() => { setcurrentChat(chat) }}>
-                                    <Conversation data={chat} currentUserId={userId}></Conversation>
+                                    <Conversation data={chat} agentId={agentId}></Conversation>
                                 </div>
                             )
                             )}
@@ -75,7 +74,7 @@ function Chat() {
                 </div>
 
                 <div className="Right-side-chat">
-                    <ChatBox chat={currentChat} currentUserId={userId} setSendMeessage={setSendMeessage} recieveMessage={recieveMessage} ></ChatBox>
+                    <ChatBox chat={currentChat} agentId={agentId} setSendMeessage={setSendMeessage} recieveMessage={recieveMessage} ></ChatBox>
                 </div>
             </div>
 
@@ -83,4 +82,4 @@ function Chat() {
     )
 }
 
-export default Chat
+export default AgentChat

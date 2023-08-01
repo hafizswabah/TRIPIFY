@@ -35,6 +35,7 @@ import AgencyReport from './Components/Agency/AgencyReports/AgencyReport'
 import AgencyRefund from './Components/Agency/Refund/AgencyRefund'
 import UserProfile from './Components/User/Profile/UserProfile'
 import Chat from './Components/User/chat/UserChat'
+import AgentChat from './Components/Agency/Chat/AgentChat'
 
 
 
@@ -151,6 +152,7 @@ function App() {
             <Route path='/agency/trips' element={<AgencyTrip />} />
             <Route path='/agency/bookings' element={<AgencyBookings />} />
             <Route path='/agency/reports' element={<AgencyReport/>} />
+            <Route path='/agency/chat' element={<AgentChat/>} />
        
           </>
         }

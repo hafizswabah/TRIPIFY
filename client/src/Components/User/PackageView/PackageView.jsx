@@ -44,6 +44,7 @@ function PackageView() {
         vertical: 'bottom',
         horizontal: 'center',
     });
+    const navigate=useNavigate()
     const { vertical, horizontal } = snackPos;
     const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -127,15 +128,14 @@ function PackageView() {
         }
         setOpen(false);
     };
+
     async function handleChat(agentId, userId) {
         console.log(agentId);
         let reciverId = agentId
         let senderId = userId
         let { data } = await axios.post("/chat", { senderId, reciverId })
         if(!data.err){
-            console.log('hii');
-            <Link to={'/chat'}/>
-        }
+            navigate('/chat')        }
     }
     return (
         <>
@@ -156,6 +156,7 @@ function PackageView() {
                                     images &&
                                     <ImageViewer data={images} />
                                 }
+
                             </div>
 
 

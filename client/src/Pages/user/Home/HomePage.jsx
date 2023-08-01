@@ -17,8 +17,6 @@ function HomePage() {
     const [search, setSearch] = useState('');
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
-    console.log(latitude);
-    console.log(longitude);
     const navigate = useNavigate()
 
     const handleChange = (event) => {
@@ -108,7 +106,7 @@ function HomePage() {
                                 <h3 className='each-cat-head'>City Tour</h3>
                             </Col>
                             <Col md={2} className="d-flex justify-content-center each-cat">
-                                <Link to={"search-package?category=nature"}>
+                                <Link to={"/search-package?category=nature"}>
                                     <div className="cat-img img3"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Nature</h3>

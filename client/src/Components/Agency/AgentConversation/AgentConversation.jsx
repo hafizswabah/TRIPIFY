@@ -2,14 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
 import defaultChatImg from '../../../assets/defaultChatImg.jpg'
-function Conversation({ data, currentUserId }) {
+function Conversation({ data, agentId }) {
     const [userData, setUserData] = useState(null)
-    let agentId = data?.members.find((id) => id !== currentUserId)
+    let userId = data?.members.find((id) => id !== agentId)
     useEffect(() => {
         (async function () {
-            let { data } = await axios.get(`/user/get-agent/${agentId}`)
+            let { data } = await axios.get(`/user/get-user/${userId}`)
             if (!data.err) {
-                setUserData(data.agentData)
+                setUserData(data.userData)
             }
         })()
     }, [])

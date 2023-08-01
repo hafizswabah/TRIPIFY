@@ -12,18 +12,18 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
   const [userData, setUserData] = useState(null)
   const [messages, setMessages] = useState([])
   const [newMessages, setnewMessages] = useState("")
-  let userId = chat?.members.find((id) => id !== currentUserId)
-  console.log('user',currentUserId);
-  console.log('msguser',userId);
-console.log(recieveMessage,'recievedmsg');
-console.log(chat,'chat');
-console.log(messages,'messages');
+  let agentId = chat?.members.find((id) => id !== currentUserId)
+  console.log('user', currentUserId);
+  console.log('msguser', agentId);
+  console.log(recieveMessage, 'recievedmsg');
+  console.log(chat, 'chat');
+  console.log(messages, 'messages');
   useEffect(() => {
     (async function () {
       if (chat !== null) {
-        let { data } = await axios.get(`/user/get-user/${userId}`)
+        let { data } = await axios.get(`/user/get-agent/${agentId}`)
         if (!data.err) {
-          setUserData(data.userData)
+          setUserData(data.agentData)
         }
       }
 
@@ -41,7 +41,6 @@ console.log(messages,'messages');
 
     })()
   }, [chat])
-  let sendMsg;
   async function sendMessage(e) {
     e.preventDefault()
     let message = {
@@ -50,27 +49,25 @@ console.log(messages,'messages');
       chatId: chat._id
     }
 
-    try{
+    try {
       let { data } = await axios.post("/message/", message)
       console.log(data);
       setMessages([...messages, data.result]);
-       sendMsg=[...messages,data.result]
       setnewMessages("");
-   
-   
-  }catch(error){
-    console.log(error);
-  }
-  let recieverId = chat?.members.find((id) => id !== currentUserId);
-  setSendMeessage({...sendMsg,recieverId})
+      let recieverId = chat?.members.find((id) => id !== currentUserId);
+      setSendMeessage({ ...data.result, recieverId })
+
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     console.log('working');
-    
-    if (recieveMessage !== null)
-    {
-      setMessages(recieveMessage)
+
+    if (recieveMessage !== null) {
+      setMessages([...messages, recieveMessage])
     }
   }, [recieveMessage])
 
