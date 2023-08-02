@@ -72,7 +72,7 @@ const UserProfile = () => {
 
 
   let completed = completedTicketCount + completedTripCount
-
+console.log('hiii');
   const userId = user.details._id
   async function logout() {
     Swal.fire({
