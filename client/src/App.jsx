@@ -42,7 +42,7 @@ import AgentChat from './Components/Agency/Chat/AgentChat'
 function App() {
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL =import.meta.env.VITE_SERVER_URL;
+  axios.defaults.baseURL ="https://tripify.swabah.online";
 
 
   const { user, admin, agency, refresh } = useSelector((state) => {
