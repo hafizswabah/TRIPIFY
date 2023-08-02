@@ -51,7 +51,7 @@ function HomePage() {
         }
       };
       
-  
+  console.log('hhii');
     return (
         <div className='home-main'>
             <Row>
