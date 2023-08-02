@@ -19,6 +19,7 @@ import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function AgencyHeader(props) {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -121,9 +122,9 @@ export default function AgencyHeader(props) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-      <Button textAlign="center" onClick={logout}>Logout</Button>
+        <Button textAlign="center" onClick={logout}>Logout</Button>
       </MenuItem>
-    
+
     </Menu>
   );
 
@@ -145,12 +146,14 @@ export default function AgencyHeader(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
+
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
+
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -181,7 +184,7 @@ export default function AgencyHeader(props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{backgroundColor:'white',color:'#004a8f'}}>
+      <AppBar position="static" style={{ backgroundColor: 'white', color: '#004a8f' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -190,36 +193,32 @@ export default function AgencyHeader(props) {
             aria-label="open drawer"
             sx={{ mr: 2 }}
             onClick={props.handleClick}
-           
+
           >
-            <MenuIcon 
-             className='option-btn'/>
+            <MenuIcon
+              className='option-btn' />
           </IconButton>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
+            >
+            <Link to={"/agency"}>
             TRIPIFY
+          </Link>
           </Typography>
-       
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <Link to={"/agency/chat"}>
+              <Badge badgeContent={1} color="error">
+                  <MailIcon />
               </Badge>
+                </Link>
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+ 
             <IconButton
               size="large"
               edge="end"

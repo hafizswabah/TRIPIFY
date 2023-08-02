@@ -18,12 +18,12 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Packages', 'Plans', 'Bookings','Chat'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState('salaman');
   const dispatch = useDispatch()
 
   const handleOpenNavMenu = (event) => {

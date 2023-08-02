@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
-import defaultChatImg from '../../../assets/defaultChatImg.jpg'
+import defaultChatImg from '../../../assets/defaultChatImg.png'
 function Conversation({ data, agentId }) {
     const [userData, setUserData] = useState(null)
     let userId = data?.members.find((id) => id !== agentId)
@@ -17,20 +17,19 @@ function Conversation({ data, agentId }) {
         <>
             <div className="follower conversation">
                 <Row>
-                    <Col md={4}>
+                    <div className='each-conversation' style={{ display: "flex", gap: "13px" }}>
                         <div>
-                            <div className="online-dot"></div>
+
                             <img src={defaultChatImg} alt="" className='followerImage' style={{ width: "50px", height: "50px", borderRadius: "23px" }} />
-                            <div className="name" style={{ fontSize: "0.6rem" }}>
-                                <span>online</span>
+                            <div className="name" style={{ fontSize: "8px", fontWeight: "500" }}>
                             </div>
                         </div>
-                    </Col>
-                    <Col md={8}>
+
+
                         <div className="chatUserDetails d-flex align-items-center">
-                            <span>{userData?.[0].name}</span>
+                            <span style={{ fontSize: "15px", fontWeight: "500" }} >{userData?.[0].name}</span>
                         </div>
-                    </Col>
+                    </div>
                 </Row>
 
 

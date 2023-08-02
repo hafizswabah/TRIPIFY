@@ -80,10 +80,11 @@ function HomePage() {
                         </Row>
 
                     </div>
-                </div>
-                <div className="wave-img">
+                    <div className="wave-img">
                     <svg width="100%" height="30%" id="svg" viewBox="0 0 1440 390" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><path d="M 0,400 C 0,400 0,200 0,200 C 48.84924264453197,229.25336382140685 97.69848528906394,258.5067276428137 150,263 C 202.30151471093606,267.4932723571863 258.0553014882762,247.226453250152 302,220 C 345.9446985117238,192.773546749848 378.0803087578313,158.5874593565783 429,160 C 479.9196912421687,161.4125406434217 549.6234634803985,198.4237093235348 596,219 C 642.3765365196015,239.5762906764652 665.4258373205741,243.71770334928232 702,230 C 738.5741626794259,216.28229665071768 788.6731872373049,184.70547727933592 841,178 C 893.3268127626951,171.29452272066408 947.881413730207,189.46038753337388 999,215 C 1050.118586269793,240.53961246662612 1097.8011578418675,273.4529725871686 1144,263 C 1190.1988421581325,252.54702741283145 1234.9139549023234,198.72772211795186 1284,181 C 1333.0860450976766,163.27227788204814 1386.5430225488383,181.63613894102406 1440,200 C 1440,200 1440,400 1440,400 Z" stroke="none" stroke-width="0" fill="#ffffff" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-0"></path></svg>
                 </div>
+                </div>
+              
 
             </Row>
             <Row>
@@ -92,38 +93,38 @@ function HomePage() {
                     <div className="category-sec mt-5 container">
                         <Row >    <h3 className='category-head ms-4 mt-5 '>Categories</h3></Row>
                         <Row className='pt-3'>
-                            <Col md={2} className="d-flex justify-content-center each-cat">
+                            <Col xs={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"/search-package?category=adventure"}>
                                     <div className="cat-img img1">
                                     </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Adventure</h3>
                             </Col>
-                            <Col md={2} className="d-flex justify-content-center each-cat">
+                            <Col xs={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"/search-package?category=city"}>
                                     <div className="cat-img img2"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>City Tour</h3>
                             </Col>
-                            <Col md={2} className="d-flex justify-content-center each-cat">
+                            <Col xs={2}className="d-flex justify-content-center each-cat">
                                 <Link to={"/search-package?category=nature"}>
                                     <div className="cat-img img3"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Nature</h3>
                             </Col>
-                            <Col md={2} className="d-flex justify-content-center each-cat">
+                            <Col xs={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"search-package?category=desert"}>
                                     <div className="cat-img img4"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Desert</h3>
                             </Col>
-                            <Col md={2} className="d-flex justify-content-center each-cat">
+                            <Col xs={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"search-package?category=desert"}>
                                     <div className="cat-img img5"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Occens</h3>
                             </Col>
-                            <Col md={2} className="d-flex justify-content-center each-cat">
+                            <Col xs={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"search-package?category=snow"}>
                                     <div className="cat-img img6"> </div>
                                 </Link>
@@ -150,7 +151,7 @@ function HomePage() {
                         {
                             packages.map((item) => {
 
-                                return <Col md={3} className=" d-flex justify-content-center pkg-card">
+                                return <Col xs={3} className=" d-flex justify-content-center pkg-card">
                                     <div className="packages himalaya" style={{ backgroundImage: `url(${baseImgUrl + item.mainImage[0].filename})` }}>
 
                                         <Row>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
-import defaultChatImg from '../../../assets/defaultChatImg.jpg'
+import defaultChatImg from '../../../assets/defaultChatImg.png' 
 import { format } from "timeago.js"
 import InputEmoji from 'react-input-emoji'
 import { Button } from '@mui/material';

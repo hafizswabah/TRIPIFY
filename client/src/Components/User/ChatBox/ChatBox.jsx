@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
-import defaultChatImg from '../../../assets/defaultChatImg.jpg'
+import defaultChatImg from '../../../assets/defaultChatImg.png' 
 import './chatbox.css'
 import { format } from "timeago.js"
 import InputEmoji from 'react-input-emoji'
@@ -75,20 +75,19 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
             <div className="chat-header">
               <div className="chat-follower">
                 <Row>
-                  <Col md={4}>
-                    <div>
+                <div className='each-conversation' style={{display:"flex",gap:"13px"}}>
+                        <div>
 
-                      <img src={defaultChatImg} alt="" className='followerImage' style={{ width: "50px", height: "50px", borderRadius: "23px" }} />
-                      <div className="name" style={{ fontSize: "0.6rem" }}>
+                            <img src={defaultChatImg} alt="" className='followerImage' style={{ width: "50px", height: "50px", borderRadius: "23px" }} />
+                            <div className="name" style={{ fontSize: "8px",fontWeight:"500" }}>
+                            </div>
+                        </div>
 
-                      </div>
+
+                        <div className="chatUserDetails d-flex align-items-center">
+                            <span style={{ fontSize: "15px",fontWeight:"500" }} >{userData?.[0].name}</span>
+                        </div>
                     </div>
-                  </Col>
-                  <Col md={8}>
-                    <div className="chatUserDetails d-flex align-items-center">
-                      <span>{userData?.[0].name}</span>
-                    </div>
-                  </Col>
                 </Row>
               </div>
               <hr style={{ border: "0.1px solid #cfcfcf" }} />
