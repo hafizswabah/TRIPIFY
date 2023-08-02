@@ -24,7 +24,7 @@ app.use(express.static(path.resolve() + "/public"))
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000",]
+    origin: ["https://tripifi.netlify.app",]
   },
 });
 
@@ -49,8 +49,6 @@ io.on("connection", (socket) => {
 
   socket.on("send-message", (data) => {
     const { recieverId } = data
-    console.log(recieverId);
-    console.log(data);
     const user = acitveUsers.find((user) => user.userId === recieverId)
     if (user) {
       io.to(user.socketId).emit("recieve-message", data);
@@ -63,7 +61,7 @@ io.on("connection", (socket) => {
 app.use(
   cors({
     origin: [
-      "http://localhost:3000"
+      "https://tripifi.netlify.app"
     ],
     credentials: true,
   })
