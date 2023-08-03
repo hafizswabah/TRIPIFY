@@ -2,7 +2,6 @@ import PackageModel from "../Model/packageModel.js";
 import PlanModel from "../Model/PlanModal.js"
 import BookingModel from "../Model/BookingModel.js"
 import PlanBookingModel from "../Model/PlanBookModel.js"
-import { count } from "console";
 import Razorpay from 'razorpay'
 
 let instance = new Razorpay({
@@ -16,7 +15,8 @@ export async function addPackage(req, res) {
         const { dayDetails, agencyId, ...otherData } = req.body;
         const parsedDayDetails = JSON.parse(dayDetails);
         const mainImage = req.files.mainImage;
-        const subImages = req.files.subImages;
+        const subImages = req.files.subImages;  
+
         let coordinates = JSON.parse(req.body['location.coordinates'])
         const packageData = { ...otherData, agencyId, mainImage, subImages, dayDetails: parsedDayDetails, location: { type: "Point", coordinates: [coordinates[0], coordinates[1]] } };
         const packages = await PackageModel.create(packageData);

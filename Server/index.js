@@ -24,7 +24,10 @@ app.use(express.static(path.resolve() + "/public"))
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: ["https://tripifi.netlify.app",]
+    origin: ["https://tripifi.netlify.app",
+    
+  
+  ]
   },
 });
 
@@ -61,7 +64,8 @@ io.on("connection", (socket) => {
 app.use(
   cors({
     origin: [
-      "https://tripifi.netlify.app"
+      "https://tripifi.netlify.app",
+      "http://localhost:3000" 
     ],
     credentials: true,
   })
@@ -72,7 +76,7 @@ app.use("/user/auth", UserAuthRouter)
 app.use("/chat", verifyUser, chatRouter)
 app.use("/message", messageRouter)
 app.use("/user", verifyUser, UserRouter)
-app.use("/admin/auth", adminAuthRouter)
+app.use("/admin", adminAuthRouter)
 app.use("/agency/auth", AgencyAuthRouter)
 app.use("/admin", verifyAdmin, adminRouter)
 app.use("/agency", AgencyRouter)
