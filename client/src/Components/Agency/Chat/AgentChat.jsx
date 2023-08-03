@@ -5,6 +5,7 @@ import { io } from "socket.io-client"
 import AgencyHeader from '../Header/AgencyHeader'
 import Conversation from '../AgentConversation/AgentConversation'
 import ChatBox from '../AgentChatBox/AgentChatBox'
+import "../../User/chat/UserChat.css"
 
 function AgentChat() {
     const socket = useRef()

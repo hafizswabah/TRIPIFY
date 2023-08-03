@@ -6,7 +6,7 @@ import { format } from "timeago.js"
 import InputEmoji from 'react-input-emoji'
 import { Button } from '@mui/material';
 import { Socket } from 'socket.io-client';
-
+import "../../User/ChatBox/chatbox.css"
 function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
     const [userData, setUserData] = useState(null)
     const [messages, setMessages] = useState([])
