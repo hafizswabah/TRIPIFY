@@ -59,10 +59,10 @@ function NavBar() {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: "rgba(255, 255, 255, 0.92)", color: "rgba(55, 83, 156, 1)" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -71,9 +71,7 @@ function NavBar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -83,6 +81,7 @@ function NavBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
+
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -93,6 +92,7 @@ function NavBar() {
               <MenuIcon />
             </IconButton>
             <Menu
+
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -111,7 +111,8 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -136,18 +137,6 @@ function NavBar() {
           >
             TRIPIFY
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Link to={'/search-package?category=all'}>
               <Button
@@ -192,8 +181,42 @@ function NavBar() {
 
 
           </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Button textAlign="center" onClick={logout}>Logout</Button>
+                <Link to={"/profile"}>
+                  <Button textAlign="center">Profile</Button>
+                </Link>
+              </MenuItem>
+
+            </Menu>
+          </Box>
         </Toolbar>
       </Container>
+
     </AppBar>
   );
 }
