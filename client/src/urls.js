@@ -1,1 +1,1 @@
-export const baseImgUrl="http://localhost:8888/img/"
+export const baseImgUrl="https://tripify.swabah.online/img/"
