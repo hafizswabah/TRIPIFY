@@ -25,7 +25,8 @@ const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
     origin: ["https://tripifi.netlify.app",
-    
+    "http://localhost:3000",
+    "http://localhost:4173"  
   
   ]
   },
@@ -65,7 +66,8 @@ app.use(
   cors({
     origin: [
       "https://tripifi.netlify.app",
-      "http://localhost:3000" 
+      "http://localhost:3000",
+      "http://localhost:4173"  
     ],
     credentials: true,
   })
