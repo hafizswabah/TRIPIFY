@@ -42,7 +42,6 @@ io.on("connection", (socket) => {
       acitveUsers.push({ userId: newUserId, socketId: socket.id });
     }
     io.emit("get-users", acitveUsers);
-    console.log(acitveUsers, "online");
 
   });
 

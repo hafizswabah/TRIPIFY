@@ -72,7 +72,6 @@ const UserProfile = () => {
 
 
   let completed = completedTicketCount + completedTripCount
-console.log('hiii');
   const userId = user.details._id
   async function logout() {
     Swal.fire({
@@ -156,7 +155,7 @@ console.log('hiii');
                       LOG OUT
                     </button>
                   </div>
-                  <div className="col-3 d-flex align-items-center justify-content-center mt-4 m-1">
+                  <div className="col-5 d-flex align-items-center justify-content-center mt-4 m-1">
                     <button className='log-btn' onClick={handleModel}>
                       EDIT PROFILE
                     </button>

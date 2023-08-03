@@ -18,7 +18,6 @@
     padding: 1.5rem;
     overflow: scroll;
     overflow-x: hidden;
-    overflow-y: hidden;
 }
 
 .message {

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
-import defaultChatImg from '../../../assets/defaultChatImg.png' 
+import defaultChatImg from '../../../assets/defaultChatImg.png'
 import { format } from "timeago.js"
 import InputEmoji from 'react-input-emoji'
 import { Button } from '@mui/material';
-import { Socket } from 'socket.io-client';
 import "../../User/ChatBox/chatbox.css"
 function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
     const [userData, setUserData] = useState(null)
@@ -51,9 +50,9 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
             let { data } = await axios.post("/message/", message)
             console.log(data);
             setMessages([...messages, data.result]);
-          
+
             let recieverId = chat?.members.find((id) => id !== agentId);
-            setSendMeessage({...data.result, recieverId })
+            setSendMeessage({ ...data.result, recieverId })
             setnewMessages("");
 
 
@@ -67,7 +66,6 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
             setMessages([...messages, recieveMessage]);
         }
     }, [recieveMessage]);
-    console.log(messages);
     return (
         <>
             <div className="ChatBox-container">
@@ -78,20 +76,19 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
                         <div className="chat-header">
                             <div className="chat-follower">
                                 <Row>
-                                    <Col md={4}>
+                                    <div className='each-conversation' style={{ display: "flex", gap: "13px" }}>
                                         <div>
 
                                             <img src={defaultChatImg} alt="" className='followerImage' style={{ width: "50px", height: "50px", borderRadius: "23px" }} />
-                                            <div className="name" style={{ fontSize: "0.6rem" }}>
-
+                                            <div className="name" style={{ fontSize: "8px", fontWeight: "500" }}>
                                             </div>
                                         </div>
-                                    </Col>
-                                    <Col md={8}>
+
+
                                         <div className="chatUserDetails d-flex align-items-center">
-                                            <span>{userData?.[0].name}</span>
+                                            <span style={{ fontSize: "15px", fontWeight: "500" }} >{userData?.[0].name}</span>
                                         </div>
-                                    </Col>
+                                    </div>
                                 </Row>
                             </div>
                             <hr style={{ border: "0.1px solid #cfcfcf" }} />
