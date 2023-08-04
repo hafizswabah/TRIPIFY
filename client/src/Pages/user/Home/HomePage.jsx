@@ -234,7 +234,7 @@ function HomePage() {
                                 </Link>
                             </Col>
                             <Col md={6} className=" d-flex justify-content-center mb-5">
-                                <Link to={"search-package?plan=Dj Night"}>
+                                <Link to={"search-package?plan=Dj Night"}  style={{textDecoration:"none"}}>
                                     <div className="plans dj">
                                         <Row>
                                             <Col xs={5} className=" d-flex justify-content-center mt-3">
@@ -258,7 +258,7 @@ function HomePage() {
                                     </div>
                                 </Link>
                             </Col>
-                            <Col md={6} className=" d-flex justify-content-center mb-5">
+                            <Col md={6} className=" d-flex justify-content-center mb-5"  style={{textDecoration:"none"}}>
                                 <Link to={"search-package?plan=Desertsafari"}>
                                     <div className="plans desert">
                                         <Row>
@@ -283,7 +283,7 @@ function HomePage() {
                                 </Link>
                             </Col>
                             <Col md={6} className=" d-flex justify-content-center mb-5">
-                                <Link to={"search-package?plan=SeaDrive"}>
+                                <Link to={"search-package?plan=SeaDrive"}  style={{textDecoration:"none"}}>
                                     <div className="plans sea">
                                         <Row>
                                             <Col xs={5} className=" d-flex justify-content-center mt-3">
@@ -310,7 +310,7 @@ function HomePage() {
                                 </Link>
                             </Col>
                             <Col md={6} className=" d-flex justify-content-center mb-5">
-                                <Link to={"search-package?plan=Trucking"}>
+                                <Link to={"search-package?plan=Trucking"}  style={{textDecoration:"none"}}>
                                     <div className="plans trucking">
                                         <Row>
                                             <Col xs={5} className=" d-flex justify-content-center mt-3">
@@ -334,7 +334,7 @@ function HomePage() {
                                 </Link>
                             </Col>
                             <Col md={6} className=" d-flex justify-content-center mb-5">
-                                <Link to={"search-package?plan=Campfire"}>
+                                <Link to={"search-package?plan=Campfire"}  style={{textDecoration:"none"}}>
                                     <div className="plans campfire">
                                         <Row>
                                             <Col xs={5} className=" d-flex justify-content-center mt-3">

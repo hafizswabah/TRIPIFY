@@ -138,7 +138,7 @@ function NavBar() {
             TRIPIFY
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Link to={'/search-package?category=all'}>
+            <Link to={'/search-package?category=all'}  style={{textDecoration:"none"}}>
               <Button
                 style={{ color: "rgba(55, 83, 156, 1)" }}
 
@@ -148,7 +148,7 @@ function NavBar() {
                 Packages
               </Button>
             </Link>
-            <Link to={'/search-package?plan=all'}>
+            <Link to={'/search-package?plan=all'}  style={{textDecoration:"none"}}>
             <Button
               style={{ color: "rgba(55, 83, 156, 1)" }}
 
@@ -158,7 +158,7 @@ function NavBar() {
               Plans
             </Button>
             </Link>
-            <Link to={'/Bookings'}>
+            <Link to={'/Bookings'}  style={{textDecoration:"none"}}>
               <Button
                 style={{ color: "rgba(55, 83, 156, 1)" }}
 
@@ -168,7 +168,7 @@ function NavBar() {
                 Bookings
               </Button>
             </Link>
-            <Link to={'/chat'}>
+            <Link to={'/chat'}  style={{textDecoration:"none"}}>
               <Button
                 style={{ color: "rgba(55, 83, 156, 1)" }}
 
