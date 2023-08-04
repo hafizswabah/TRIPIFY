@@ -57,15 +57,56 @@ function AgentChat() {
     return (
         <div>
     <AgencyHeader/>
-            <div className="Chat">
-                <div className="Left-side-chat">
-                    <div className="Chat-container">
+    <div
+                className="Chat"
+                style={{
+                    position: 'relative',
+                    display: 'grid',
+                    gridTemplateColumns: '16% auto',
+                }}
+            >
+                  <div
+                    className="Left-side-chat"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1rem',
+                    }}
+                >
+                   <div
+                        className="Chat-container"
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '1rem',
+                            background: '#fbfbfb',
+                            borderRadius: '1rem',
+                            padding: '1rem',
+                            height: 'auto',
+                            minHeight: '88vh',
+                            overflow: 'hidden',
+                            margin: '0.8rem',
+                        }}
+                    >
                         <h4>chats</h4>
-                        <div className="Chat-list">
+                        <div
+                            className="Chat-list"
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1rem',
+                            }}
+                        >
                             {chats?.map((chat) => (
 
                                 <div onClick={() => { setcurrentChat(chat) }}>
-                                    <Conversation data={chat} agentId={agentId}></Conversation>
+                                    <Conversation data={chat} agentId={agentId}
+                                        style={{
+                                            borderRadius: '0.5rem',
+                                            padding: '10px',
+                                            position: 'relative' 
+                                          }}
+                                    ></Conversation>
                                 </div>
                             )
                             )}
@@ -74,7 +115,16 @@ function AgentChat() {
 
                 </div>
 
-                <div className="Right-side-chat">
+                <div className="Right-side-chat"
+                     style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1rem',
+                        background: '#f3f3f3',
+                        borderRadius: '1rem',
+                        margin: '0.8rem',
+                    }}
+                >
                     <ChatBox chat={currentChat} agentId={agentId} setSendMeessage={setSendMeessage} recieveMessage={recieveMessage} ></ChatBox>
                 </div>
             </div>

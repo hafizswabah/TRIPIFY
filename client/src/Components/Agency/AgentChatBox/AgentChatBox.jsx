@@ -11,9 +11,6 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
     const [messages, setMessages] = useState([])
     const [newMessages, setnewMessages] = useState("")
     let userId = chat?.members.find((id) => id !== agentId)
-    console.log(recieveMessage, 'Agentrecievedmsg');
-    console.log(chat, 'chat');
-    console.log(messages, 'messages');
     useEffect(() => {
         (async function () {
             if (chat !== null) {
@@ -68,48 +65,133 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
     }, [recieveMessage]);
     return (
         <>
-            <div className="ChatBox-container">
+            <div
+                className="ChatBox-container"
+                style={{
+                    background: "#fbfbfb",
+                    borderRadius: "1rem",
+                    display: "grid",
+                    gridTemplateRows: "14vh 60vh 13vh",
+                }}
+            >
                 {chat ? (
                     <>
 
 
-                        <div className="chat-header">
+                        <div
+                            className="chat-header"
+                            style={{
+                                padding: "1rem 1rem 0rem 1rem",
+                                display: "flex",
+                                flexDirection: "column",
+                            }}
+                        >
                             <div className="chat-follower">
-                                <Row>
-                                    <div className='each-conversation' style={{ display: "flex", gap: "13px" }}>
-                                        <div>
+                                <div style={{ display: "flex", gap: "13px" }}>
+                                    <div>
+                                        <img
+                                            src={defaultChatImg}
+                                            alt=""
+                                            className="followerImage"
+                                            style={{
+                                                width: "50px",
+                                                height: "50px",
+                                                borderRadius: "23px",
+                                            }}
+                                        />
 
-                                            <img src={defaultChatImg} alt="" className='followerImage' style={{ width: "50px", height: "50px", borderRadius: "23px" }} />
-                                            <div className="name" style={{ fontSize: "8px", fontWeight: "500" }}>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="chatUserDetails d-flex align-items-center">
-                                            <span style={{ fontSize: "15px", fontWeight: "500" }} >{userData?.[0].name}</span>
-                                        </div>
                                     </div>
-                                </Row>
+                                    <div
+                                        className="chatUserDetails d-flex align-items-center"
+                                        style={{ fontSize: "15px", fontWeight: "500" }}
+                                    >
+                                        {userData?.[0].name}
+                                    </div>
+                                </div>
                             </div>
                             <hr style={{ border: "0.1px solid #cfcfcf" }} />
                         </div>
-                        <div className="chat-body">
+                        <div
+                            className="chat-body"
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "0.5rem",
+                                padding: "1.5rem",
+                                overflow: "scroll",
+                                overflowX: "hidden",
+                            }}
+                        >
                             {messages?.map((message) => (
-                                <>
-                                    <div className={message.senderId === agentId ? "message own" : "message"}>
-                                        <span>{message?.text}</span>
-                                        <span>{format(message?.createdAt)}</span>
-                                    </div>
-                                </>
-                            )
-                            )}
+                                <div
+                                    key={message._id}
+                                    className={
+                                        message.senderId === agentId ? "message own" : "message"
+                                    }
+                                    style={{
+                                        background:
+                                            message.senderId === agentId
+                                                ? "linear-gradient(98.63deg, #3f71d7 0%, #358ff9 100%)"
+                                                : "#ff8100",
+                                        color: message.senderId === agentId ? "white" : "white",
+                                        padding: "0.7rem",
+                                        borderRadius: message.senderId === agentId ? "1rem 1rem 0 1rem" : "1rem 1rem 1rem 0",
+                                        maxWidth: "28rem",
+                                        width: "fit-content",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: "0.5rem",
+                                        alignSelf: message.senderId === agentId ? "flex-end" : "flex-start",
+                                    }}
+                                >
+                                    <span>{message?.text}</span>
+                                    <span style={{ fontSize: "0.7rem", color: "var(--textColor)", alignSelf: "end" }}>
+                                        {format(message?.createdAt)}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="chat-sender">
-                            <div>+</div>
+                        <div
+                            className="chat-sender"
+                            style={{
+                                background: "white",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                height: "3.5rem",
+                                alignItems: "center",
+                                gap: "1rem",
+                                padding: "0.8rem",
+                                borderRadius: "1rem",
+                                alignSelf: "end",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    background: "rgb(233, 233, 233)",
+                                    borderRadius: "0.5rem",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontWeight: "bold",
+                                    cursor: "pointer",
+                                }}
+                            >
+
+                                +</div>
                             <InputEmoji
                                 value={newMessages}
                                 onChange={(newMessages) => { setnewMessages(newMessages) }}
+                                style={{
+                                    height: "70%",
+                                    backgroundColor: "rgb(236, 236, 236)",
+                                    borderRadius: "0.5rem",
+                                    border: "none",
+                                    outline: "none",
+                                    flex: "1",
+                                    fontSize: "14px",
+                                    padding: "0px 15px 0px 15px",
+                                }}
                             ></InputEmoji>
                             <Button onClick={sendMessage}>send</Button>
                         </div>
