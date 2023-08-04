@@ -9,6 +9,11 @@
     border-radius: 8px;
 
 }
+@media screen and (max-width: 767px) {
+    .Main{
+        width: 98%;
+    }
+}
 
 .log-img {
     background-image: url('/login.jpg');
@@ -37,9 +42,15 @@
     gap: 16px;
 
 }
+@media screen and (max-width: 767px) {
+    .text-area{
+        width: 200px;
+        gap: 23px;
+    }
+}
 
 .text-name {
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -60,10 +71,27 @@
     font-size: 16px;
     font-weight: 500;
 
+
 }
+
 .forgot{
     color: #1f6096;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
+}
+@media screen and (max-width: 767px) {
+    .forgot{
+      font-size: 7px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .error{
+      font-size: 10px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .log-btn {
+     width: 167px;
+    }
 }

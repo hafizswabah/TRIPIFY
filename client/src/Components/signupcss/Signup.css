@@ -6,10 +6,12 @@
     align-items: center;
     padding: 20px 0px;
 }
-.ag-signup-container{
+
+.ag-signup-container {
     box-shadow: 0px 0px 10px 0px rgb(179, 179, 179);
     border-radius: 10px;
 }
+
 .log-img {
     background-image: url('/login.jpg');
     background-size: cover;
@@ -21,6 +23,7 @@
     justify-content: center;
 
 }
+
 
 .log-App-name {
     color: white;
@@ -41,6 +44,12 @@
 .text-name {
     font-size: 16px;
     font-weight: 600;
+}
+
+@media screen and (max-width: 767px) {
+    .text-name{
+        font-size: 9px;
+    }
 }
 
 .log-btn {
@@ -81,6 +90,12 @@
     color: white;
 }
 
+@media screen and (max-width: 767px) {
+    .log-App-subname {
+        font-size: 9px;
+    }
+}
+
 .log-App-name {
     font-size: 27px;
     font-weight: 600;
@@ -93,5 +108,5 @@
     font-weight: 600;
     text-decoration: none;
 }
-.text-fileds {
-}
+
+.text-fileds {}

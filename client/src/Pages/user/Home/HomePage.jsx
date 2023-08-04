@@ -69,11 +69,11 @@ function HomePage() {
 
                                 </div>
                             </Col>
-                            <Col xs={9} className='d-flex justify-content-center align-items-center'>
+                            <Col xs={8} className='d-flex justify-content-center align-items-center'>
                                 <input className='search-input w-75'
                                     onChange={(e) => { setSearch(e.target.value) }} />
                             </Col>
-                            <Col xs={2}>
+                            <Col xs={3}>
                                 <Button onClick={() => { handleSearch(search) }}>Search</Button>
                             </Col>
                         </Row>
@@ -368,13 +368,13 @@ function HomePage() {
                     </Container>
                     <Container>
                         <Row>
-                            <Col md={4}>
+                            <Col sm={4}>
                             <h5 className='contactDetFooter'>TRIPIFY@gmail.com</h5>
                             </Col>
-                            <Col md={4}>
+                            <Col sm={4}>
                             <h5 className='contactDetFooter'>swabahhafizamb@gmail.com</h5>
                             </Col>
-                            <Col md={4}>
+                            <Col sm={4}>
                             <h5 className='contactDetFooter'>8113983262</h5>
                             </Col>
                            

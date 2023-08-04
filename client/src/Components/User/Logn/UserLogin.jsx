@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Container } from 'react-bootstrap'
+import { Container, Row,Col } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 
@@ -25,12 +25,12 @@ function UserLogin() {
   return (
 
     <Container>
-      <div className="Main row">
-        <div className="col-5 log-img">
+      <Row className="Main ">
+      <Col xs={5} className=" log-img">
           <h2 className='log-App-name mt-4'>Tripify</h2>
-        </div>
+        </Col>
 
-        <div className="col-7">
+        <Col xs={7}>
           <Container className="log-full">
             <div className="text-area mt-5">
 
@@ -74,8 +74,8 @@ function UserLogin() {
 
 
           </Container>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </Container>
   )
 }

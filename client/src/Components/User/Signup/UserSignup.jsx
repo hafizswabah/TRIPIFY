@@ -55,16 +55,16 @@ function UserSignup() {
    
     <Container className='ag-signup-container'>
         <Row>
-          <Col md={5} className="log-img">
+          <Col xs={5} className="log-img">
             <div className="log-main-texts">
               <h2 className='log-App-name mt-4'>Tripify</h2>
               <h4 className='log-App-subname mb-4'>Welcom To Your Dream Journey</h4>
             </div>
           </Col>
 
-          <Col md={5} className="h-100">
+          <Col xs={7} className="h-100">
             <Container className="log-full">
-              <div className="text-area w-50 ">
+              <div className="text-area  ">
                 <div className="text-fileds w-100">
                   <h4 className='text-name mb-2'>Name</h4>
                   <TextField

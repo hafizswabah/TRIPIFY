@@ -38,7 +38,7 @@
 
 @media screen and (max-width: 767px) {
     .search-bar {
-        width: 120px;
+        width: 290px;
         height: 28px;
         border-radius: 5px;
 
@@ -185,7 +185,7 @@
 }
 @media screen and (max-width: 767px) {
     .packages {
-        height: 160px;
+        height: 145px;
         width: 95px;
         padding: 5px;
         border-radius: 5px;
@@ -356,13 +356,22 @@
     color: #1f6096;
     font-weight: 600;
 }
+@media screen and (max-width: 767px) {
+    .main-head {
+      font-size: 17px;
+    }
+}
 
 .main-sub-head {
     color: #1f6096;
     font-weight: 300;
     font-size: 20px;
 }
-
+@media screen and (max-width: 767px) {
+    .main-sub-head{
+      font-size: 13px;
+    }
+}
 .line {
     width: 100%;
     height: 1px;
