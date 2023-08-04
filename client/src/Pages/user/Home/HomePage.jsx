@@ -64,16 +64,16 @@ function HomePage() {
                     </div>
                     <div className="search-bar">
                         <Row>
-                            <Col md={1} >
+                            <Col xs={1} >
                                 <div className="search-img">
 
                                 </div>
                             </Col>
-                            <Col md={9} className='d-flex justify-content-center align-items-center'>
+                            <Col xs={9} className='d-flex justify-content-center align-items-center'>
                                 <input className='search-input w-75'
                                     onChange={(e) => { setSearch(e.target.value) }} />
                             </Col>
-                            <Col md={2}>
+                            <Col xs={2}>
                                 <Button onClick={() => { handleSearch(search) }}>Search</Button>
                             </Col>
                         </Row>
@@ -154,10 +154,10 @@ function HomePage() {
                                     <div className="packages himalaya" style={{ backgroundImage: `url(${baseImgUrl + item.mainImage[0].filename})` }}>
 
                                         <Row>
-                                            <Col md={6} className=" d-flex justify-content-start">
+                                            <Col xs={6} className=" d-flex justify-content-start">
                                                 <h5 className='package-details'>{item.name}</h5>
                                             </Col>
-                                            <Col md={6} className=" d-flex justify-content-end">
+                                            <Col xs={6} className=" d-flex justify-content-end">
                                                 <h5 className='package-details'>{item.cost}/-</h5>
                                             </Col>
                                         </Row>
@@ -171,7 +171,7 @@ function HomePage() {
                                         <Row>
                                             <div className="package-btn d-flex justify-content-center mt-2">
                                                 <Link to={`/package-details/${item._id}`}>
-                                                    <Button className='w-100' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
+                                                    <Button className='w-100 package-home-btn' variant="contained" style={{ backgroundColor: "white", color: "#1a6795", height: "27px" }}>View Package</Button>
                                                 </Link>
                                             </div>
                                         </Row>
@@ -202,14 +202,14 @@ function HomePage() {
 
 
                     <Row>
-                        <Col md={6} className=" d-flex justify-content-center mb-5">
+                        <Col xs={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=skydive"}>
                                 <div className="plans sky">
                                     <Row>
-                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={5} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-details'>Sky Dive</h3>
                                         </Col>
-                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={7} className=" d-flex justify-content-center mt-3">
 
                                             <h3 className='plan-rate'>Starting @55,999/-</h3>
                                         </Col>
@@ -229,14 +229,14 @@ function HomePage() {
                                 </div>
                             </Link>
                         </Col>
-                        <Col md={6} className=" d-flex justify-content-center mb-5">
+                        <Col xs={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=Dj Night"}>
                                 <div className="plans dj">
                                     <Row>
-                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={5} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-details'>DJ Nights</h3>
                                         </Col>
-                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={7} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-rate'>Starting @1,999/-</h3>
                                         </Col>
                                     </Row>
@@ -254,14 +254,14 @@ function HomePage() {
                                 </div>
                             </Link>
                         </Col>
-                        <Col md={6} className=" d-flex justify-content-center mb-5">
+                        <Col xs={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=Desertsafari"}>
                                 <div className="plans desert">
                                     <Row>
-                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={5} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-details'>Desert Safari</h3>
                                         </Col>
-                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={7} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-rate'>Starting @25,999/-</h3>
                                         </Col>
                                     </Row>
@@ -278,14 +278,14 @@ function HomePage() {
                                 </div>
                             </Link>
                         </Col>
-                        <Col md={6} className=" d-flex justify-content-center mb-5">
+                        <Col xs={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=SeaDrive"}>
                                 <div className="plans sea">
                                     <Row>
-                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={5} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-details'>Sea Drive</h3>
                                         </Col>
-                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={7} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-rate'>Starting @15,999/-</h3>
                                         </Col>
                                     </Row>
@@ -305,14 +305,14 @@ function HomePage() {
                                 </div>
                             </Link>
                         </Col>
-                        <Col md={6} className=" d-flex justify-content-center mb-5">
+                        <Col xs={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=Trucking"}>
                                 <div className="plans trucking">
                                     <Row>
-                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={5} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-details'>Trucking</h3>
                                         </Col>
-                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={7} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-rate'>Starting @4,999/-</h3>
                                         </Col>
                                     </Row>
@@ -329,14 +329,14 @@ function HomePage() {
                                 </div>
                             </Link>
                         </Col>
-                        <Col md={6} className=" d-flex justify-content-center mb-5">
+                        <Col xs={6} className=" d-flex justify-content-center mb-5">
                             <Link to={"search-package?plan=Campfire"}>
                                 <div className="plans campfire">
                                     <Row>
-                                        <Col md={5} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={5} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-details'>Camp Fire</h3>
                                         </Col>
-                                        <Col md={7} className=" d-flex justify-content-center mt-3">
+                                        <Col xs={7} className=" d-flex justify-content-center mt-3">
                                             <h3 className='plan-rate'>Starting @2,999/-</h3>
                                         </Col>
                                     </Row>

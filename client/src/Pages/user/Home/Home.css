@@ -19,8 +19,13 @@
     width: 100%;
     height: 85vh;
     gap: 50px;
+}
 
+@media screen and (max-width: 767px) {
+    .home-img {
+        height: 44vh;
 
+    }
 }
 
 .search-bar {
@@ -31,11 +36,26 @@
     box-shadow: -1px 3px 11px 2px #00000030;
 }
 
+@media screen and (max-width: 767px) {
+    .search-bar {
+        width: 120px;
+        height: 28px;
+        border-radius: 5px;
+
+    }
+}
+
 .location-search-icon {
     height: 40px;
     width: 40px;
 }
+@media screen and (max-width: 767px) {
+    .location-search-icon {
+        height: 10px;
+        width: 10px;
 
+    }
+}
 .cat-img {
     height: 130px;
     width: 130px;
@@ -48,12 +68,16 @@
     align-items: end;
 
 }
+
 @media screen and (max-width: 767px) {
     .cat-img {
-        height: 60px; /* Change the height for mobile screens */
-        width: 60px;  /* Change the width for mobile screens */
+        height: 60px;
+        /* Change the height for mobile screens */
+        width: 60px;
+        /* Change the width for mobile screens */
     }
 }
+
 .cat-img:hover {
     box-shadow: 1px 2px 17px 5px #0000001c;
 }
@@ -95,6 +119,7 @@
         font-weight: 300;
     }
 }
+
 .each-cat {
     display: flex;
     justify-content: center;
@@ -107,12 +132,14 @@
     font-size: 14px;
     font-weight: 600;
 }
+
 @media screen and (max-width: 767px) {
     .each-cat-head {
         font-size: 10px;
         font-weight: 600;
     }
 }
+
 .wave-img {
     position: absolute;
     top: 54vh;
@@ -125,6 +152,12 @@
     height: 60%;
 }
 
+@media screen and (max-width: 767px) {
+    .wave-img svg {
+        width: 0vw;
+        height: 0px;
+    }
+}
 
 .search-icon {
     font-size: 33px;
@@ -150,7 +183,14 @@
     justify-content: flex-end;
     box-shadow: inset 0px -77px 118px 28px rgba(0, 0, 0, 0.8);
 }
-
+@media screen and (max-width: 767px) {
+    .packages {
+        height: 160px;
+        width: 95px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
 .packages.himalaya {
     background-image: url(../../../assets/himu.jpg);
 
@@ -171,6 +211,14 @@
     border-radius: 20px;
     background-size: cover;
     background-position: center;
+}
+
+@media screen and (max-width: 767px) {
+    .plans {
+        height: 100px;
+        width: 190px;
+        border-radius: 8px;
+    }
 }
 
 .plans.sky {
@@ -211,17 +259,40 @@
     font-weight: 600;
     font-size: 1rem;
 }
+@media screen and (max-width: 767px) {
+    .package-details {
+        font-weight: 300;
+        font-size: 5px;
+    }
+}
 
 .package-info {
     color: white;
     font-weight: 300;
     font-size: .6rem;
 }
-
+@media screen and (max-width: 767px) {
+    .package-info {
+        font-weight: 300;
+        font-size: 4px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .package-home-btn {
+      height: 5px;
+    }
+}
 .plan-details {
     color: white;
     font-weight: 600;
     font-size: 30px;
+}
+
+@media screen and (max-width: 767px) {
+    .plan-details {
+        font-weight: 300;
+        font-size: 8px;
+    }
 }
 
 .plan-rate {
@@ -230,12 +301,29 @@
     font-size: 26px;
 }
 
+@media screen and (max-width: 767px) {
+    .plan-rate {
+        font-weight: 300;
+        font-size: 10px;
+    }
+}
+
+
 .plan-info {
     color: rgb(255, 255, 255);
     font-weight: 400;
     font-size: 14px;
     max-height: 150px !important;
     overflow-y: scroll;
+}
+
+@media screen and (max-width: 767px) {
+    .plan-info {
+        font-weight: 400;
+        font-size: 7px;
+        max-height: 70px !important;
+        overflow-y: scroll;
+    }
 }
 
 .plan-info::-webkit-scrollbar {
@@ -286,15 +374,16 @@
     font-weight: 500;
     font-size: 16px;
 }
+
 .point {
     width: 5px;
     height: 5px;
     border-radius: 50%;
     background-color: #454545;
-  }
-  .contactDetFooter{
+}
+
+.contactDetFooter {
     font-size: 15px;
     font-weight: 400;
     padding: 18px;
-  }
-  
+}
