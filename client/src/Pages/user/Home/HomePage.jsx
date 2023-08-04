@@ -81,7 +81,7 @@ function HomePage() {
 
                     </div> */}
                     <div className="search-bar">
-                        <input type="text" placeholder='Search' onChange={(e) => { setSearch(e.target.value) }} />
+                        <input type="text" placeholder='Search your destination find your package' onChange={(e) => { setSearch(e.target.value) }} />
                         <div className='search-icon'>
                         <FiSearch className='icon' onClick={() => { handleSearch(search) }} />
                         </div>
@@ -97,38 +97,38 @@ function HomePage() {
                     <div className="category-sec mt-5 container">
                         <Row >    <h3 className='category-head ms-4 mt-5 '>Categories</h3></Row>
                         <Row className='pt-3'>
-                            <Col xs={4} className="d-flex justify-content-center each-cat">
+                            <Col xs={4} md={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"/search-package?category=adventure"}>
                                     <div className="cat-img img1">
                                     </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Adventure</h3>
                             </Col>
-                            <Col xs={4} className="d-flex justify-content-center each-cat">
+                            <Col xs={4} md={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"/search-package?category=city"}>
                                     <div className="cat-img img2"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>City Tour</h3>
                             </Col>
-                            <Col xs={4} className="d-flex justify-content-center each-cat">
+                            <Col xs={4} md={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"/search-package?category=nature"}>
                                     <div className="cat-img img3"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Nature</h3>
                             </Col>
-                            <Col xs={4} className="d-flex justify-content-center each-cat">
+                            <Col xs={4} md={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"search-package?category=desert"}>
                                     <div className="cat-img img4"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Desert</h3>
                             </Col>
-                            <Col xs={4} className="d-flex justify-content-center each-cat">
+                            <Col xs={4}  md={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"search-package?category=desert"}>
                                     <div className="cat-img img5"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Occens</h3>
                             </Col>
-                            <Col xs={4} className="d-flex justify-content-center each-cat">
+                            <Col xs={4} md={2} className="d-flex justify-content-center each-cat">
                                 <Link to={"search-package?category=snow"}>
                                     <div className="cat-img img6"> </div>
                                 </Link>

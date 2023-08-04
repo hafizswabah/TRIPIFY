@@ -40,19 +40,22 @@
     border-radius: 15px;
     overflow: hidden;
     padding: 0px 10px;
-    
+
 }
 
-.search-bar input, .search-bar .search-icon{
+.search-bar input,
+.search-bar .search-icon {
     height: 45px;
     background-color: #fff;
 }
-.search-bar .search-icon{
+
+.search-bar .search-icon {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.search-bar input{
+
+.search-bar input {
     border: none;
     outline: none;
     width: 200px;
@@ -70,6 +73,7 @@
     height: 40px;
     width: 40px;
 }
+
 @media screen and (max-width: 767px) {
     .location-search-icon {
         height: 10px;
@@ -77,6 +81,7 @@
 
     }
 }
+
 .cat-img {
     height: 130px;
     width: 130px;
@@ -169,16 +174,10 @@
 }
 
 .wave-img svg {
-    width: 98.9vw;
+    width: 100vw;
     height: 60%;
 }
 
-@media screen and (max-width: 767px) {
-    .wave-img svg {
-        width: 0vw;
-        height: 0px;
-    }
-}
 
 .search-icon {
     font-size: 33px;
@@ -204,14 +203,7 @@
     justify-content: flex-end;
     box-shadow: inset 0px -77px 118px 28px rgba(0, 0, 0, 0.8);
 }
-/* @media screen and (max-width: 767px) {
-    .packages {
-        height: 145px;
-        width: 95px;
-        padding: 5px;
-        border-radius: 5px;
-    }
-} */
+
 .packages.himalaya {
     background-image: url(../../../assets/himu.jpg);
 
@@ -274,29 +266,15 @@
     font-weight: 600;
     font-size: 1rem;
 }
-/* @media screen and (max-width: 767px) {
-    .package-details {
-        font-weight: 300;
-        font-size: 5px;
-    }
-} */
+
 
 .package-info {
     color: white;
     font-weight: 300;
     font-size: .6rem;
 }
-/* @media screen and (max-width: 767px) {
-    .package-info {
-        font-weight: 300;
-        font-size: 4px;
-    }
-} */
-@media screen and (max-width: 767px) {
-    .package-home-btn {
-      height: 5px;
-    }
-}
+
+
 .plan-details {
     color: white;
     font-weight: 600;
@@ -316,20 +294,32 @@
         font-weight: 300;
         font-size: 20px;
     }
+
     .plan-info {
         font-weight: 300;
         font-size: 12px;
         max-height: 70px !important;
         overflow-y: scroll;
     }
+
     .plan-details {
         font-weight: 500;
         font-size: 18px;
     }
+
     .plans {
         height: 150px;
         width: 310px;
         border-radius: 8px;
+    }
+
+    .package-home-btn {
+        height: 5px;
+    }
+
+    .wave-img svg {
+        width: 0vw;
+        height: 0px;
     }
 }
 
@@ -374,9 +364,10 @@
     color: #1f6096;
     font-weight: 600;
 }
+
 @media screen and (max-width: 767px) {
     .main-head {
-      font-size: 17px;
+        font-size: 17px;
     }
 }
 
@@ -385,11 +376,13 @@
     font-weight: 300;
     font-size: 20px;
 }
+
 @media screen and (max-width: 767px) {
-    .main-sub-head{
-      font-size: 13px;
+    .main-sub-head {
+        font-size: 13px;
     }
 }
+
 .line {
     width: 100%;
     height: 1px;
