@@ -96,7 +96,7 @@ export async function checkReviewer(req, res) {
   let PackageId = req.query.PackageId
   let reviewer = false
   let booking = await BookingModel.findOne({ userId: userId, PackageId: PackageId }).populate("PackageId")
-  if (new Date(booking.PackageId.endDate) < new Date) {
+  if (new Date(booking?.PackageId?.endDate) < new Date) {
     reviewer = true
   } else {
     reviewer = false

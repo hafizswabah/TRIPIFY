@@ -30,17 +30,38 @@
 
 .search-bar {
     width: 720px;
-    height: 38px;
-    border-radius: 25px;
+    height: 45px;
     background-color: white;
     box-shadow: -1px 3px 11px 2px #00000030;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0px 10px;
+    
+}
+
+.search-bar input, .search-bar .search-icon{
+    height: 45px;
+    background-color: #fff;
+}
+.search-bar .search-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-bar input{
+    border: none;
+    outline: none;
+    width: 200px;
+
 }
 
 @media screen and (max-width: 767px) {
     .search-bar {
         width: 290px;
-        height: 28px;
-        border-radius: 5px;
 
     }
 }
@@ -183,14 +204,14 @@
     justify-content: flex-end;
     box-shadow: inset 0px -77px 118px 28px rgba(0, 0, 0, 0.8);
 }
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     .packages {
         height: 145px;
         width: 95px;
         padding: 5px;
         border-radius: 5px;
     }
-}
+} */
 .packages.himalaya {
     background-image: url(../../../assets/himu.jpg);
 
@@ -213,13 +234,7 @@
     background-position: center;
 }
 
-@media screen and (max-width: 767px) {
-    .plans {
-        height: 100px;
-        width: 190px;
-        border-radius: 8px;
-    }
-}
+
 
 .plans.sky {
     background-image: url(../../../assets/skyjump.jpg);
@@ -259,24 +274,24 @@
     font-weight: 600;
     font-size: 1rem;
 }
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     .package-details {
         font-weight: 300;
         font-size: 5px;
     }
-}
+} */
 
 .package-info {
     color: white;
     font-weight: 300;
     font-size: .6rem;
 }
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     .package-info {
         font-weight: 300;
         font-size: 4px;
     }
-}
+} */
 @media screen and (max-width: 767px) {
     .package-home-btn {
       height: 5px;
@@ -288,12 +303,7 @@
     font-size: 30px;
 }
 
-@media screen and (max-width: 767px) {
-    .plan-details {
-        font-weight: 300;
-        font-size: 8px;
-    }
-}
+
 
 .plan-rate {
     color: white;
@@ -304,7 +314,22 @@
 @media screen and (max-width: 767px) {
     .plan-rate {
         font-weight: 300;
-        font-size: 10px;
+        font-size: 20px;
+    }
+    .plan-info {
+        font-weight: 300;
+        font-size: 12px;
+        max-height: 70px !important;
+        overflow-y: scroll;
+    }
+    .plan-details {
+        font-weight: 500;
+        font-size: 18px;
+    }
+    .plans {
+        height: 150px;
+        width: 310px;
+        border-radius: 8px;
     }
 }
 
@@ -317,14 +342,7 @@
     overflow-y: scroll;
 }
 
-@media screen and (max-width: 767px) {
-    .plan-info {
-        font-weight: 400;
-        font-size: 7px;
-        max-height: 70px !important;
-        overflow-y: scroll;
-    }
-}
+
 
 .plan-info::-webkit-scrollbar {
     display: none;
