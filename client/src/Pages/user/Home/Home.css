@@ -58,14 +58,18 @@
 .search-bar input {
     border: none;
     outline: none;
-    width: 200px;
+    width: 350px;
 
 }
 
 @media screen and (max-width: 767px) {
     .search-bar {
         width: 290px;
-
+    }
+    .search-bar input {
+       
+        width: 240px;
+    
     }
 }
 
@@ -279,7 +283,7 @@
 .plan-details {
     color: white;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 24px;
 }
 
 
@@ -287,7 +291,7 @@
 .plan-rate {
     color: white;
     font-weight: 500;
-    font-size: 26px;
+    font-size: 22px;
 }
 
 @media screen and (max-width: 767px) {
@@ -328,7 +332,7 @@
 .plan-info {
     color: rgb(255, 255, 255);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     max-height: 150px !important;
     overflow-y: scroll;
 }

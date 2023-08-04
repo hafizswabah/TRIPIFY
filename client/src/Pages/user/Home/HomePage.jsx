@@ -207,7 +207,7 @@ function HomePage() {
 
                         <Row>
                             <Col md={6} className=" d-flex justify-content-center mb-5">
-                                <Link to={"search-package?plan=skydive"}>
+                                <Link to={"search-package?plan=skydive"} style={{textDecoration:"none"}}>
                                     <div className="plans sky">
                                         <Row>
                                             <Col xs={5} className=" d-flex justify-content-center mt-3">
