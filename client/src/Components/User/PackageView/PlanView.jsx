@@ -138,13 +138,7 @@ function PlanView() {
                                     {plans.name}
                                 </h4>
                                 <div className="d-flex flex-row my-3">
-                                    <div className="d-flex flex-row my-3">
-
-                                        <span className="text-muted">  {plans?.agencyId?.name.toUpperCase()}
-
-                                        </span>
-
-                                    </div>
+                             
                                 </div>
 
                                 <div className="mb-3">
@@ -181,7 +175,7 @@ function PlanView() {
             </section>
             {
                 showBookNow &&
-                <PlanBookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} plans={plans} />
+                <PlanBookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} plans={plans}  />
             }
 
         </>
