@@ -54,7 +54,6 @@ export async function cancelBooking(req, res) {
 export async function findPackages(req, res) {
   const category = req.query.category;
   const plan = req.query.plan;
-
   if (plan) {
     try {
       if (plan === 'all') {
@@ -62,6 +61,7 @@ export async function findPackages(req, res) {
         return res.json({ err: false, plans, pkg: false });
       }
       const plans = await PlanModel.find({ category: plan }).exec();
+  
       return res.json({ err: false, plans, pkg: false });
     } catch (error) {
       return res.json({ err: true, message: 'Error retrieving plans' });
