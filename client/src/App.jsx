@@ -89,6 +89,7 @@ function App() {
             <Route path='/signup' element={<SignPage />} />
             <Route path='/' element={<Navigate to="/login" />} />
             <Route path='/forgot' element={<ForgotPage />} />
+            <Route path='/*' element={<ErrorPage/>}/>
           </>
         }
         {
@@ -105,6 +106,7 @@ function App() {
             <Route path='/admin/bookings' element={<AdminBookingDetails />} />
             <Route path='/admin/reports' element={<AdminReport />} />
             <Route path='/admin/refund' element={<AgencyRefund/>} />
+            <Route path='/admin/*' element={<ErrorPage/>}/>
           </>
         }
         {
@@ -152,6 +154,7 @@ function App() {
             <Route path='/agency/bookings' element={<AgencyBookings />} />
             <Route path='/agency/reports' element={<AgencyReport/>} />
             <Route path='/agency/chat' element={<AgentChat/>} />
+            <Route path='/agency/*' element={<ErrorPage/>}/>
        
           </>
         }
