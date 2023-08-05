@@ -36,7 +36,7 @@ import AgencyRefund from './Components/Agency/Refund/AgencyRefund'
 import UserProfile from './Components/User/Profile/UserProfile'
 import Chat from './Components/User/chat/UserChat'
 import AgentChat from './Components/Agency/Chat/AgentChat'
-
+import ErrorPage from "./Pages/ErrorPage/ErrorPage"
 
 
 function App() {
@@ -78,8 +78,7 @@ function App() {
             <Route path='/Bookings' element={<BookingsPage/>}/> 
             <Route path='/profile' element={<UserProfile/>}/> 
             <Route path='/chat' element={<Chat/>}/> 
-
-
+            <Route path='/*' element={<ErrorPage/>}/>
 
           </>
         }

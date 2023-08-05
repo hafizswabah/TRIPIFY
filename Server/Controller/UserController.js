@@ -13,7 +13,6 @@ export async function GetPkg(req, res) {
 }
 export async function searchPkg(req, res) {
   const packages = await PackageModel.find().lean();
-  console.log('location search get all pkk');
   return res.json({ packages });
 }
 export async function packageview(req, res) {
@@ -104,7 +103,6 @@ export async function checkReviewer(req, res) {
   res.json({ err: false, reviewer })
 }
 export async function addReview(req, res) {
-  console.log(req.body);
   let { userId, id, review, value } = req.body;
   try {
     let user = await feedbackModel.findOne({ userId });
