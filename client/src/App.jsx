@@ -139,6 +139,7 @@ function App() {
             <Route path='/agency/signup' element={<AgencySignupPage />} />
             <Route path='/agency' element={<Navigate to={"/agency/login"} />} />
             <Route path='/agency/login' element={<AgencyLoginPage />} />
+            <Route path='/agency/*' element={<ErrorPage/>}/>
           </>
         }
         {
