@@ -26,10 +26,8 @@ function SearchPackage() {
     const [dates, setDates] = useState([])
     const { RangePicker } = DatePicker;
     const location = useLocation()
-    console.log(location, 'location');
     const [latitude, setLatitude] = useState(location.state?.lat || 0);
     const [longitude, setLongitude] = useState(location.state?.lng || 0)
-    console.log('Coordinates', latitude, longitude);
 
     const handleSelectPrice = (selectedOption) => {
         const selectedPrice = selectedOption;
@@ -57,33 +55,39 @@ function SearchPackage() {
             let { data } = await axios.get("/user/search-packages?category=" + category + "&plan=" + plan)
             console.log(data, 'dt');
             if (data.pkg) {
-                console.log('hhh');
                 setPack(data.packages)
                 setAllData(data.packages)
                 setpkgUrl(true)
             } else {
-                console.log('ggg');
                 setPack(data.plans)
+                setAllData(data.plans)
                 setpkgUrl(false)
             }
         })()
     }, [])
 
-
     useEffect(() => {
         let filteredPack = allData;
         let result = []
         if (date) {
-            result = filteredPack.filter((item) => {
-                console.log('item:', new Date(item.startDate), 'start:', new Date(date.start), 'end:', new Date(date.end));
-                return (
-                    new Date(item.startDate) >= new Date(date.start) &&
-                    new Date(item.startDate) <= new Date(date.end)
-                );
-            });
+            if(pkgUrl){
+                result = filteredPack.filter((item) => {
+                    return (
+                        new Date(item.startDate) >= new Date(date.start) &&
+                        new Date(item.startDate) <= new Date(date.end)
+                    );
+                });
+            }else{
+                result = filteredPack.filter((item) => {
+                    return (
+                        new Date(item.date) >= new Date(date.start) &&
+                        new Date(item.date) <= new Date(date.end)
+                    );
+                });
+            }
+         
         }
 
-        console.log(filteredPack);
         setPack(result);
     }, [date]);
 
