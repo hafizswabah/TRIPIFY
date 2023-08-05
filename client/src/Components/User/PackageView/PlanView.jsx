@@ -20,6 +20,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import NavBar from '../NavBar/NavBar'
+import { useSelector } from 'react-redux'
 import BookNow from '../../../modal/Booking/BookiNow'
 import PlanBookNow from '../../../modal/Booking/PlanBookNow'
 function PlanView() {
@@ -31,6 +32,7 @@ function PlanView() {
     const [refresh, setRefresh] = useState(false)
     const [activeStep, setActiveStep] = React.useState(0);
     const planStatus = true
+    const navigate=useNavigate()
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -42,7 +44,11 @@ function PlanView() {
     const handleReset = () => {
         setActiveStep(0);
     };
+    let { user } = useSelector((state) => {
+        return state
+    })
 
+    let userId = user.details._id
     const { id } = useParams()
     useEffect(() => {
         (async function () {
@@ -63,7 +69,14 @@ function PlanView() {
         })()
     }, [])
 
-
+   async function handleChat(agentId, userId) {
+        console.log(agentId);
+        let reciverId = agentId
+        let senderId = userId
+        let { data } = await axios.post("/chat", { senderId, reciverId })
+        if(!data.err){
+            navigate('/chat')        }
+    }
 
     return (
         <>
@@ -138,7 +151,11 @@ function PlanView() {
                                     {plans.name}
                                 </h4>
                                 <div className="d-flex flex-row my-3">
-                             
+
+                                    <span className="text-muted">  {plans?.agencyId?.name.toUpperCase()}
+
+                                    </span>
+
                                 </div>
 
                                 <div className="mb-3">
@@ -166,7 +183,14 @@ function PlanView() {
                                 <div className="row mb-4">
 
                                 </div>
-                                <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
+                                     <div className="book-pkg-and-chat">
+                                    <div>
+                                        <button className='bookpkgbtn' onClick={() => setShowBookNow(true)} > Book Package </button>
+                                    </div>
+                                    <div >
+                                        <button className='bookpkgbtn' onClick={() => handleChat(plans.agencyId._id, userId)}> Chat for more Enquiries</button>
+                                    </div>
+                                </div>
                             </div>
                         </Col>
 
@@ -175,7 +199,7 @@ function PlanView() {
             </section>
             {
                 showBookNow &&
-                <PlanBookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} plans={plans}  />
+                <PlanBookNow setShowBookNow={setShowBookNow} refresh={refresh} setRefresh={setRefresh} plans={plans} />
             }
 
         </>

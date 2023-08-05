@@ -24,7 +24,8 @@ export async function packageview(req, res) {
 
 export async function planview(req, res) {
   const _id = req.params.id
-  const plans = await PlanModel.findOne({ _id })
+  const plans = await PlanModel.findOne({ _id }).populate("agencyId")
+  console.log(plans);
   res.json({ err: false, plans })
 }
 export async function getuserBooking(req, res) {
