@@ -31,8 +31,9 @@ function ErrorPage() {
                 style={{color:"white",
                 padding:"10px 20px",
                 background:"#0d6efd",
-                margin:"20px 0px",
-                display:"inline-block"}}>
+                margin:"0px 0px",
+                display:"inline-block",
+                textDecoration:"none"}}>
                   Go to Home
                 </Link>
               </div>
