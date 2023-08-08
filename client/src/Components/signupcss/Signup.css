@@ -9,9 +9,15 @@
 
 .ag-signup-container {
     box-shadow: 0px 0px 10px 0px rgb(179, 179, 179);
-    border-radius: 10px;
+    padding: 0px;
+    border-radius: 20px;
 }
 
+@media screen and (max-width: 767px) {
+    .ag-signup-container{
+        width: 330px !important;
+    }
+}
 .log-img {
     background-image: url('/login.jpg');
     background-size: cover;
@@ -23,7 +29,6 @@
     justify-content: center;
 
 }
-
 
 .log-App-name {
     color: white;

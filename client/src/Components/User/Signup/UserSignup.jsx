@@ -7,6 +7,7 @@ import OtpPage from '../VerifyOTP/OtpPage';
 import '../../signupcss/Signup.css'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 function UserSignup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -53,16 +54,17 @@ function UserSignup() {
     {!showOtpPage ?
 
    
-    <Container className='ag-signup-container'>
+    <Container className='ag-signup-container' 
+    style={{padding:"0px",borderRadius:"20px"}}>
         <Row>
-          <Col xs={5} className="log-img">
+          <Col md={5} xs={0} sm={0} className="log-img">
             <div className="log-main-texts">
               <h2 className='log-App-name mt-4'>Tripify</h2>
               <h4 className='log-App-subname mb-4'>Welcom To Your Dream Journey</h4>
             </div>
           </Col>
 
-          <Col xs={7} className="h-100">
+          <Col md={7} xs={12} sm={12} className="h-100">
             <Container className="log-full">
               <div className="text-area  ">
                 <div className="text-fileds w-100">
@@ -138,6 +140,7 @@ function UserSignup() {
                     variant='contained' style={{ backgroundColor: '#18649b', color: "white" }} className="w-100">Sign Up</Button>
                 </div>
                 <div className='error'>{errMessage}</div>
+                <div><Link to={'/login'}>Back to Login</Link></div>
 
               </div>
 
