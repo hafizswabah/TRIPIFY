@@ -82,7 +82,6 @@ const AddPackageModal = ({ showModal, handleCloseModal, handlePackageAdded }) =>
       const features = response.data.features;
       if (features.length > 0) {
         const coordinates = features[0].geometry.coordinates;
-        console.log(coordinates)
         formData.append('location.type', 'Point');
         formData.append('location.coordinates',JSON.stringify(coordinates));
       }

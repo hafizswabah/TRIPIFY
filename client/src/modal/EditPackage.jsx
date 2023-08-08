@@ -4,16 +4,18 @@ import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import formatDate from '../helper/formatDate';
 
 
-const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
+const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg ,handlePackageAdded }) => {
   const [state, setState] = useState({})
-  const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [description, setDescription] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [name, setName] = useState('');
   const [flightBooking, setFlightBooking] = useState(false)
   const [stayBooking, setStayBooking] = useState(false)
   const [mainImage, setMainImage] = useState(null);
-  const [subImages, setSubImages] = useState(null);
-  let formData = new FormData()
+  const [subImages, setSubImages] = useState([]);
+
+ 
   useEffect(() => {
     if (editpkg) {
       setStartDate(formatDate(editpkg.startDate))
@@ -23,29 +25,29 @@ const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
   }, [editpkg])
 
 
-
-
   async function editPackage(e) {
-    e.preventDefault()
-    const _id = state._id
-    let name = state.name;
-    let destination = state.destination
-    let duration = state.duration
-    let category = state.category
-    let visitPlaces = state.visitPlaces
-    let cost = state.cost
-    let startDate = state.startDate
-    let endDate = state.endDate
-    let description = state.description
-    let flightBooking=state.flightBooking
-    let stayBooking=state.stayBooking
+      e.preventDefault();
+    const formData = new FormData();
+    formData.append('mainImage', mainImage);
+    for (let i = 0; i < subImages.length; i++) {
+        formData.append('subImages', subImages[i]);
+    }
+    const packageData = {
+      ...state, 
+    };
 
-
-
-    let { data } = await axios.post("/agency/edit-packages",
-      { name, destination,description, duration, category, visitPlaces, cost,startDate,endDate,flightBooking,stayBooking,mainImage })
-
-  }
+    formData.append('state', JSON.stringify(packageData));
+    const {data} = await axios.post("/agency/edit-packages", formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    if(!data.err){
+      handleCloseEditModal()
+      handlePackageAdded ()
+    }
+}
+console.log(state,"state");
 
   return (
     <Modal show={showEditModal} onHide={handleCloseEditModal} centered dialogClassName="modal-md">
@@ -74,13 +76,13 @@ const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="plans">
-                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.category} onChange={(e) => { setState({ ...state, categorry: e.target.value }) }}>
-                  <option value="city">City Tour</option>
+                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.category} onChange={(e) => { setState({ ...state, category: e.target.value }) }}>
+                <option value="city">City Tour</option>
                   <option value="adventure">Adventure</option>
-                  <option value="djNight">Nature</option>
-                  <option value="djNight">Snow</option>
-                  <option value="djNight">Ocean</option>
-                  <option value="djNight">Desert</option>
+                  <option value="nature">Nature</option>
+                  <option value="snow">Snow</option>
+                  <option value="ocean">Ocean</option>
+                  <option value="desert">Desert</option>
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -127,14 +129,15 @@ const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="description">
-                <Form.Control as="textarea" rows={3} placeholder="Description" style={{ width: '100%' }} value={state?.description} onChange={(e) => { setDescription(e.target.value) }} />
+                <Form.Control as="textarea" rows={3} placeholder="Description" style={{ width: '100%' }} value={state?.description} onChange={(e) => {setState({...state,description:e.target.value}) }} />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="bookings">
-                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.flightBooking} onChange={(e) => { setState({ ...state, flightBooking: e.target.value }) }}>
+                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.flightbooking} onChange={(e) => { setState({ ...state, flightbooking: e.target.value }) }}>
+:
                   <option value={true}>Flight Booking</option>
                   <option value={false}>No</option>
                 </Form.Select>
@@ -142,7 +145,7 @@ const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
             </Col>
             <Col>
               <Form.Group className="mb-3" controlId="stayBookings">
-                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.stayBooking} onChange={(e) => { setState({ ...state, stayBooking: e.target.value }) }}>
+                <Form.Select className="form-select-sm" style={{ width: '100%' }} value={state?.staybooking} onChange={(e) => { setState({ ...state, staybooking: e.target.value }) }}>
                   <option value={true}>Stay Booking</option>
                   <option value={false}>No</option>
                 </Form.Select>
@@ -161,7 +164,13 @@ const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
             <Col>
               <Form.Group className="mb-3" controlId="subImages">
                 <Form.Label className="form-label-sm">Sub Images</Form.Label>
-                <Form.Control type="file" accept='image/*' multiple style={{ width: '100%' }} onChange={(e) => { setSubImages(e.target.files) }} />
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  style={{ width: '100%' }}
+                  onChange={(e) => { setSubImages([...e.target.files]); }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -171,7 +180,7 @@ const EditPackageModal = ({ showEditModal, handleCloseEditModal, editpkg }) => {
         <Button variant="secondary" onClick={handleCloseEditModal} className="flex-grow-1">
           Close
         </Button>
-        <Button variant="primary" className="flex-grow-1" onClick={editPackage}>
+        <Button type='button' variant="primary" className="flex-grow-1" onClick={editPackage}>
           Edit Package
         </Button>
       </Modal.Footer>

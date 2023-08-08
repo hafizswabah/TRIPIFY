@@ -146,7 +146,6 @@ function AgencyPackage() {
   useEffect(() => {
     (async function () {
       let { data } = await axios.get("/agency/get-packages");
-      console.log(data);
       if (!data.err) {
         setPackages(data.packages);
       }
@@ -244,7 +243,7 @@ function AgencyPackage() {
           </Row>
         </Col>
       </Row>
-      <EditPackageModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editpkg={editpkg} />
+      <EditPackageModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editpkg={editpkg} handlePackageAdded ={handlePackageAdded }/>
     </div>
   );
 }

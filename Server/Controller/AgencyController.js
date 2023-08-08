@@ -15,7 +15,7 @@ export async function addPackage(req, res) {
         const { dayDetails, agencyId, ...otherData } = req.body;
         const parsedDayDetails = JSON.parse(dayDetails);
         const mainImage = req.files.mainImage;
-        const subImages = req.files.subImages;  
+        const subImages = req.files.subImages;
 
         let coordinates = JSON.parse(req.body['location.coordinates'])
         const packageData = { ...otherData, agencyId, mainImage, subImages, dayDetails: parsedDayDetails, location: { type: "Point", coordinates: [coordinates[0], coordinates[1]] } };
@@ -28,9 +28,39 @@ export async function addPackage(req, res) {
 }
 
 export async function editPackage(req, res) {
-
-    console.log('REQ', req.body);
-    console.log(req.files)
+    try {
+        let {
+            _id,
+            name,
+            destination,
+            location,
+            duration,
+            visitPlaces,
+            totalSlots,
+            cost,
+            category,
+            description,
+            startDate,
+            endDate,
+            flightbooking,
+            staybooking,
+            mainImage,
+            subImages,
+            dayDetails
+        } = JSON.parse(req.body.state);
+        if (req.files.mainImage) {
+            mainImage = req.files.mainImage;
+            console.log(req.files.mainImage);
+        }
+        console.log(mainImage);
+        if (req.files.subImages) {
+            subImages = req.files.subImages
+        }
+        let updatePackage = await PackageModel.findByIdAndUpdate({ _id }, { name, destination, location, duration, visitPlaces, totalSlots, cost, category, description, startDate, endDate, flightbooking, staybooking, mainImage, subImages, dayDetails })
+        res.json({ err: false, message: "package updated" })
+    } catch (error) {
+        res.json({ err: true, message: "something went wrong" })
+    }
 }
 export async function addPlan(req, res) {
     console.log(req.body);
@@ -271,7 +301,7 @@ export async function getDashboardBookings(req, res) {
 
         // Append the remaining unmatched plan data from PlanMonthlyData
         monthlyData.push(...PlanMonthlyData);
-     
+
 
         if (!completedTripsCount.length) {
             completedTripsCount.push({ count: 0 });
@@ -279,13 +309,13 @@ export async function getDashboardBookings(req, res) {
         if (!completedPlansCount.length) {
             completedPlansCount.push({ count: 0 });
         }
-        if (!pendingPlanCount.length ) {
+        if (!pendingPlanCount.length) {
             pendingPlanCount.push({ count: 0 });
         }
         if (!pendingTripsCount.length) {
             pendingTripsCount.push({ count: 0 });
         }
-    
+
         res.json({
             err: false, completedTripsCount, PackageBookedAmount,
             pendingTripsCount, totalTripCount, totalPlanCount,
@@ -303,35 +333,35 @@ export async function getRefund(req, res) {
 }
 export async function refundComplete(req, res) {
     try {
-      const { id } = req.body;
-      console.log(id);
-      const booking= await BookingModel.findById(id);
-      if(!booking){
-        return res.json({err:true, message:"No booking found"})
-      }
-    
-      const paymentId=booking.payment.razorpay_payment_id;
-      const payment = await instance.payments.fetch(paymentId);
-      if (payment.amount_refunded) {
-        return res.json({err:true, message:"Payment has been refunded."})
-      }
-      const result= await instance.payments.refund(paymentId,{
-        "amount": booking.fees,
-        "speed": "normal",
-        "notes": {
-          "notes_key_1": "Thank you for using TRIPIFY",
+        const { id } = req.body;
+        console.log(id);
+        const booking = await BookingModel.findById(id);
+        if (!booking) {
+            return res.json({ err: true, message: "No booking found" })
         }
-      })
-      await BookingModel.findByIdAndUpdate(booking._id, {
-        $set: {
-          status: "cancelled",
-        },
-      });
-      return res.json({
-        err: false,
-      });
+
+        const paymentId = booking.payment.razorpay_payment_id;
+        const payment = await instance.payments.fetch(paymentId);
+        if (payment.amount_refunded) {
+            return res.json({ err: true, message: "Payment has been refunded." })
+        }
+        const result = await instance.payments.refund(paymentId, {
+            "amount": booking.fees,
+            "speed": "normal",
+            "notes": {
+                "notes_key_1": "Thank you for using TRIPIFY",
+            }
+        })
+        await BookingModel.findByIdAndUpdate(booking._id, {
+            $set: {
+                status: "cancelled",
+            },
+        });
+        return res.json({
+            err: false,
+        });
     } catch (error) {
-      console.log(error);
-      res.json({ err: true, error, message: "something went wrong" });
+        console.log(error);
+        res.json({ err: true, error, message: "something went wrong" });
     }
-  }
+}
