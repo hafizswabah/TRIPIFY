@@ -11,7 +11,17 @@
 }
 @media screen and (max-width: 767px) {
     .Main{
-        width: 98%;
+        height: 493px;
+        width: 344px;
+    
+    }
+    .log-img {
+    height: 0px;
+    width: opx;
+    
+    }
+    .log-App-name {
+       font-size: 0p;
     }
 }
 
@@ -82,7 +92,7 @@
 }
 @media screen and (max-width: 767px) {
     .forgot{
-      font-size: 7px;
+      font-size: 9px;
     }
 }
 @media screen and (max-width: 767px) {

@@ -26,11 +26,11 @@ function UserLogin() {
 
     <Container>
       <Row className="Main ">
-      <Col xs={5} className=" log-img">
+      <Col md={5} sm={0} xs={0} className=" log-img">
           <h2 className='log-App-name mt-4'>Tripify</h2>
         </Col>
 
-        <Col xs={7}>
+        <Col md={7} sm={12} xs={12}>
           <Container className="log-full">
             <div className="text-area mt-5">
 
