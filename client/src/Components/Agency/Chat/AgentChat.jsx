@@ -110,7 +110,7 @@ function AgentChat() {
                             >
                                 {chats && chats.length > 0 ? (
                                     chats.map((chat) => (
-                                        <Link to={"/chat?id=" + chat._id} key={chat.id}
+                                        <Link to={"/agency/chat?id=" + chat._id} key={chat.id}
                                         style={{textDecoration:"none"}}>
                                             <Conversation data={chat} agentId={agentId}
                                                 style={{
