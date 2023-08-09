@@ -33,18 +33,20 @@ const UserProfile = () => {
     return planBookingList.length
   }
   const PackagesCount = getPackageCount()
+  console.log(PackagesCount,"pkgcnt");
   const Tickets = getTicketCount()
+  console.log(Tickets,"tktcnt");
   function completedTrips() {
     const currentDate = new Date()
     let completedTrip = bookingList.filter((item) => {
-      return item.status === 'upcoming' && new Date(item?.PackageId.endDate) > currentDate
+      return item.status === 'upcoming' && new Date(item?.PackageId.endDate) < currentDate
     })
     return completedTrip.length
   }
   function upcomingTrips() {
     const currentDate = new Date()
     let completedTrip = bookingList.filter((item) => {
-      return item.status === 'upcoming' && new Date(item?.PackageId.endDate) < currentDate
+      return item.status === 'upcoming' && new Date(item?.PackageId.endDate) > currentDate
     })
     return completedTrip.length
   }
@@ -52,7 +54,7 @@ const UserProfile = () => {
   function getupcomingTickets() {
     let currentDate = new Date()
     let completedTicket = planBookingList.filter((item) => {
-      return item.status === 'upcoming' && new Date(item?.PlanId.date) < currentDate
+      return item.status === 'upcoming' && new Date(item?.PlanId.date) > currentDate
     })
 
     return completedTicket.length
@@ -62,7 +64,7 @@ const UserProfile = () => {
   function getCompletedTickets() {
     let currentDate = new Date()
     let completedTicket = planBookingList.filter((item) => {
-      return item.status === 'upcoming' && new Date(item?.PlanId.date) > currentDate
+      return item.status === 'upcoming' && new Date(item?.PlanId.date) < currentDate
     })
     return completedTicket.length
   }
@@ -150,12 +152,12 @@ const UserProfile = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-3 d-flex align-items-center justify-content-center mt-4 m-1">
+                  <div className="col-md-3 col-sm-6 col-xs-6 d-flex align-items-center justify-content-center mt-4 m-1">
                     <button className='log-btn' onClick={logout}>
                       LOG OUT
                     </button>
                   </div>
-                  <div className="col-5 d-flex align-items-center justify-content-center mt-4 m-1">
+                  <div className="col-md-5 col-sm-6 col-xs-6 d-flex align-items-center justify-content-center mt-4 m-1">
                     <button className='log-btn' onClick={handleModel}>
                       EDIT PROFILE
                     </button>
