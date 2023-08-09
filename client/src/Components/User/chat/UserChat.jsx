@@ -44,7 +44,6 @@ function Chat() {
             setcurrentChat(null)
         }
     },[chatId, chats])
-    console.log(currentChat)
 
     useEffect(() => {
         socket.current = io(import.meta.env.VITE_SERVER_URL);
@@ -68,17 +67,7 @@ function Chat() {
             setRecieveMeessage(data);
         });
     }, []);
-    const chatStyle={
-        position: 'relative',
-        display: 'grid',
-        gridTemplateColumns: '16% auto',
-        '@media (max-width: 768px)': {
-            position: 'relative',
-            display: 'grid',
-           gridTemplateColumns:"50% auto"
-          },
-    }
-    console.log(chats)
+
 
 
     return (
@@ -100,7 +89,7 @@ function Chat() {
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '1rem'
-                        
+
                     }}
                 >
                     <div
