@@ -6,11 +6,13 @@ import { format } from "timeago.js"
 import InputEmoji from 'react-input-emoji'
 import { Button } from '@mui/material';
 import "../../User/ChatBox/chatbox.css"
+import { useRef } from "react";
 function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
     const [userData, setUserData] = useState(null)
     const [messages, setMessages] = useState([])
     const [newMessages, setnewMessages] = useState("")
     let userId = chat?.members.find((id) => id !== agentId)
+    const scroll = useRef();
     useEffect(() => {
         (async function () {
             if (chat !== null) {
@@ -63,6 +65,11 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
             setMessages([...messages, recieveMessage]);
         }
     }, [recieveMessage]);
+
+    useEffect(() => {
+        scroll.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
     return (
         <>
             <div
@@ -124,6 +131,7 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
                         >
                             {messages?.map((message) => (
                                 <div
+                                ref={scroll} 
                                     key={message._id}
                                     className={
                                         message.senderId === agentId ? "message own" : "message"
