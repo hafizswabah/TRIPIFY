@@ -18,3 +18,6 @@ button:disabled{
      width:100vw;
     }
  }
+ .Right-side-chat, .Left-side-chat{
+    width:50vw;
+   }
