@@ -52,6 +52,16 @@ function Chat() {
             setRecieveMeessage(data);
         });
     }, []);
+    const chatStyle={
+        position: 'relative',
+        display: 'grid',
+        gridTemplateColumns: '16% auto',
+        '@media (max-width: 768px)': {
+            position: 'relative',
+            display: 'grid',
+           gridTemplateColumns:"50% auto"
+          },
+    }
 
 
     return (
@@ -63,6 +73,11 @@ function Chat() {
                     position: 'relative',
                     display: 'grid',
                     gridTemplateColumns: '16% auto',
+                    '@media (max-width: 768px)': {
+                        position: 'relative',
+                        display: 'grid',
+                       gridTemplateColumns:"50% auto"
+                      },
                 }}
             >
                 <div
