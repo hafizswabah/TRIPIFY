@@ -6,12 +6,14 @@ import { format } from "timeago.js";
 import InputEmoji from 'react-input-emoji';
 import { Button } from '@mui/material';
 import { Socket } from 'socket.io-client';
+import { useRef } from "react";
 
 function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessages, setnewMessages] = useState("");
   let agentId = chat?.members.find((id) => id !== currentUserId);
+  const scroll = useRef();
 
   useEffect(() => {
     (async function () {
@@ -60,6 +62,9 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
       setMessages([...messages, recieveMessage]);
     }
   }, [recieveMessage]);
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <>
@@ -120,6 +125,7 @@ function ChatBox({ chat, currentUserId, setSendMeessage, recieveMessage }) {
             >
               {messages?.map((message) => (
                 <div
+                ref={scroll} 
                   key={message._id}
                   className={
                     message.senderId === currentUserId ? "message own" : "message"
