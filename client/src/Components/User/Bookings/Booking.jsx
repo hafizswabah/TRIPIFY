@@ -9,6 +9,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { baseImgUrl } from '../../../urls';
 import { Link } from 'react-router-dom';
+import noDataImg from '../../../../src/assets/NoData.jpg'
 function Booking() {
     const [bookingList, setBookingList] = useState([])
     const [planBookingList, setPlanBookings] = useState([])
@@ -19,58 +20,58 @@ function Booking() {
     })
     const userId = user.details._id
     function handleSelect(option) {
-      setSelectedOption(option)
-  
-        }
-    
-        function filterBookings(selectedOption, bookingList) {
-            const currentDate = new Date();
-            switch (selectedOption) {
-              case "all":
+        setSelectedOption(option)
+
+    }
+
+    function filterBookings(selectedOption, bookingList) {
+        const currentDate = new Date();
+        switch (selectedOption) {
+            case "all":
                 return bookingList;
-              case "completed":
+            case "completed":
                 return bookingList.filter(
-                  (item) =>
-                    item.status === "upcoming" &&
-                    new Date(item.PackageId.endDate)<currentDate
+                    (item) =>
+                        item.status === "upcoming" &&
+                        new Date(item.PackageId.endDate) < currentDate
                 );
-              case "upcoming":
+            case "upcoming":
                 return bookingList.filter(
-                  (item) =>
-                    item.status === "upcoming" &&
-                    new Date(item.PackageId.startDate)>currentDate
+                    (item) =>
+                        item.status === "upcoming" &&
+                        new Date(item.PackageId.startDate) > currentDate
                 );
-              case "cancelled":
+            case "cancelled":
                 return bookingList.filter((item) => item.status === "cancelled");
-              default:
+            default:
                 return bookingList;
-            }
-          }
-          function filterPlans(selectedOption,planBookingList ) {
-            const currentDate = new Date();
-            switch (selectedOption) {
-              case "all":
+        }
+    }
+    function filterPlans(selectedOption, planBookingList) {
+        const currentDate = new Date();
+        switch (selectedOption) {
+            case "all":
                 return planBookingList;
-              case "completed":
+            case "completed":
                 return planBookingList.filter(
-                  (item) =>
-                    item.status === "upcoming" &&
-                    new Date(item.PlanId.date)<currentDate
+                    (item) =>
+                        item.status === "upcoming" &&
+                        new Date(item.PlanId.date) < currentDate
                 );
-              case "upcoming":
+            case "upcoming":
                 return planBookingList.filter(
-                  (item) =>
-                    item.status === "upcoming" &&
-                    new Date(item.PlanId.date)>currentDate
+                    (item) =>
+                        item.status === "upcoming" &&
+                        new Date(item.PlanId.date) > currentDate
                 );
-              case "cancelled":
+            case "cancelled":
                 return planBookingList.filter((item) => item.status === "cancelled");
-              default:
+            default:
                 return planBookingList;
-            }
-          }
-    const filteredBookingList=filterBookings(selectedOption,bookingList)
-    const filteredPlanList=filterPlans(selectedOption,planBookingList)
+        }
+    }
+    const filteredBookingList = filterBookings(selectedOption, bookingList)
+    const filteredPlanList = filterPlans(selectedOption, planBookingList)
     async function cancelBooking(bookingId) {
         console.log(bookingId);
         const { data } = await axios.patch("/user/booking/cancel", { bookingId });
@@ -146,7 +147,7 @@ function Booking() {
             <NavBar></NavBar>
             <div className="user-booking-container">
 
-            
+
                 <Row>
                     <div className="sort-area">
                         <Select
@@ -167,9 +168,13 @@ function Booking() {
                         </div>
                     </div>
                     {bookingList.length === 0 ? (
-                        <div className="no-ticket-area">
-                            <h4>No Package Bookings History</h4>
-                        </div>
+                        <Row className='d-flex justify-content-center flex-column align-items-center'>
+                            <img src={noDataImg}
+                                style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
+                            <h6 className='text-center'>No Bookings</h6>
+                        </Row>
+
+
                     ) : (
                         filteredBookingList.map((item) => {
                             return (
@@ -205,10 +210,10 @@ function Booking() {
                                                     </Button>
                                                 ) : (
                                                     <>
-                                                    <Button variant="text">Completed</Button> 
-                                    
+                                                        <Button variant="text">Completed</Button>
+
                                                     </>
-                                           
+
                                                 )
                                             ) : item?.status === 'cancelled' ? (
                                                 <span style={{ color: "red" }}>Cancelled</span>
@@ -217,8 +222,8 @@ function Booking() {
                                             )}
                                         </div>
                                         <div className="view-details w-100 d-flex justify-content-end">
-                                            <Link to={"/package-details/"+item.PackageId._id}>
-                                      <div>view Details</div>
+                                            <Link to={"/package-details/" + item.PackageId._id} style={{ textDecoration: "none" }}>
+                                                <div>view Details</div>
                                             </Link>
                                         </div>
                                     </div>
@@ -238,9 +243,11 @@ function Booking() {
                         </div>
                     </div>
                     {planBookingList.length === 0 ? (
-                        <div className="no-ticket-area">
-                            <h4>No Package Bookings History</h4>
-                        </div>
+                        <Row className='d-flex justify-content-center flex-column align-items-center'>
+                            <img src={noDataImg}
+                                style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
+                            <h6 className='text-center'>No Tickets Booked</h6>
+                        </Row>
                     ) : (
                         filteredPlanList?.map((item) => {
 
@@ -268,27 +275,27 @@ function Booking() {
 
                                 </div>
                                 <div className="cancle-bookings">
-                                {item?.status === 'upcoming' ? (
-                                                new Date(item?.PlanId?.date) > new Date() ? (
-                                                    <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
-                                                        Cancel Booking
-                                                    </Button>
-                                                ) : (
-                                                    <Button variant="text">Completed</Button>
-                                                )
-                                            ) : item?.status === 'cancelled' ? (
-                                                <span style={{ color: "red" }}>Cancelled</span>
-                                            ) : (
-                                                <Button variant="text">Refund Processing</Button>
-                                            )}
+                                    {item?.status === 'upcoming' ? (
+                                        new Date(item?.PlanId?.date) > new Date() ? (
+                                            <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
+                                                Cancel Booking
+                                            </Button>
+                                        ) : (
+                                            <Button variant="text">Completed</Button>
+                                        )
+                                    ) : item?.status === 'cancelled' ? (
+                                        <span style={{ color: "red" }}>Cancelled</span>
+                                    ) : (
+                                        <Button variant="text">Refund Processing</Button>
+                                    )}
                                 </div>
                                 <div className="view-details w-100 d-flex justify-content-end">
-                                            <Link to={"/plan-details/"+item.PlanId._id}>
-                                      <div>view Details</div>
-                                            </Link>
-                                        </div>
+                                    <Link to={"/plan-details/" + item.PlanId._id} style={{ textDecoration: "none" }}>
+                                        <div>view Details</div>
+                                    </Link>
+                                </div>
                             </div>
-                             </Col>
+                            </Col>
 
 
 

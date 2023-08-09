@@ -113,26 +113,26 @@ function NavBar() {
              
                 <MenuItem  onClick={handleCloseNavMenu}
                 >
-                  <Link to={"/search-package?category=all"}>
+                  <Link to={"/search-package?category=all"} style={{textDecoration:"none"}}>
                   <Typography textAlign="center">Packages</Typography>
                   </Link>
                 </MenuItem>
          
                 <MenuItem  onClick={handleCloseNavMenu}
                 >
-                  <Link to={"/search-package?plan=all"}>
+                  <Link to={"/search-package?plan=all"} style={{textDecoration:"none"}}>
                   <Typography textAlign="center">Plans</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem  onClick={handleCloseNavMenu}
                 >
-                  <Link to={"/Bookings"}>
+                  <Link to={"/Bookings"} style={{textDecoration:"none"}}>
                   <Typography textAlign="center">Bookings</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem  onClick={handleCloseNavMenu}
                 >
-                  <Link to={"/chat"}>
+                  <Link to={"/chat"} style={{textDecoration:"none"}}>
                   <Typography textAlign="center">Chat</Typography>
                   </Link>
                 </MenuItem>
