@@ -193,7 +193,7 @@ function ChatBox({ chat, agentId, setSendMeessage, recieveMessage }) {
                                     padding: "0px 15px 0px 15px",
                                 }}
                             ></InputEmoji>
-                            <Button onClick={sendMessage}>send</Button>
+                            <Button onClick={sendMessage} disabled={!newMessages.trim()}>send</Button>
                         </div>
                     </>
                 ) : (

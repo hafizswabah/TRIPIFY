@@ -21,7 +21,7 @@ function Chat() {
     let userId = user.details._id
     let [searchParams] = useSearchParams()
     const chatId= searchParams.get("id")
-    console.log(chatId)
+  
 
 
     useEffect(() => {
@@ -50,7 +50,7 @@ function Chat() {
         socket.current.emit("new-user-add", userId);
         socket.current.on("get-users", (users) => {
             setOnlineUsers(users);
-            console.log(users);
+            console.log(users,"online");
         });
     }, [userId]);
 

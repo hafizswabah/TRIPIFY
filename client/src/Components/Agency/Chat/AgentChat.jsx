@@ -41,11 +41,12 @@ function AgentChat() {
         }
     },[chatId, chats])
 
-    useEffect(() => {
+      useEffect(() => {
         socket.current = io(import.meta.env.VITE_SERVER_URL);
         socket.current.emit("new-user-add", agentId);
         socket.current.on("get-users", (users) => {
             setOnlineUsers(users);
+            console.log(users,"online");
         });
     }, [agentId]);
 
