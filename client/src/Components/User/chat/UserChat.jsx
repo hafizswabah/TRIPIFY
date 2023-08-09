@@ -118,7 +118,8 @@ function Chat() {
                         >
                             {chats && chats.length > 0 ? (
                                 chats.map((chat) => (
-                                    <Link to={"/chat?id="+chat._id} key={chat.id }>
+                                    <Link to={"/chat?id="+chat._id} key={chat.id } 
+                                    style={{textDecoration:"none"}}>
                                         <Conversation data={chat} currentUserId={userId} 
                                          style={{
                                             borderRadius: '0.5rem',
