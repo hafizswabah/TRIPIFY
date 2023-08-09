@@ -8,7 +8,7 @@ function AgencySidebar({ page, clicked }) {
   return (
     <div className={`admin-sidebar ${clicked && 'open'}`}>
       <ul>
-        <Link to="/agency/">
+        <Link to="/agency/" style={{textDecoration:"none"}}>
           <li className={`admin-sideitems ${page == "dashboard" && 'active'}`}>
             <div className='side'></div>
             <div className="admin-sideItem">
@@ -22,7 +22,7 @@ function AgencySidebar({ page, clicked }) {
 
 
 
-        <Link to="/agency/package">
+        <Link to="/agency/package" style={{textDecoration:"none"}}>
 
           <li className={`admin-sideitems ${page == "package" && 'active'}`}>
 
@@ -34,7 +34,7 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/agency/plans">
+        <Link to="/agency/plans" style={{textDecoration:"none"}}>
 
           <li className={`admin-sideitems ${page == "plans" && 'active'}`}>
 
@@ -46,7 +46,7 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/agency/users">
+        <Link to="/agency/users" style={{textDecoration:"none"}}>
 
           <li className={`admin-sideitems ${page == "user" && 'active'}`}>
 
@@ -59,7 +59,7 @@ function AgencySidebar({ page, clicked }) {
           </li>
         </Link>
 
-        <Link to="/agency/trips">
+        <Link to="/agency/trips" style={{textDecoration:"none"}}>
 
           <li className={`admin-sideitems ${page == "trips" && 'active'}`}>
 
@@ -71,7 +71,7 @@ function AgencySidebar({ page, clicked }) {
             </div>
           </li>
         </Link>
-        <Link to="/agency/bookings">
+        <Link to="/agency/bookings" style={{textDecoration:"none"}}>
 
           <li className={`admin-sideitems ${page == "bookings" && 'active'}`}>
 
@@ -84,7 +84,7 @@ function AgencySidebar({ page, clicked }) {
           </li>
         </Link>
 
-        <Link to="/agency/reports">
+        <Link to="/agency/reports" style={{textDecoration:"none"}}>
 
           <li className={`admin-sideitems ${page == "reports" && 'active'}`}>
 

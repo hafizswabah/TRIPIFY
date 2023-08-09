@@ -204,7 +204,7 @@ export default function AgencyHeader(props) {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-            <Link to={"/agency"}>
+            <Link to={"/agency"} style={{textDecoration:"none"}}>
             TRIPIFY
           </Link>
           </Typography>
@@ -212,8 +212,8 @@ export default function AgencyHeader(props) {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                <Link to={"/agency/chat"}>
-              <Badge badgeContent={1} color="error">
+                <Link to={"/agency/chat"} style={{textDecoration:"none"}}>
+              <Badge  color="error">
                   <MailIcon />
               </Badge>
                 </Link>
