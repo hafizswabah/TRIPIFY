@@ -6,6 +6,7 @@ import Conversation from '../Conversation/Conversation'
 import NavBar from '../NavBar/NavBar'
 import './UserChat.css'
 import { io } from "socket.io-client"
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 function Chat() {
     const socket = useRef()
@@ -18,17 +19,32 @@ function Chat() {
         return state
     })
     let userId = user.details._id
+    let [searchParams] = useSearchParams()
+    const chatId= searchParams.get("id")
+    console.log(chatId)
 
 
     useEffect(() => {
         (async function () {
             let { data } = await axios.get(`/chat/${userId}`)
-            console.log(data);
             if (!data.err) {
                 setChats(data.userChats)
             }
+            
+
         })()
     }, [userId])
+    useEffect(()=>{
+        if(chatId){
+            const chatData= chats.find((item)=>item._id===chatId)
+            if(chatData){
+                setcurrentChat(chatData)
+            }
+        }else{
+            setcurrentChat(null)
+        }
+    },[chatId, chats])
+    console.log(currentChat)
 
     useEffect(() => {
         socket.current = io(import.meta.env.VITE_SERVER_URL);
@@ -62,6 +78,7 @@ function Chat() {
            gridTemplateColumns:"50% auto"
           },
     }
+    console.log(chats)
 
 
     return (
@@ -72,20 +89,18 @@ function Chat() {
                 style={{
                     position: 'relative',
                     display: 'grid',
-                    gridTemplateColumns: '16% auto',
-                    '@media (max-width: 768px)': {
-                        position: 'relative',
-                        display: 'grid',
-                       gridTemplateColumns:"50% auto"
-                      },
+               
                 }}
             >
+                {
+                    !currentChat &&
                 <div
                     className="Left-side-chat"
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '1rem',
+                        gap: '1rem'
+                        
                     }}
                 >
                     <div
@@ -114,15 +129,15 @@ function Chat() {
                         >
                             {chats && chats.length > 0 ? (
                                 chats.map((chat) => (
-                                    <div key={chat.id} onClick={() => { setcurrentChat(chat) }}>
+                                    <Link to={"/chat?id="+chat._id} key={chat.id }>
                                         <Conversation data={chat} currentUserId={userId} 
                                          style={{
                                             borderRadius: '0.5rem',
                                             padding: '10px',
-                                            position: 'relative' 
+                                            position: 'relative'
                                           }}
                                         />
-                                    </div>
+                                    </Link>
                                 ))
                             ) : (
                                 "No Chat found"
@@ -133,6 +148,7 @@ function Chat() {
                     </div>
 
                 </div>
+                }
 
                 {currentChat && (
                     <div
