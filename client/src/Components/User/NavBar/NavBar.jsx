@@ -110,12 +110,34 @@ function NavBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}
+             
+                <MenuItem  onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link to={"/search-package?category=all"}>
+                  <Typography textAlign="center">Packages</Typography>
+                  </Link>
                 </MenuItem>
-              ))}
+         
+                <MenuItem  onClick={handleCloseNavMenu}
+                >
+                  <Link to={"/search-package?plan=all"}>
+                  <Typography textAlign="center">Plans</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem  onClick={handleCloseNavMenu}
+                >
+                  <Link to={"/Bookings"}>
+                  <Typography textAlign="center">Bookings</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem  onClick={handleCloseNavMenu}
+                >
+                  <Link to={"/chat"}>
+                  <Typography textAlign="center">Chat</Typography>
+                  </Link>
+                </MenuItem>
+              
+              
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -128,9 +150,8 @@ function NavBar() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+           
               color: 'inherit',
               textDecoration: 'none',
             }}
