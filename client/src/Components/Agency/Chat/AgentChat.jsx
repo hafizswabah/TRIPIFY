@@ -6,7 +6,7 @@ import AgencyHeader from '../Header/AgencyHeader'
 import Conversation from '../AgentConversation/AgentConversation'
 import ChatBox from '../AgentChatBox/AgentChatBox'
 import "../../User/chat/UserChat.css"
-
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 function AgentChat() {
     const socket = useRef()
     const [chats, setChats] = useState([])
@@ -18,7 +18,8 @@ function AgentChat() {
         return state
     })
     let agentId = agency.details._id
-
+    let [searchParams] = useSearchParams()
+    const chatId= searchParams.get("id")
     useEffect(() => {
         (async function () {
             let { data } = await axios.get(`/chat/${agentId}`)
