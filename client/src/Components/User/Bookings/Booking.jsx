@@ -145,169 +145,172 @@ function Booking() {
     return (
         <div>
             <NavBar></NavBar>
+            <Container>
             <div className="user-booking-container">
 
 
-                <Row>
-                    <div className="sort-area">
-                        <Select
-                            defaultValue={"all"}
-                            style={{ width: 120 }}
-                            onChange={(selectedOption) => handleSelect(selectedOption)}
-                            options={[
-                                { value: "all", label: "All" },
-                                { value: "completed", label: "Completed" },
-                                { value: "upcoming", label: "upcomings" },
-                                { value: "cancelled", label: "cancelled" },
-                            ]}
-                        />
-                    </div>
-                    <div className="plan-book-head-sec">
-                        <div className="plan-book-head">
-                            <h4>Package Tickets</h4>
+<Row>
+    <div className="sort-area">
+        <Select
+            defaultValue={"all"}
+            style={{ width: 120 }}
+            onChange={(selectedOption) => handleSelect(selectedOption)}
+            options={[
+                { value: "all", label: "All" },
+                { value: "completed", label: "Completed" },
+                { value: "upcoming", label: "upcomings" },
+                { value: "cancelled", label: "cancelled" },
+            ]}
+        />
+    </div>
+    <div className="plan-book-head-sec">
+        <div className="plan-book-head">
+            <h4>Package Tickets</h4>
+        </div>
+    </div>
+    {bookingList.length === 0 ? (
+        <Row className='d-flex justify-content-center flex-column align-items-center'>
+            <img src={noDataImg}
+                style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
+            <h6 className='text-center'>No Bookings</h6>
+        </Row>
+
+
+    ) : (
+        filteredBookingList.map((item) => {
+            return (
+                <Col md={12} className="p-2">
+                    <div className="user-booking-item">
+                        <div className="ub-dr-profile">
+                            <img src={baseImgUrl + item?.PackageId?.mainImage[0].filename} alt="" />
                         </div>
-                    </div>
-                    {bookingList.length === 0 ? (
-                        <Row className='d-flex justify-content-center flex-column align-items-center'>
-                            <img src={noDataImg}
-                                style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
-                            <h6 className='text-center'>No Bookings</h6>
-                        </Row>
-
-
-                    ) : (
-                        filteredBookingList.map((item) => {
-                            return (
-                                <Col md={12} className="p-2">
-                                    <div className="user-booking-item">
-                                        <div className="ub-dr-profile">
-                                            <img src={baseImgUrl + item?.PackageId?.mainImage[0].filename} alt="" />
-                                        </div>
-                                        <div className="ub-dr-desc">
-                                            <div className="ub-dr-desc-item">
-                                                <b>{item.PackageId?.name}</b>
-                                                <div className="mt-2">
-                                                    <p>Destination:</p>
-                                                    <p>{item?.PackageId?.destination}</p>
-                                                </div>
-                                                <div>
-                                                    <p>Date:</p>
-                                                    <p>
-                                                        {new Date(item?.PackageId?.startDate).toLocaleDateString()} to {new Date(item?.PackageId?.endDate).toLocaleDateString()}
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <p>Slots Booked:</p>
-                                                    <p>{item?.BookedSlots}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="cancel-bookings">
-                                            {item?.status === 'upcoming' ? (
-                                                new Date(item?.PackageId?.startDate) > new Date() ? (
-                                                    <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
-                                                        Cancel Booking
-                                                    </Button>
-                                                ) : (
-                                                    <>
-                                                        <Button variant="text">Completed</Button>
-
-                                                    </>
-
-                                                )
-                                            ) : item?.status === 'cancelled' ? (
-                                                <span style={{ color: "red" }}>Cancelled</span>
-                                            ) : (
-                                                <Button variant="text">Refund Processing</Button>
-                                            )}
-                                        </div>
-                                        <div className="view-details w-100 d-flex justify-content-end">
-                                            <Link to={"/package-details/" + item.PackageId._id} style={{ textDecoration: "none" }}>
-                                                <div>view Details</div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </Col>
-                            );
-                        })
-                    )}
-
-
-
-
-                </Row>
-                <Row>
-                    <div className="plan-book-head-sec">
-                        <div className="plan-book-head">
-                            <h4>Activity Tickets</h4>
-                        </div>
-                    </div>
-                    {planBookingList.length === 0 ? (
-                        <Row className='d-flex justify-content-center flex-column align-items-center'>
-                            <img src={noDataImg}
-                                style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
-                            <h6 className='text-center'>No Tickets Booked</h6>
-                        </Row>
-                    ) : (
-                        filteredPlanList?.map((item) => {
-
-                            return <Col md={12} className='p-2'> <div className="user-booking-item" >
-                                <div className="ub-dr-profile">
-                                    <img src={baseImgUrl + item?.PlanId?.mainImage[0].filename} alt="" />
+                        <div className="ub-dr-desc">
+                            <div className="ub-dr-desc-item">
+                                <b>{item.PackageId?.name}</b>
+                                <div className="mt-2">
+                                    <p>Destination:</p>
+                                    <p>{item?.PackageId?.destination}</p>
                                 </div>
-                                <div className="ub-dr-desc">
-                                    <div className="ub-dr-desc-item">
-                                        <b>{item.PackageId?.name}</b>
-                                        <div className="mt-2">
-                                            <p>Location: </p>
-                                            <p> {item?.PlanId?.location}</p>
-                                        </div>
-                                        <div>
-                                            <p>Date : </p>
-                                            <p>{new Date(item.PlanId.date).toDateString()}</p>
-                                        </div>
-                                        <div>
-                                            <p>Slots Booked : </p>
-                                            <p>{item?.BookedSlots} </p>
-                                        </div>
-
-                                    </div>
-
+                                <div>
+                                    <p>Date:</p>
+                                    <p>
+                                        {new Date(item?.PackageId?.startDate).toLocaleDateString()} to {new Date(item?.PackageId?.endDate).toLocaleDateString()}
+                                    </p>
                                 </div>
-                                <div className="cancle-bookings">
-                                    {item?.status === 'upcoming' ? (
-                                        new Date(item?.PlanId?.date) > new Date() ? (
-                                            <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
-                                                Cancel Booking
-                                            </Button>
-                                        ) : (
-                                            <Button variant="text">Completed</Button>
-                                        )
-                                    ) : item?.status === 'cancelled' ? (
-                                        <span style={{ color: "red" }}>Cancelled</span>
-                                    ) : (
-                                        <Button variant="text">Refund Processing</Button>
-                                    )}
-                                </div>
-                                <div className="view-details w-100 d-flex justify-content-end">
-                                    <Link to={"/plan-details/" + item.PlanId._id} style={{ textDecoration: "none" }}>
-                                        <div>view Details</div>
-                                    </Link>
+                                <div>
+                                    <p>Slots Booked:</p>
+                                    <p>{item?.BookedSlots}</p>
                                 </div>
                             </div>
-                            </Col>
+                        </div>
+                        <div className="cancel-bookings">
+                            {item?.status === 'upcoming' ? (
+                                new Date(item?.PackageId?.startDate) > new Date() ? (
+                                    <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
+                                        Cancel Booking
+                                    </Button>
+                                ) : (
+                                    <>
+                                        <Button variant="text">Completed</Button>
+
+                                    </>
+
+                                )
+                            ) : item?.status === 'cancelled' ? (
+                                <span style={{ color: "red" }}>Cancelled</span>
+                            ) : (
+                                <Button variant="text">Refund Processing</Button>
+                            )}
+                        </div>
+                        <div className="view-details w-100 d-flex justify-content-end">
+                            <Link to={"/package-details/" + item.PackageId._id} style={{ textDecoration: "none" }}>
+                                <div>view Details</div>
+                            </Link>
+                        </div>
+                    </div>
+                </Col>
+            );
+        })
+    )}
 
 
 
-                        }))
 
-                    }
+</Row>
+<Row>
+    <div className="plan-book-head-sec">
+        <div className="plan-book-head">
+            <h4>Activity Tickets</h4>
+        </div>
+    </div>
+    {planBookingList.length === 0 ? (
+        <Row className='d-flex justify-content-center flex-column align-items-center'>
+            <img src={noDataImg}
+                style={{ maxHeight: "300px", maxWidth: "90%", width: "300px" }} alt="" />
+            <h6 className='text-center'>No Tickets Booked</h6>
+        </Row>
+    ) : (
+        filteredPlanList?.map((item) => {
 
+            return <Col md={12} className='p-2'> <div className="user-booking-item" >
+                <div className="ub-dr-profile">
+                    <img src={baseImgUrl + item?.PlanId?.mainImage[0].filename} alt="" />
+                </div>
+                <div className="ub-dr-desc">
+                    <div className="ub-dr-desc-item">
+                        <b>{item.PackageId?.name}</b>
+                        <div className="mt-2">
+                            <p>Location: </p>
+                            <p> {item?.PlanId?.location}</p>
+                        </div>
+                        <div>
+                            <p>Date : </p>
+                            <p>{new Date(item.PlanId.date).toDateString()}</p>
+                        </div>
+                        <div>
+                            <p>Slots Booked : </p>
+                            <p>{item?.BookedSlots} </p>
+                        </div>
 
+                    </div>
 
-                </Row>
-
+                </div>
+                <div className="cancle-bookings">
+                    {item?.status === 'upcoming' ? (
+                        new Date(item?.PlanId?.date) > new Date() ? (
+                            <Button variant="text" onClick={() => handleCancelBooking(item._id)}>
+                                Cancel Booking
+                            </Button>
+                        ) : (
+                            <Button variant="text">Completed</Button>
+                        )
+                    ) : item?.status === 'cancelled' ? (
+                        <span style={{ color: "red" }}>Cancelled</span>
+                    ) : (
+                        <Button variant="text">Refund Processing</Button>
+                    )}
+                </div>
+                <div className="view-details w-100 d-flex justify-content-end">
+                    <Link to={"/plan-details/" + item.PlanId._id} style={{ textDecoration: "none" }}>
+                        <div>view Details</div>
+                    </Link>
+                </div>
             </div>
+            </Col>
+
+
+
+        }))
+
+    }
+
+
+
+</Row>
+
+</div>
+            </Container>
+          
         </div>
     )
 }
