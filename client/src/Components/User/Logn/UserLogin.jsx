@@ -3,14 +3,17 @@ import { useState } from 'react';
 import { Container, Row,Col } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
-
 import axios from 'axios';
 import {useDispatch} from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 function UserLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errMessage, setErrMessage] = useState('')
+  const Navigate=useNavigate()
   const dispatch=useDispatch()
   async function handleSubmit(e) {
     e.preventDefault()
@@ -21,6 +24,56 @@ function UserLogin() {
     }else{
       setErrMessage(data.message)
     }
+  }
+
+  const [anchorEl, setAnchorEl] = useState(null | HTMLElement>(null));
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  async function DemoUser(e){
+    let email="swabahhafizamb@gmail.com";
+    let password="123";
+    e.preventDefault()
+    let { data } = await axios.post("/user/auth/login", { email, password })
+    console.log(data);
+    if (!data.err) {
+      dispatch({type:"refresh"})
+    }else{
+      setErrMessage(data.message)
+    }
+    setAnchorEl(null);
+  }
+  async function DemoAdmin(e){
+    let email="admin@gmail.com";
+    let password="123";
+    e.preventDefault()
+    let { data } = await axios.post("/admin/auth/login",{email,password})
+    console.log(data);
+    if (!data.err) {
+      dispatch({type:"refresh"})
+      Navigate("/admin")
+    }else{
+      setErrMessage(data.message)
+    }
+    setAnchorEl(null);
+  }
+  async function DemoAgent(e){
+    let email="swabahhafizamb@gmail.com";
+    let password="123";
+    e.preventDefault()
+    let { data } = await axios.post("/agency/auth/login", { email, password })
+    console.log(data);
+    if (!data.err) {
+      dispatch({type:"refresh"})
+      Navigate("/agency")
+    }else{
+      setErrMessage(data.message)
+    }
+    setAnchorEl(null);
   }
   return (
 
@@ -69,6 +122,30 @@ function UserLogin() {
               <div className='error'>{errMessage}</div>
               <div><h4><Link to={"/forgot"} className='forgot'>Forgot Password?</Link></h4></div>
               <div><h4><Link to={"/signup"} className='forgot'>Dont you have an account Please signup here</Link></h4></div>
+                  <div>
+      <Button 
+         variant='contained'
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        Demo Login
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={DemoUser}>Demo Login as a User</MenuItem>
+        <MenuItem onClick={DemoAdmin}>Demo Login as a Admin</MenuItem>
+        <MenuItem onClick={DemoAgent}>Demo Login as a Travel Agent</MenuItem>
+      </Menu>
+    </div>
 
             </div>
 

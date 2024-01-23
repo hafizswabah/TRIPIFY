@@ -1,14 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import EditProfileModal from '../../../modal/EditProfile';
 import NavBar from '../NavBar/NavBar';
 import './UserProfile.css'
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 const UserProfile = () => {
-
+const Navigate=useNavigate()
+const dispatch=useDispatch()
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -85,10 +87,12 @@ const UserProfile = () => {
       cancelButtonColor: '##a8a8a8',
       confirmButtonText: 'Yes,Logout!'
     }).then(async (result) => {
+      console.log(result);
       if (result.isConfirmed) {
 
         await axios.get("/user/auth/logout");
-        dispatch({ type: "refresh" })
+        dispatch({ type: "refresh" });
+        Navigate("/login");
       }
     })
   }

@@ -66,6 +66,7 @@ function AdminLogin() {
                   variant='contained' style={{ backgroundColor: '#18649b' }} className="log-btn">LOGIN</Button>
               </div>
               <div className='error'>{errMessage}</div>
+              <div><h4><Link to={"/"} className='forgot'>Back to home</Link></h4></div>
            
 
             </div>
