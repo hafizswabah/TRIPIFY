@@ -8,7 +8,7 @@ import Chart from "react-apexcharts";
 import axios from 'axios';
 import AdminHeader from '../Header/AdminHeader';
 import AdminSidebar from '../SideBar/AdminSideBar';
-import { padding } from '@mui/system';
+import { padding, width } from '@mui/system';
 function AdminDashboard() {
   const [clicked, setCLicked] = useState(false)
   const [completedTripsCount, setcompletedTripsCount] = useState('')
@@ -82,7 +82,7 @@ function AdminDashboard() {
               <Row>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card">
+                    <div className="dash-card" style={{width:"152px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
@@ -107,7 +107,7 @@ function AdminDashboard() {
                 </Col>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card">
+                    <div className="dash-card"  style={{width:"152px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
@@ -132,7 +132,7 @@ function AdminDashboard() {
                 </Col>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card">
+                    <div className="dash-card"  style={{width:"152px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
@@ -157,7 +157,7 @@ function AdminDashboard() {
                 </Col>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card">
+                    <div className="dash-card"  style={{width:"152px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
