@@ -8,6 +8,7 @@ import Chart from "react-apexcharts";
 import axios from 'axios';
 import AdminHeader from '../Header/AdminHeader';
 import AdminSidebar from '../SideBar/AdminSideBar';
+import { padding } from '@mui/system';
 function AdminDashboard() {
   const [clicked, setCLicked] = useState(false)
   const [completedTripsCount, setcompletedTripsCount] = useState('')
@@ -72,7 +73,7 @@ function AdminDashboard() {
     <div>
       <AdminHeader handleClick={handleClick} />
       <Row>
-        <Col md={3}>
+        <Col md={3} style={{padding:"0px"}}>
           <AdminSidebar page={'dashboard'} clicked={clicked} />
         </Col>
         <Col md={9}>

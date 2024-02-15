@@ -151,7 +151,7 @@ function AdminPackage() {
     <div>
       <AdminHeader handleClick={handleClick} />
       <Row className='m-0'>
-        <Col md={3}>
+      <Col md={3} style={{padding:"0px"}}>
           <AdminSidebar page={'package'} clicked={clicked} />
         </Col>
         <Col md={9}>

@@ -110,7 +110,7 @@ export default function AdminUsers() {
         <AdminHeader handleClick={handleClick} />
    
       <Row className='m-0'>
-        <Col md={3}>
+      <Col md={3} style={{padding:"0px"}}>
           <AdminSidebar page={'user'} clicked={clicked} />
         </Col>
         <Col md={8}>

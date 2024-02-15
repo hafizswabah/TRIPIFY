@@ -140,7 +140,7 @@ function AdminPlanDetails() {
                 <AdminHeader handleClick={handleClick} />
             </Row>
             <Row>
-                <Col md={3}>
+            <Col md={3} style={{padding:"0px"}}>
                     <AdminSidebar page={'plans'} clicked={clicked} />
                 </Col>
                 <Col md={8}>

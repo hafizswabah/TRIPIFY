@@ -117,7 +117,7 @@ function AdminReport() {
         <div>
             <AdminHeader handleClick={handleClick} />
             <Row className='m-0'>
-                <Col md={3}>
+            <Col md={3} style={{padding:"0px"}}>
                     <AdminSidebar page={'reports'} clicked={clicked} />
                 </Col>
                 <Col md={8}>
