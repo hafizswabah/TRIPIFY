@@ -82,7 +82,7 @@ function AdminDashboard() {
               <Row>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card" style={{width:"152px"}}>
+                    <div className="dash-card" style={{width:"245px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
@@ -107,7 +107,7 @@ function AdminDashboard() {
                 </Col>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card"  style={{width:"152px"}}>
+                    <div className="dash-card"  style={{width:"245px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
@@ -132,7 +132,7 @@ function AdminDashboard() {
                 </Col>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card"  style={{width:"152px"}}>
+                    <div className="dash-card"  style={{width:"245px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
@@ -157,7 +157,7 @@ function AdminDashboard() {
                 </Col>
                 <Col md={3}>
                   <div className="dash-card-full mt-4">
-                    <div className="dash-card"  style={{width:"152px"}}>
+                    <div className="dash-card"  style={{width:"245px"}}>
                       <Row>
                         <Col md={5}>
                           <div className="card-round-full mb-4">
