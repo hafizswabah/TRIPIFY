@@ -118,7 +118,7 @@ function AgencyReport() {
         <div>
             <AgencyHeader handleClick={handleClick} />
             <Row className='m-0'>
-                <Col md={3}>
+            <Col md={3} style={{padding:"0px"}}>
                     <AgencySidebar page={'reports'} clicked={clicked} />
                 </Col>
                 <Col md={8}>

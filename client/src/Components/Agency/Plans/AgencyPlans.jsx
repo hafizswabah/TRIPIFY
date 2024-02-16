@@ -144,7 +144,7 @@ async function handleDelete(e,id) {
     <div>
       <AgencyHeader handleClick={handleClick} />
       <Row className='m-0'>
-        <Col md={3}>
+      <Col md={3} style={{padding:"0px"}}>
           <AgencySidebar page={'plans'} clicked={clicked} />
         </Col>
         <Col md={9}>

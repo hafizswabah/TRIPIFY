@@ -27,7 +27,7 @@ function AgencyTrip() {
         <div>
             <AgencyHeader handleClick={handleClick} />
             <Row className='m-0'>
-                <Col md={3}>
+                <Col md={3} style={{padding:"0px"}}>
                     <AgencySidebar page={'trips'} clicked={clicked} />
                 </Col>
                 <Col md={8}>
