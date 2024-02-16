@@ -141,9 +141,9 @@ function UserLogin() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={DemoUser}>Demo Login as a User</MenuItem>
-        <MenuItem onClick={DemoAdmin}>Demo Login as a Admin</MenuItem>
-        <MenuItem onClick={DemoAgent}>Demo Login as a Travel Agent</MenuItem>
+        <MenuItem onClick={DemoUser}>Demo User</MenuItem>
+        <MenuItem onClick={DemoAdmin}>Demo Admin</MenuItem>
+        <MenuItem onClick={DemoAgent}>Demo Travel Agent</MenuItem>
       </Menu>
     </div>
 
