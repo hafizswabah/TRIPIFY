@@ -63,7 +63,7 @@ function UserLogin() {
   }
   async function DemoAgent(e){
     let email="hafizswabahamb@gmail.com";
-    let password="Hafizswabah";
+    let password="Swabahhafiz";
     e.preventDefault()
     let { data } = await axios.post("/agency/auth/login", { email, password })
     console.log(data);
