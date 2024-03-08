@@ -1,1 +1,1 @@
-export const baseImgUrl="https://tripify.swabah.online/img/"
+export const baseImgUrl="https://tripify.swabah.site/img/"
