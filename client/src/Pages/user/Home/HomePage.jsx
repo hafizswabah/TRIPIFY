@@ -376,7 +376,7 @@ function HomePage() {
                                     <h5 className='contactDetFooter'>TRIPIFY@gmail.com</h5>
                                 </Col>
                                 <Col sm={4}>
-                                    <h5 className='contactDetFooter'>swabahhafizamb@gmail.com</h5>
+                                    <h5 className='contactDetFooter'>swabahcareers@gmail.com</h5>
                                 </Col>
                                 <Col sm={4}>
                                     <h5 className='contactDetFooter'>8113983262</h5>
@@ -385,7 +385,7 @@ function HomePage() {
 
 
                             </Row>
-                            <div className="line mb-4"></div>
+                            <div className="line mb-5"></div>
                         </Container>
                     </Container>
                 </Container>
