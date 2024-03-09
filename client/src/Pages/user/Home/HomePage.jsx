@@ -123,7 +123,7 @@ function HomePage() {
                                 <h3 className='each-cat-head'>Desert</h3>
                             </Col>
                             <Col xs={4}  md={2} className="d-flex justify-content-center each-cat">
-                                <Link to={"search-package?category=desert"}>
+                                <Link to={"search-package?category=ocean"}>
                                     <div className="cat-img img5"> </div>
                                 </Link>
                                 <h3 className='each-cat-head'>Occens</h3>
