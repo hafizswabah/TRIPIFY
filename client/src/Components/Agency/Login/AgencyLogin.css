@@ -12,11 +12,15 @@
 @media screen and (max-width: 767px) {
     .Main{
       box-shadow: 0px 0px 0px 0px transparent;
+      position: fixed;
+      top: 42%;
+      left: 53%;
+  
     
     }
     .log-img {
     height: 0px;
-    width: opx;
+    width: 0px;
     box-shadow: 0px 0px 0px 0px transparent;
     
     }
