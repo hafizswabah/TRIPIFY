@@ -47,7 +47,7 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan ,handlePa
     //   handlePackageAdded ()
     // }
 }
-// console.log(state,"state");
+console.log(editPlan.name,"state");
 
   return (
     <Modal show={showEditModal} onHide={handleCloseEditModal} centered dialogClassName="modal-md">
@@ -56,8 +56,8 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan ,handlePa
       </Modal.Header>
       <Modal.Body>
         <Form>
-        <Form>
-          {/* <Row>
+        {/* <Form>
+           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="slots">
                 <Form.Control type="text" style={{ width: '100%' }} placeholder='Programme Name' value={name} onChange={(e) => { setName(e.target.value) }} />
@@ -133,8 +133,8 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan ,handlePa
                 <Form.Control type="file" accept='image/*' multiple style={{ width: '100%' }} onChange={(e) => { setSubImages(e.target.files) }} />
               </Form.Group>
             </Col>
-          </Row> */}
-          {/* {
+          </Row> 
+           {
             programmeDetails.map((programme, index) => (
               <div key={index}>
                 <Row>
@@ -189,13 +189,13 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan ,handlePa
             ))
    
           }
-                  */}
+                  
             <Button variant="outline-secondary" onClick={addEventDetails}
             className='w-100'>
               Add Event Details
             </Button>
    
-        </Form>
+        </Form> */}
         </Form>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">

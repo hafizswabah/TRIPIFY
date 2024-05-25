@@ -15,7 +15,7 @@ function AgencyPlans() {
   const [plans, setPlans] = useState([]);
   const [reload, setReload] = useState(false)
   const [load, setLoad] = useState(false)
-  const [editPlan, setEditPlan] = useState(false)
+  const [editPlan, setEditPlan] = useState(null)
   const [showEditModal, setShowEditModal] = useState(false);
 
   function edit(item) {
