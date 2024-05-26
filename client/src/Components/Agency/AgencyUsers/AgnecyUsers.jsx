@@ -100,6 +100,7 @@ function AgnecyUsers() {
         }
       })
     }
+    console.log(users);
     return (
         <div>
             <AgencyHeader handleClick={handleClick} />
