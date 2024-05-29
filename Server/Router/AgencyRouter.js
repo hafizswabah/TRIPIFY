@@ -1,5 +1,5 @@
 import  express  from "express";
-import { acitvatePackage, acitvatePlan, addPackage, addPlan, deacitvatePackage, deacitvatePlan, deletePackage, deletePlan, editPackage, getBookings, getDashboardBookings, getPackages, getPlans, getRefund, refundComplete } from "../Controller/AgencyController.js";
+import { acitvatePackage, acitvatePlan, addPackage, addPlan, deacitvatePackage, deacitvatePlan, deletePackage, deletePlan, editPackage, editPlan, getBookings, getDashboardBookings, getPackages, getPlans, getRefund, refundComplete } from "../Controller/AgencyController.js";
 import multerUpload from "../middlewares/multerUpload.js";
 
 
@@ -19,4 +19,5 @@ router.get("/get-bookings",getBookings)
 router.get("/dashboard-bookings",getDashboardBookings)
 router.get("/refund",getRefund)
 router.post("/booking/refund/complete",refundComplete)
+router.post('/edit-plan',editPlan)
 export default router
