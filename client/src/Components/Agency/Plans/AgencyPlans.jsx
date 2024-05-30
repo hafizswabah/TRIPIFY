@@ -239,7 +239,7 @@ function AgencyPlans() {
           </Row>
         </Col>
       </Row>
-      <EditPlanModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editPlan={editPlan}/>
+      <EditPlanModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editPlan={editPlan}  handleplanAdded={handleplanAdded}/>
     </div>
   );
 }

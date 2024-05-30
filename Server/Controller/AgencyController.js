@@ -64,29 +64,36 @@ export async function editPackage(req, res) {
 }
 
 export async function editPlan(req, res) {
-  try {
-    const { body, files } = req;
-    const { id, ProgrammeDetails, ...otherDetails } = body;
+    try {
+        console.log(req.body)
+        const { body, files } = req;
+        const { id, ProgrammeDetails, ...otherDetails } = body;
 
-    let mainImage = files.mainImage ? files.mainImage[0] : null;
-    let subImages = files.subImages ? files.subImages : [];
+        let mainImage = files.mainImage;
+        let subImages = files.subImages;
+        let location = req.body.location[1];
+        if (mainImage && subImages) {
+            let updatedPlan = {
+                ...otherDetails,
+                ProgrammeDetails: JSON.parse(ProgrammeDetails),
+                mainImage,
+                subImages,
+                location
+            };
 
-    let updatedPlan = {
-      ...otherDetails,
-      ProgrammeDetails: JSON.parse(ProgrammeDetails),
-      mainImage,
-      subImages,
-    };
-    console.log(updatedPlan);
+            let plan = await PlanModel.findByIdAndUpdate(id, updatedPlan, { new: true });
+            res.json({ err: false, message: 'Plan updated successfully' });
 
-    // Update the plan in the database
-    // let plan = await PlanModel.findByIdAndUpdate(id, updatedPlan, { new: true });
+        } else {
+            res.json({ err: true, message: 'Images should be add while updating plan' });
+        }
 
-    // res.json({ err: false, message: 'Plan updated successfully', plan });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: true, message: 'An error occurred' });
-  }
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ err: true, message: 'An error occurred' });
+    }
 }
 
 export async function addPlan(req, res) {

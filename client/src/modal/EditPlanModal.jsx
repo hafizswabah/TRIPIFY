@@ -9,7 +9,7 @@ const formatToISODate = (dateString) => {
   return `${year}-${month}-${day}`;
 };
 
-const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handlePackageAdded }) => {
+const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handleplanAdded }) => {
   const defaultDate = formatToISODate('14/02/2024');
   const [editPlanDetails, setEditPlanDetails] = useState(null);
   const [location, setLocation] = useState('');
@@ -62,14 +62,18 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handlePa
       }
     }
     formData.append('ProgrammeDetails', JSON.stringify(editPlanDetails.ProgrammeDetails));
-    formData.append('location', location);
+    formData.append('location',location)
+   
 
     try {
       const response = await axios.post('/agency/edit-plan', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
+      
       });
+      handleCloseEditModal()
+      handleplanAdded()
     } catch (error) {
       console.error(error);
     }
