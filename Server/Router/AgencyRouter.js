@@ -19,5 +19,5 @@ router.get("/get-bookings",getBookings)
 router.get("/dashboard-bookings",getDashboardBookings)
 router.get("/refund",getRefund)
 router.post("/booking/refund/complete",refundComplete)
-router.post('/edit-plan',editPlan)
+router.post('/edit-plan', multerUpload.fields([{ name: 'subImages', maxCount: 12 }, { name: 'mainImage', maxCount: 1 }]), editPlan);
 export default router
