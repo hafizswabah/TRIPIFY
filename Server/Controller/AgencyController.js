@@ -65,14 +65,14 @@ export async function editPackage(req, res) {
 
 export async function editPlan(req, res) {
     try {
-        console.log(req.body)
+        
         const { body, files } = req;
         const { id, ProgrammeDetails, ...otherDetails } = body;
 
         let mainImage = files.mainImage;
         let subImages = files.subImages;
         let location = req.body.location[1];
-        if (mainImage && subImages) {
+  
             let updatedPlan = {
                 ...otherDetails,
                 ProgrammeDetails: JSON.parse(ProgrammeDetails),
@@ -83,11 +83,6 @@ export async function editPlan(req, res) {
 
             let plan = await PlanModel.findByIdAndUpdate(id, updatedPlan, { new: true });
             res.json({ err: false, message: 'Plan updated successfully' });
-
-        } else {
-            res.json({ err: true, message: 'Images should be add while updating plan' });
-        }
-
 
 
     } catch (err) {

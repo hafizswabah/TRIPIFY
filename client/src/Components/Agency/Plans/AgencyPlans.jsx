@@ -8,6 +8,7 @@ import { RiMore2Fill } from 'react-icons/ri';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import EditPlanModal from '../../../modal/EditPlanModal';
+import SnackBar from '../../../SnackBar/SnackBar';
 
 function AgencyPlans() {
   const [showModal, setShowModal] = useState(false);
@@ -17,11 +18,21 @@ function AgencyPlans() {
   const [load, setLoad] = useState(false)
   const [editPlan, setEditPlan] = useState(null)
   const [showEditModal, setShowEditModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [content, setContent] = useState('');
+  const [color, setColor] = useState('');
 
   function edit(item) {
     setEditPlan(item);
     setShowEditModal(true);
   }
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleplanAdded = () => {
     setReload(!reload)
@@ -239,7 +250,16 @@ function AgencyPlans() {
           </Row>
         </Col>
       </Row>
-      <EditPlanModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} editPlan={editPlan}  handleplanAdded={handleplanAdded}/>
+     <EditPlanModal
+        showEditModal={showEditModal}
+        handleCloseEditModal={handleCloseEditModal}
+        editPlan={editPlan}
+        handleplanAdded={handleplanAdded}
+        setOpen={setOpen}
+        setColor={setColor}
+        setContent={setContent}
+      />
+      <SnackBar open={open} content={content} color={color} handleCloseSnackBar={handleCloseSnackBar} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ const formatToISODate = (dateString) => {
   return `${year}-${month}-${day}`;
 };
 
-const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handleplanAdded }) => {
+const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handleplanAdded, setOpen, setColor, setContent }) => {
   const defaultDate = formatToISODate('14/02/2024');
   const [editPlanDetails, setEditPlanDetails] = useState(null);
   const [location, setLocation] = useState('');
@@ -62,19 +62,29 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handlepl
       }
     }
     formData.append('ProgrammeDetails', JSON.stringify(editPlanDetails.ProgrammeDetails));
-    formData.append('location',location)
-   
+    formData.append('location', location)
+
 
     try {
       const response = await axios.post('/agency/edit-plan', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      
+
       });
+      if (!response.err) {
+        setContent("successfully updated")
+        setColor("success")
+        setOpen(true)
+        handleplanAdded()
+      } 
       handleCloseEditModal()
-      handleplanAdded()
+
     } catch (error) {
+      setContent("something went wrong")
+      setColor("error")
+      setOpen(true)
+      handleCloseEditModal()
       console.error(error);
     }
   };
@@ -132,7 +142,7 @@ const EditPlanModal = ({ showEditModal, handleCloseEditModal, editPlan, handlepl
                   type="date"
                   style={{ width: '100%' }}
                   value={date}
-                  onChange={(e)=>handeDate(e)}
+                  onChange={(e) => handeDate(e)}
                 />
               </Form.Group>
             </Col>
