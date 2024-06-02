@@ -10,7 +10,7 @@ const AddPlanModal = ({ showModal, handleCloseModal ,handleplanAdded}) => {
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
   const [totalSlots, setTotalSlot] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("Dj Night");
   const [cost, setCost] = useState('');
   const [events, setEvenets] = useState('');
   const [description, setDescription] = useState('');

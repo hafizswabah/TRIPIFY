@@ -71,7 +71,7 @@ app.use(
     credentials: true,
   })
 );
-
+const port=5555;
 DBConnect()
 app.use("/user/auth", UserAuthRouter)
 app.use("/chat", verifyUser, chatRouter)
@@ -81,4 +81,4 @@ app.use("/admin/auth", adminAuthRouter)
 app.use("/agency/auth", AgencyAuthRouter)
 app.use("/admin", verifyAdmin, adminRouter)
 app.use("/agency", AgencyRouter)
-server.listen(5555, () => console.log('server running at port 5555'))
+server.listen(port, () => console.log('server running at port',port))

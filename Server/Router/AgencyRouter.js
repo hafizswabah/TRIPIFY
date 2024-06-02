@@ -1,6 +1,6 @@
 import  express  from "express";
 import { acitvatePackage, acitvatePlan, addPackage, addPlan, deacitvatePackage, deacitvatePlan, deletePackage, deletePlan, editPackage, editPlan, getBookings, getDashboardBookings, getPackages, getPlans, getRefund, refundComplete } from "../Controller/AgencyController.js";
-import multerUpload from "../middlewares/multerUpload.js";
+import multerUpload from "../middleware/multerUpload.js";
 
 
 const router=express.Router()

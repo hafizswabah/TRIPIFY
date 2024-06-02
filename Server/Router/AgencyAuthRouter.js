@@ -1,6 +1,6 @@
 import  Express  from "express";
 import { agencyLogin, agencyLogout, AgencyRegister, checkAgencyLoggedIn } from "../Controller/agencyAuthController.js";
-import multerUpload from "../middlewares/multerUpload.js";
+import multerUpload from "../middleware/multerUpload.js";
 const router=Express.Router()
 
 
