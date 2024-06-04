@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Container } from 'react-bootstrap'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
@@ -21,10 +21,22 @@ function AdminLogin() {
       setErrMessage(data.message)
     }
   }
+   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const mobileStyles = {
+    position: "fixed",
+    left: "63%",
+  };
   return (
 
     <Container>
-      <div className="Main row">
+     <div className="Main row" style={isMobile?mobileStyles:{}}>
         <div className="col-5 log-img">
           <h2 className='log-App-name mt-4'>Tripify</h2>
         </div>
