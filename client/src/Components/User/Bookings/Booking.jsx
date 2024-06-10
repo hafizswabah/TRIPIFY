@@ -265,7 +265,7 @@ function Booking() {
                         </div>
                         <div>
                             <p>Date : </p>
-                            <p>{new Date(item.PlanId.date).toDateString()}</p>
+                            <p>{new Date(item?.PlanId?.date).toDateString()}</p>
                         </div>
                         <div>
                             <p>Slots Booked : </p>
@@ -291,7 +291,7 @@ function Booking() {
                     )}
                 </div>
                 <div className="view-details w-100 d-flex justify-content-end">
-                    <Link to={"/plan-details/" + item.PlanId._id} style={{ textDecoration: "none" }}>
+                    <Link to={"/plan-details/" + item?.PlanId?._id} style={{ textDecoration: "none" }}>
                         <div>view Details</div>
                     </Link>
                 </div>

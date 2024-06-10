@@ -34,6 +34,7 @@ const dispatch=useDispatch()
   function getTicketCount() {
     return planBookingList.length
   }
+  console.log(bookingList,planBookingList,'sss');
   const PackagesCount = getPackageCount()
   console.log(PackagesCount,"pkgcnt");
   const Tickets = getTicketCount()
@@ -48,6 +49,7 @@ const dispatch=useDispatch()
   function upcomingTrips() {
     const currentDate = new Date()
     let completedTrip = bookingList.filter((item) => {
+      console.log(item,"trip-item");
       return item.status === 'upcoming' && new Date(item?.PackageId.endDate) > currentDate
     })
     return completedTrip.length
@@ -56,20 +58,23 @@ const dispatch=useDispatch()
   function getupcomingTickets() {
     let currentDate = new Date()
     let completedTicket = planBookingList.filter((item) => {
-      return item.status === 'upcoming' && new Date(item?.PlanId.date) > currentDate
+      console.log(item,"ticket-item");
+      return item.status === 'upcoming' && new Date(item?.PlanId?.date) > currentDate;
     })
 
     return completedTicket.length
   }
   let upcomingevent = getupcomingTickets()
   let completedTripCount = completedTrips()
+
   function getCompletedTickets() {
     let currentDate = new Date()
     let completedTicket = planBookingList.filter((item) => {
-      return item.status === 'upcoming' && new Date(item?.PlanId.date) < currentDate
+      return item.status === 'upcoming' && new Date(item?.PlanId?.date) < currentDate
     })
     return completedTicket.length
   }
+
   let completedTicketCount = getCompletedTickets()
 
   let upcomings = upcomingevent + upcomingTripCount
